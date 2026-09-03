@@ -1,0 +1,2856 @@
+<title>Charter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Azeret+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --ground:#E9E8E5; --surface:#FDFDFC; --surface-2:#F4F3F1; --surface-3:#E4E3DF;
+  --line:#D4D3CF; --line-strong:#B7B6B1;
+  --ink:#16161A; --ink-2:#54545A; --ink-3:#83838B;
+  --accent:#A93A20; --accent-2:#C2492C; --accent-soft:#F6E5DF; --on-accent:#FDFDFC;
+  --ok:#2C6E52; --ok-soft:#DFEDE5;
+  --warn:#8A6410; --warn-soft:#F5EAD2;
+  --sans:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --mono:'Azeret Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --r:5px; --shadow:0 1px 2px rgba(20,20,25,.06),0 10px 30px -18px rgba(20,20,25,.35);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#101011; --surface:#1A1A1C; --surface-2:#222225; --surface-3:#2B2B2F;
+    --line:#2E2E33; --line-strong:#414147;
+    --ink:#ECECEA; --ink-2:#A7A7AD; --ink-3:#7C7C84;
+    --accent:#E4674A; --accent-2:#F07E62; --accent-soft:#331F19; --on-accent:#141416;
+    --ok:#5CB489; --ok-soft:#152A20;
+    --warn:#D2A353; --warn-soft:#2A2113;
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#101011; --surface:#1A1A1C; --surface-2:#222225; --surface-3:#2B2B2F;
+  --line:#2E2E33; --line-strong:#414147;
+  --ink:#ECECEA; --ink-2:#A7A7AD; --ink-3:#7C7C84;
+  --accent:#E4674A; --accent-2:#F07E62; --accent-soft:#331F19; --on-accent:#141416;
+  --ok:#5CB489; --ok-soft:#152A20;
+  --warn:#D2A353; --warn-soft:#2A2113;
+  --shadow:0 1px 2px rgba(0,0,0,.5),0 10px 30px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-weight:600;letter-spacing:-.011em;text-wrap:balance}
+p{margin:0}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:none}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+
+.topbar{position:sticky;top:0;z-index:30;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  padding:11px 20px;background:var(--surface);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:11px;margin-right:auto}
+.mark{width:34px;height:34px;flex:none;display:block}
+.mark svg{display:block;width:100%;height:100%}
+.brand h1{font-size:17px;line-height:1.15}
+.brand p{font-size:11.5px;color:var(--ink-3)}
+.btn{padding:6px 12px;border:1px solid var(--line-strong);border-radius:var(--r);background:var(--surface-2);font-size:12.5px;font-weight:500}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn-sm{padding:4px 9px;font-size:11.5px}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{background:var(--accent-2);border-color:var(--accent-2);color:var(--on-accent)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+.shell{display:grid;grid-template-columns:296px minmax(0,1fr);min-height:calc(100vh - 55px)}
+.shell[hidden]{display:none}
+.side{border-right:1px solid var(--line);background:var(--surface);padding:18px 18px 60px;display:flex;flex-direction:column;gap:22px}
+.sect > .eyebrow{display:block;margin-bottom:9px}
+.sourcebtns{display:flex;flex-direction:column;gap:7px}
+.srcbtn{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:9px 11px;border:1px solid var(--line);
+  border-radius:var(--r);background:var(--surface-2);font-size:12.5px}
+.srcbtn:hover{border-color:var(--accent)}
+.srcbtn[aria-pressed="true"]{border-color:var(--accent);background:var(--accent-soft);color:var(--accent);font-weight:500}
+.srcbtn b{font-weight:600}
+.srcbtn small{display:block;font-size:11px;color:var(--ink-3);font-weight:400}
+.srcbtn[aria-pressed="true"] small{color:var(--accent)}
+input[type="file"]{display:none}
+.srcinfo{margin-top:9px;font-size:11.5px;color:var(--ink-3);line-height:1.5}
+.srcinfo.err{color:var(--accent)}
+.build{margin-top:auto;padding-top:14px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--ink-3)}
+
+.ctl{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:6px 0;font-size:12.5px}
+.ctl + .ctl{border-top:1px solid var(--line)}
+.ctl label{color:var(--ink-2)}
+.ctl input[type="number"],.ctl select,.ctl input[type="text"]{
+  padding:4px 7px;border:1px solid var(--line-strong);border-radius:4px;background:var(--surface-2);font-size:12px;max-width:132px}
+.ctl input[type="number"]{width:64px;text-align:right;font-family:var(--mono)}
+.seg{display:flex;border:1px solid var(--line-strong);border-radius:4px;overflow:hidden}
+.seg button{padding:4px 9px;font-size:11.5px;background:var(--surface-2)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent);font-weight:500}
+.swrow{display:flex;align-items:center;gap:7px;justify-content:flex-end}
+.sw{position:relative;width:34px;height:19px;border-radius:10px;background:var(--surface-3);border:1px solid var(--line-strong);flex:none}
+.sw[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+.sw::after{content:"";position:absolute;top:2px;left:2px;width:13px;height:13px;border-radius:50%;background:var(--surface);transition:transform .14s}
+.sw[aria-pressed="true"]::after{transform:translateX(15px)}
+@media (prefers-reduced-motion:reduce){.sw::after{transition:none}}
+
+.bind{display:flex;flex-direction:column;gap:0}
+.bindrow{display:grid;grid-template-columns:9px minmax(0,1fr);gap:9px;padding:9px 0;border-top:1px solid var(--line);font-size:12px}
+.bindrow:first-child{border-top:none}
+.dot{width:7px;height:7px;border-radius:50%;margin-top:6px;background:var(--ok)}
+.dot.off{background:var(--ink-3)}
+.bindrow b{font-weight:600;display:block}
+.bindrow code{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);display:block;line-height:1.45;margin-top:2px}
+.bindrow .miss{color:var(--warn)}
+
+.main{padding:24px 28px 90px;max-width:1120px}
+.intro{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.intro h2{font-size:22px;margin-bottom:6px}
+.intro p{font-size:13.5px;color:var(--ink-2);max-width:70ch}
+.figs{display:flex;flex-direction:column;gap:26px}
+figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
+.fighead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.fighead .t{font-size:13px;font-weight:600}
+.fighead .t span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);font-weight:400;margin-left:8px;letter-spacing:.06em}
+.figacts{display:flex;gap:6px;flex-wrap:wrap}
+.sheet{padding:20px;display:flex;justify-content:center;align-items:flex-start;gap:18px;flex-wrap:wrap;background:
+  repeating-linear-gradient(45deg,transparent,transparent 9px,rgba(128,128,128,.045) 9px,rgba(128,128,128,.045) 18px)}
+.sheet .paper{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.16),0 6px 18px -10px rgba(0,0,0,.3);max-width:100%;min-width:0}
+.sheet svg{display:block;max-width:100%;height:auto}
+
+/* provenance panel — what this figure took off the sheet */
+.prov{flex:0 1 262px;min-width:216px;align-self:stretch;background:var(--surface);border:1px solid var(--line);
+  border-radius:5px;padding:12px 13px;font-size:11.5px;line-height:1.5}
+.prov h4{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;margin:0 0 2px}
+.prov .psrc{font-size:12px;font-weight:600;color:var(--ink);margin:0 0 11px;word-break:break-word}
+.prov .pnote{color:var(--ink-3);margin:0 0 2px}
+.pnote + .pgrp{border-top:1px solid var(--line);margin-top:9px;padding-top:9px}
+.pgrp{padding-top:9px;margin-top:9px;border-top:1px solid var(--line)}
+.pgrp:first-of-type{border-top:none;margin-top:0;padding-top:0}
+.plab{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:3px}
+.pval{display:block;color:var(--ink-2)}
+.pval i{color:var(--ink-3)}
+.pax{display:block;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);margin-top:2px;
+  overflow-wrap:anywhere}
+.ref{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.02em;
+  background:var(--surface-2);border:1px solid var(--line);border-radius:3px;
+  padding:0 4px;margin-left:5px;color:var(--ink-2);white-space:nowrap;vertical-align:1px}
+.prows{list-style:none;margin:0;padding:0}
+.prows li{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px;padding:2.5px 0;color:var(--ink-2)}
+.prows .swatch{flex:0 0 auto;width:8px;height:8px;border-radius:2px;margin-right:6px;
+  transform:translateY(-1px);box-shadow:0 0 0 1px rgba(0,0,0,.12) inset}
+.prows .rl{flex:1 1 auto;min-width:0;overflow-wrap:anywhere}
+.prows em{font-style:normal;font-family:var(--mono);font-size:10px;color:var(--warn);margin-left:5px}
+.prows.alt li{color:var(--ink-3)}
+.pvals{display:flex;flex:1 0 100%;flex-wrap:wrap;gap:3px 5px;margin:3px 0 2px 14px}
+.pv{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:10px;line-height:1.35;
+  color:var(--ink-2);background:var(--surface-2);border:1px solid var(--line);border-radius:3px;padding:0 4px}
+.pv.nil{color:var(--ink-3);opacity:.65}
+.pv i{font-style:normal;color:var(--ink-3);margin-right:4px;letter-spacing:.04em}
+.pwhy{display:block;flex:1 0 100%;font-size:10.5px;color:var(--ink-3);margin-top:1px}
+.pfoot{margin:11px 0 0;padding-top:9px;border-top:1px solid var(--line);
+  font-size:10.5px;color:var(--ink-3);font-style:italic}
+.figfoot{padding:9px 16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink-3);display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.figfoot .cap{flex:1;min-width:200px;color:var(--ink-2)}
+.dtable{border-top:1px solid var(--line);overflow-x:auto}
+.dtable[hidden]{display:none}
+table{border-collapse:collapse;width:100%;font-size:12px}
+th,td{padding:6px 12px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3);font-weight:500;background:var(--surface-2)}
+tbody td{font-family:var(--mono);font-variant-numeric:tabular-nums}
+tbody td:first-child{font-family:var(--sans)}
+tbody tr:last-child td{border-bottom:none}
+
+.empty{border:1px dashed var(--line-strong);border-radius:var(--r);padding:34px 26px;text-align:center}
+.empty[hidden]{display:none}
+.empty h3{font-size:15px;margin-bottom:6px}
+.empty p{font-size:12.5px;color:var(--ink-3);max-width:46ch;margin:0 auto;line-height:1.6}
+.omit{border:1px dashed var(--line-strong);border-radius:var(--r);padding:14px 16px;background:transparent}
+.omit b{font-size:13px;display:block;margin-bottom:3px}
+.omit p{font-size:12px;color:var(--ink-3)}
+
+.hint{font-size:11.5px;color:var(--ink-3);margin-top:8px;line-height:1.5}
+.xlbtn{width:100%;margin-top:11px;justify-content:center}
+.xlbtn:disabled{opacity:.45;cursor:not-allowed}
+
+.note{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--ink-3);line-height:1.6;max-width:72ch}
+.note b{color:var(--ink-2)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--ground);
+  padding:8px 16px;border-radius:var(--r);font-size:12.5px;z-index:60;box-shadow:var(--shadow)}
+.toast[hidden]{display:none}
+#measure{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;opacity:0}
+
+@media (max-width:940px){
+  .shell{grid-template-columns:minmax(0,1fr)}
+  .side{border-right:none;border-bottom:1px solid var(--line);min-width:0}
+  .main{padding:18px 16px 60px}
+  .sheet{padding:12px}
+  .prov{flex:1 1 100%}
+}
+
+.tabs{display:flex;border:1px solid var(--line-strong);border-radius:var(--r);overflow:hidden;flex:none}
+.tabs button{padding:6px 14px;font-size:12.5px;font-weight:500;background:var(--surface-2);color:var(--ink-2)}
+.tabs button[aria-pressed="true"]{background:var(--accent);color:var(--on-accent)}
+.tabs button:hover:not([aria-pressed="true"]){color:var(--accent)}
+
+.guide{padding:30px 28px 90px}
+.guide[hidden]{display:none}
+.guidewrap{max-width:760px;margin:0 auto}
+.guidewrap > .intro{margin-bottom:28px}
+.guidewrap section{margin-bottom:30px}
+.guidewrap h3{font-size:14.5px;margin-bottom:9px;letter-spacing:-.005em}
+.guidewrap p{font-size:13px;color:var(--ink-2);line-height:1.65;max-width:66ch}
+.guidewrap p + p{margin-top:11px}
+.guidewrap b{color:var(--ink);font-weight:600}
+.guidewrap .mono{background:var(--surface-2);border:1px solid var(--line);border-radius:3px;padding:0 4px;font-size:12px}
+.steps{list-style:none;margin:0;padding:0;counter-reset:step;display:flex;flex-direction:column;gap:14px}
+.steps li{display:grid;grid-template-columns:26px 1fr;gap:12px;counter-increment:step}
+.steps li::before{content:counter(step);width:26px;height:26px;border-radius:50%;background:var(--accent-soft);
+  color:var(--accent);font-family:var(--mono);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none}
+.steps li p{font-size:13px;color:var(--ink-2);line-height:1.6;max-width:60ch;padding-top:2px}
+.steps li b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:2px}
+.specgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:4px}
+.specgrid > div{background:var(--surface);padding:11px 13px}
+.specgrid .k{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
+.specgrid .v{font-size:12.5px;color:var(--ink);line-height:1.4}
+.limitlist{margin:0;padding-left:18px}
+.limitlist li{font-size:13px;color:var(--ink-2);line-height:1.6;margin-bottom:6px}
+.limitlist li::marker{color:var(--ink-3)}
+@media (max-width:940px){ .guide{padding:20px 16px 60px} }
+</style>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="mark" aria-hidden="true"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="7.5" fill="var(--accent)"/><g fill="var(--on-accent)"><rect x="4.6" y="6.75" width="3.4" height="1.7" rx="0.85" opacity="0.72"/><rect x="4.6" y="11.75" width="3.4" height="1.7" rx="0.85" opacity="0.72"/><rect x="4.6" y="16.75" width="3.4" height="1.7" rx="0.85" opacity="0.72"/><rect x="10.8" y="17.6" width="4.4" height="6.7" rx="1.3"/><rect x="17.0" y="12.6" width="4.4" height="11.7" rx="1.3"/><rect x="23.2" y="7.6" width="4.4" height="16.7" rx="1.3"/><rect x="9.4" y="25.4" width="19.6" height="2" rx="1"/></g></svg></span>
+    <div><h1>Charter</h1><p>One documented standard for every figure, sized for Word or slides</p></div>
+  </div>
+  <span class="tabs" role="tablist" aria-label="View">
+    <button data-tab="tool" aria-pressed="true" role="tab">Charts</button>
+    <button data-tab="guide" aria-pressed="false" role="tab">How it works</button>
+  </span>
+  <button class="btn" id="themeBtn" title="Toggle preview theme">Theme</button>
+</header>
+
+<div class="shell" id="toolPanel">
+  <aside class="side">
+    <div class="sect">
+      <span class="eyebrow">Source</span>
+      <div class="sourcebtns">
+        <button class="srcbtn" data-src="demo" aria-pressed="true"><span><b>Demo workbook</b><small>Book1.xlsx layout, 4 data blocks</small></span></button>
+        <button class="srcbtn" data-src="file"><span><b>Open an .xlsx</b><small>Parsed here, nothing uploaded</small></span></button>
+      </div>
+      <input type="file" id="fileIn" accept=".xlsx">
+      <p class="srcinfo" id="srcinfo"></p>
+      <button class="btn xlbtn" id="tmplBtn" title="A workbook with all 8 chart types already set up">Download Excel template</button>
+      <button class="btn btn-primary xlbtn" id="xlOut" disabled>Write charts into the workbook</button>
+      <button class="btn xlbtn" id="resetBtn">Reset to blank</button>
+      <p class="hint" id="xlhint" style="margin-top:7px">Adds live Excel charts wired to the same cells. Open an .xlsx to enable.</p>
+    </div>
+
+    <div class="sect">
+      <span class="eyebrow">The standard</span>
+      <div class="ctl"><label>Target</label>
+        <span class="seg"><button data-med="word" aria-pressed="true">Word</button><button data-med="slide" aria-pressed="false">Slides</button></span></div>
+      <div class="ctl"><label for="wmm">Figure width</label>
+        <span><input type="number" id="wmm" min="60" max="200" step="5" value="160"> <span class="mono" style="font-size:11px;color:var(--ink-3)">mm</span></span></div>
+      <div class="ctl"><label for="face">Typeface</label>
+        <select id="face">
+          <option value="'Times New Roman', Times, serif">Times New Roman</option>
+          <option value="Cambria, Georgia, serif">Cambria</option>
+          <option value="Georgia, serif">Georgia</option>
+          <option value="'Calibri', 'Carlito', sans-serif">Calibri</option>
+          <option value="Arial, Helvetica, sans-serif">Arial</option>
+        </select></div>
+      <div class="ctl"><label>Ink</label>
+        <span class="seg"><button data-ink="colour" aria-pressed="true">Colour</button><button data-ink="grey" aria-pressed="false">Greyscale</button></span></div>
+      <div class="ctl"><label for="hatch">Hatch fills in greyscale</label>
+        <span class="swrow"><button class="sw" id="hatch" aria-pressed="true" aria-label="Hatch fills"></button></span></div>
+      <div class="ctl"><label for="title">Title inside figure</label>
+        <span class="swrow"><button class="sw" id="titleIn" aria-pressed="true" aria-label="Title inside figure"></button></span></div>
+      <div class="ctl"><label for="startNo">First figure number</label>
+        <span><input type="number" id="startNo" min="1" max="99" step="1" value="1"></span></div>
+      <div class="ctl"><label for="prefix">Period prefix</label>
+        <span><input type="text" id="prefix" value="Y" placeholder="e.g. FY" style="width:64px"></span></div>
+      <div class="ctl"><label for="srcnote">Source note</label>
+        <span><input type="text" id="srcnote" value="Company filings and author's calculations."></span></div>
+    </div>
+
+    <div class="sect">
+      <span class="eyebrow">Bindings</span>
+      <div class="ctl"><label for="showprov">Show source panel</label>
+        <span class="swrow"><button class="sw" id="showprov" aria-pressed="true" aria-label="Show source panel"></button></span></div>
+      <div class="bind" id="bind"></div>
+    </div>
+
+    <p class="build">Charter <b>v<span id="ver"></span></b> &middot; <span id="slotcount"></span><br><span id="stdver"></span></p>
+  </aside>
+
+  <main class="main">
+    <div class="intro">
+      <h2>Every figure to the same standard</h2>
+      <p>Every figure below exports at the width you set. Type is sized so labels land at about 9&nbsp;pt when you insert at 100% in Word, and every figure in the document then comes out at the same scale. Excel will not do this on its own.</p>
+    </div>
+    <div class="figs" id="figs"></div>
+    <div class="empty" id="empty" hidden>
+      <h3>Nothing loaded</h3>
+      <p>Open an .xlsx from the panel on the left, or load the demo workbook to see what the output looks like.
+         Nothing is uploaded. The file is read in this browser.</p>
+    </div>
+
+    <p class="hint" style="margin-top:26px;padding-top:16px;border-top:1px solid var(--line)">
+      Binding, the source panel and the Excel write back are covered under
+      <b style="color:var(--ink)">How it works</b> in the header above.
+    </p>
+  </main>
+</div>
+
+<div class="guide" id="guidePanel" hidden>
+  <div class="guidewrap">
+    <div class="intro">
+      <h2>How Charter works</h2>
+      <p>Charter reads a sheet by its row labels rather than its cell addresses, and holds every figure it draws to one standard. Each figure shows the cells it came from.</p>
+    </div>
+
+    <section>
+      <h3>The standard</h3>
+      <p>There is no industry standard for figures in a financial document, so Charter defines one and writes it down. The table below is generated from the same values the renderer uses, so it cannot drift from what is drawn. Every figure on screen, every PNG and SVG, and every chart written into Excel is built from it.</p>
+      <div class="specgrid" id="stdgrid"></div>
+      <p>Switching between Word and slides does not re-lay anything out. It stretches the millimetre, so type, rules, markers and padding grow together and a figure keeps its proportions at either size. Set the width by hand if the target width is not the default.</p>
+    </section>
+
+    <section>
+      <h3>Getting started</h3>
+      <ol class="steps">
+        <li><div><b>Load a workbook.</b><p>Use the demo, or open your own <span class="mono">.xlsx</span> from the panel on the left. Starting from nothing, <span class="mono">Download Excel template</span> gives you a workbook with the blocks, formulas and labels already in place. Replace the blue cells and load it back in. Nothing is uploaded, the file is read in this browser.</p></div></li>
+        <li><div><b>Check what bound.</b><p>The <span class="mono">Bindings</span> list shows which slots matched and what they matched. An unlit slot means that block is not on this sheet, and Charter omits the figure rather than guessing.</p></div></li>
+        <li><div><b>Set the standard once.</b><p>Width, typeface, colour or greyscale and the source note apply to every figure at once. One standard for the whole document.</p></div></li>
+        <li><div><b>Export into Word or a deck.</b><p>Pick the target at the top of the panel. Each figure exports as a PNG (300 dpi, fixed physical size) or an SVG. Insert at 100% and every figure lands at the same scale.</p></div></li>
+        <li><div><b>Or write charts back into Excel.</b><p><span class="mono">Write charts into the workbook</span> returns a copy of your file with live chart objects in it. More on this below.</p></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h3>How the binding works</h3>
+      <p>Charter looks for a section headed &ldquo;Revenue&rdquo; wherever it sits on the sheet, so pasting your data a row lower does not break it. A chart tied to a fixed range would carry on drawing and plot the wrong cells.</p>
+      <p><b>Sheets without labels.</b> The <span class="mono">Data:</span> marker is a shortcut, not a requirement. Without it Charter takes the first row holding an unbroken run of numbers, then the column to its left that labels the most rows below. A row equal to the sum of the others in every period is treated as the total whatever it is called, so &ldquo;Consolidated&rdquo; and &ldquo;Group&rdquo; are never stacked on top of the parts they contain.</p>
+    </section>
+
+    <section>
+      <h3>The source panel</h3>
+      <p>Every figure carries its audit trail. It shows the block and group it matched, the range behind each row drawn, any row read but not drawn and why, and where the unit came from. Turn it off under <span class="mono">Bindings</span> for a clean view.</p>
+    </section>
+
+    <section>
+      <h3>Writing native charts back into Excel</h3>
+      <p>You get a copy of your file with real Excel charts in it, not pictures. Every series is a formula pointing at the cells the figure was read from (<span class="mono">Sheet!$W$32:$AE$32</span>), so editing the sheet redraws the chart in Excel. The chart parts hold formulas only, with no cached values.</p>
+      <p>The charts are written to the same standard as the figures on screen, with the typeface, text sizes, palette and figure width you set here.</p>
+      <p>Eight types are covered. Column, stacked column with the total above each bar, multi series line, a date axis line for price series, a combo chart on a secondary axis, a football field range built from the sheet&rsquo;s own Delta column, and a waterfall with the total marked as a subtotal. Where a sheet lacks what a figure needs, that figure is skipped.</p>
+      <p>Chart XML, drawing anchors, relationship parts and the ZIP writer are all written here. Everything already in your workbook is copied through unchanged.</p>
+    </section>
+
+    <section>
+      <h3>Reference</h3>
+      <div class="specgrid">
+        <div><span class="k">Chart types</span><span class="v">8 (column, stacked column, combo, line, date axis line, range, waterfall)</span></div>
+        <div><span class="k">Export</span><span class="v">300&nbsp;dpi PNG or vector SVG, fixed physical width</span></div>
+        <div><span class="k">Targets</span><span class="v">Word at 160&nbsp;mm, slides at 240&nbsp;mm, or any width you set</span></div>
+        <div><span class="k">Excel write back</span><span class="v">Live <span class="mono">SERIES()</span> formulas, no cached values</span></div>
+        <div><span class="k">Data path</span><span class="v">Parsed and written in the browser, nothing uploaded</span></div>
+        <div><span class="k">Worksheet scope</span><span class="v">First sheet in the workbook</span></div>
+        <div><span class="k">Starter template</span><span class="v"><span class="mono">Download Excel template</span>, all 8 types wired, just add your numbers</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h3>Known limits</h3>
+      <ul class="limitlist">
+        <li>Only the first worksheet in a workbook is read.</li>
+        <li>The bindings panel is read only. To point a slot at a differently named group you still rename the row on the sheet.</li>
+        <li>Native waterfall charts need Excel 2016 or later. Older versions show a fallback message instead of failing.</li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<svg id="measure" aria-hidden="true"><text id="mtext"></text></svg>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================== constants ============================== */
+/* The standard is written once, here. Everything drawn or exported reads it,
+   so the spec table in the guide cannot drift away from the code.
+
+   A figure is laid out in design units at UBASE units per millimetre. Targeting
+   slides does not re-lay anything out; it stretches the millimetre, so type,
+   rules, markers and padding all grow together and the figure keeps its
+   proportions. U is that stretched millimetre. */
+var STANDARD = "Charter Figure Standard 1.0";
+var UBASE = 10;             // design units per millimetre
+var MEDIA = {
+  word:  { label:"Word",   wmm:160, k:1,    note:"fits an A4 text column" },
+  slide: { label:"Slides", wmm:240, k:1.35, note:"fits a 16:9 content area" }
+};
+var U = UBASE;              // live units per millimetre, set by the target medium
+function mediaK(){ return (MEDIA[STD.medium] || MEDIA.word).k; }
+function setMedium(m){
+  if (!MEDIA[m]) return;
+  STD.medium = m;
+  U = UBASE / MEDIA[m].k;
+}
+/* type scale, in points, before the medium stretches it */
+var TYPE = { title:10, sub:8, axis:8, legend:8, label:7.5, source:7 };
+var PT = 3.5278;            // viewBox units per typographic point
+var COLOUR = ["#2a78d6","#eb6834","#1baf7a","#eda100"];
+var GREY   = ["#2b2b2b","#616161","#8f8f8f","#b4b4b4"];
+var DASH   = ["", "20 9", "6 7", "22 8 6 8"];
+var INK = { primary:"#111111", secondary:"#3d3d3d", muted:"#5a5a5a", grid:"#dcdcdc", axis:"#9a9a9a" };
+
+var STD = { medium:"word", wmm:160, face:"'Times New Roman', Times, serif", ink:"colour", hatch:true,
+            titleIn:true, startNo:1, prefix:"Y", srcnote:"Company filings and author's calculations.",
+            showprov:true };
+
+/* ============================== demo model ============================== */
+var DEMO = {
+  source: "Book1.xlsx (demo)",
+  blocks: [
+    { title:"Data: Company Overview", kind:"kv", titleRef:"T1",
+      pairs:[{k:"Company Name",v:"XYZ",ref:"V5"},{k:"Recommendation",v:"BUY",ref:"V6"},{k:"Target Price",v:3000,ref:"V7"}] },
+    { title:"Data: Football Field Chart", kind:"matrix", titleRef:"T12", cols:["Low","Delta","High"],
+      colsRef:"W14:Y14", colCells:["W14","X14","Y14"],
+      rows:[
+        {label:"52-Week Trading",      values:[1846,1685,3531], ref:"W15:Y15"},
+        {label:"Consensus Research",   values:[3750,1450,5200], ref:"W16:Y16"},
+        {label:"Precedent Trans.",     values:[1897,3724,5621], ref:"W17:Y17"},
+        {label:"Sum-of-the-Parts",     values:[2456,5016,7472], ref:"W18:Y18"},
+        {label:"Discounted Cash Flow", values:[2950,3212,6162], ref:"W19:Y19"}
+      ] },
+    { title:"Data: Price", kind:"timeseries", xLabel:"Date", titleRef:"AI3", xRef:"AI4:AI256",
+      series:[{ label:"Price", ref:"AJ4:AJ256", headRef:"AJ3", points:[[36604,1880.93],[36605,1846.09],[36608,1902.83],[36609,1940.1],[36610,1885.84],[36611,1955.49],[36612,1900.1],[36615,1963.95],[36616,1949.72],[36617,1907.7],[36618,1918.83],[36619,1906.59],[36622,1997.59],[36623,2011.6],[36624,2043.0],[36625,2042.76],[36629,2168.87],[36630,2283.32],[36631,2307.68],[36632,2408.19],[36633,2375.0],[36636,2393.61],[36637,2328.12],[36638,2363.49],[36639,2399.45],[36640,2410.22],[36643,2376.0],[36644,2314.08],[36645,2372.71],[36646,2474.0],[36647,2286.04],[36650,2315.99],[36651,2317.8],[36652,2351.26],[36653,2367.61],[36654,2379.61],[36657,2409.0],[36658,2356.95],[36659,2367.92],[36660,2388.85],[36661,2409.78],[36664,2426.26],[36665,2449.33],[36666,2497.94],[36667,2446.74],[36668,2436.88],[36672,2421.86],[36673,2410.39],[36674,2401.1],[36675,2442.37],[36678,2471.04],[36679,2472.41],[36680,2478.4],[36681,2460.6],[36682,2483.0],[36685,2524.06],[36686,2600.86],[36687,2647.45],[36688,2557.96],[36689,2545.02],[36692,2572.68],[36693,2615.27],[36694,2640.98],[36695,2653.98],[36696,2675.01],[36699,2713.82],[36700,2764.41],[36701,2734.4],[36702,2754.58],[36703,2692.87],[36706,2680.38],[36707,2758.82],[36708,2878.7],[36709,2890.3],[36713,3057.04],[36714,3000.12],[36715,3081.11],[36716,3182.63],[36717,3200.0],[36720,3104.0],[36721,3084.0],[36722,3008.87],[36723,2999.9],[36724,2961.97],[36727,3196.84],[36728,3138.29],[36729,3099.91],[36730,2986.55],[36731,3008.91],[36734,3055.21],[36735,3000.33],[36736,3033.53],[36737,3051.88],[36738,3164.68],[36741,3111.89],[36742,3138.83],[36743,3205.03],[36744,3225.0],[36745,3167.46],[36748,3148.16],[36749,3080.67],[36750,3162.24],[36751,3161.02],[36752,3148.02],[36755,3182.41],[36756,3312.49],[36757,3260.48],[36758,3297.37],[36759,3284.72],[36762,3307.46],[36763,3346.49],[36764,3441.85],[36765,3400.0],[36766,3401.8],[36769,3450.96],[36770,3499.12],[36771,3531.45],[36772,3368.0],[36773,3294.62],[36777,3149.84],[36778,3268.61],[36779,3175.11],[36780,3116.22],[36783,3102.97],[36784,3156.13],[36785,3078.1],[36786,3008.73],[36787,2954.91],[36790,2960.47],[36791,3128.99],[36792,2999.86],[36793,3019.79],[36794,3095.13],[36797,3174.05],[36798,3144.88],[36799,3148.73],[36800,3221.26],[36801,3125.0],[36804,3199.2],[36805,3099.96],[36806,3195.69],[36807,3190.55],[36808,3286.65],[36811,3442.93],[36812,3443.63],[36813,3363.71],[36814,3338.65],[36815,3272.71],[36818,3207.21],[36819,3217.01],[36820,3184.94],[36821,3176.4],[36822,3204.4],[36825,3207.04],[36826,3286.33],[36827,3162.78],[36828,3211.01],[36829,3036.15],[36832,3004.48],[36833,3048.41],[36834,3241.16],[36835,3322.0],[36836,3311.37],[36839,3143.74],[36840,3035.02],[36841,3137.39],[36842,3110.28],[36843,3128.81],[36846,3131.06],[36847,3135.66],[36848,3105.46],[36849,3117.02],[36850,3099.4],[36853,3098.39],[36854,3118.06],[36855,3185.07],[36857,3195.34],[36860,3168.04],[36861,3220.08],[36862,3203.53],[36863,3186.73],[36864,3162.58],[36867,3158.0],[36868,3177.29],[36869,3104.2],[36870,3101.49],[36871,3116.42],[36874,3156.97],[36875,3165.12],[36876,3240.96],[36877,3236.08],[36878,3201.65],[36881,3206.18],[36882,3206.52],[36883,3185.27],[36884,3172.69],[36888,3283.96],[36889,3322.0],[36890,3285.85],[36891,3256.93],[36895,3186.63],[36896,3218.51],[36897,3138.38],[36898,3162.16],[36899,3182.7],[36902,3114.21],[36903,3120.83],[36904,3165.89],[36905,3127.47],[36906,3104.25],[36910,3120.76],[36911,3263.38],[36912,3306.99],[36913,3292.23],[36916,3294.0],[36917,3326.13],[36918,3232.58],[36919,3237.62],[36920,3206.2],[36923,3342.88],[36924,3380.0],[36925,3312.53],[36926,3331.0],[36927,3352.15],[36930,3322.94],[36931,3305.0],[36932,3286.58],[36933,3262.13],[36934,3277.71],[36938,3268.95],[36939,3308.64],[36940,3328.23],[36941,3249.9],[36944,3180.74],[36945,3194.5],[36946,3159.53],[36947,3057.16],[36948,3092.93],[36951,3146.14],[36952,3094.53],[36953,3005.0],[36954,2977.57],[36955,3000.46],[36958,2951.95],[36959,3062.85],[36960,3057.64],[36961,3113.59],[36962,3089.49],[36965,3081.68],[36966,3091.86],[36967,3135.73],[36968,3027.99],[36969,3074.96]] }] },
+    { title:"Data: Financial", kind:"series", titleRef:"T24", periods:[1,2,3,4,5,6,7,8,9],
+      periodsRef:"W26:AE26",
+      note:"All figures in USD millions unless stated", noteRef:"T26",
+      groups:[
+        { name:null, series:[
+          {label:"Revenue Growth (%)", values:[null,0.28205128205128194,0.17393620259329157,0.3795411626932168,0.2621899537081891,0.21500872255125758,0.17549622092359374,0.1426998195079885,0.11567134769410004], ref:"W28:AE28"},
+          {label:"EBITDA Growth (%)",  values:[null,null,0.30180831826401455,0.3279159142473491,-0.09253018673239688,0.28483874732158454,0.24615264504943735,0.21300975347971285,0.18492022205011693], ref:"W29:AE29"}
+        ]},
+        { name:"Revenue", nameRef:"T31", series:[
+          {label:"Online Stores",         values:[95929.86,122987,141247,197346,240060.5033237527,281628.36957743583,320640.835977374,356174.15915439423,387751.0516383687], ref:"W32:AE32"},
+          {label:"Retail Services",       values:[33341.1,42745,53762,80461,110265.2049812593,142940.58084347358,176827.1524473992,210363.13461603833,242280.10769977816], ref:"W33:AE33"},
+          {label:"Subscription Services", values:[11051.04,14168,19210,25207,35578.72470674403,47290.16162745277,59743.35098564363,72329.3982667369,84519.42391986013], ref:"W34:AE34"},
+          {label:"Physical Stores",       values:[13434.720000000001,17224,17192,16227,17038.350000000002,17719.884000000002,18286.920288,18755.065447372803,19139.169187735], ref:"W35:AE35"},
+          {label:"Total Revenue",         values:[153756.72,197124,231411,319241,402942.78301175596,489578.9960483622,575498.2596984168,657621.7574845423,733689.752445742], ref:"W36:AE36"}
+        ]},
+        { name:null, series:[
+          {label:"EBITDA",     values:[22142,33180,43194,57358,52050.65354940318,66876.69650368497,83338.57224023549,101090.50096847929,119784.17885472803], ref:"W38:AE38"},
+          {label:"FCFF",       values:[13876,17748.438000000002,24095.797999999995,25214.521999999997,20613.91861976662,40835.291584577695,48539.05253211962,56623.673220765355,65479.92765410322], ref:"W39:AE39"},
+          {label:"Net Income", values:[9865,10073,11588,21331,15971.634341949975,19829.12547454165,24144.008065277267,28514.28674604071,32788.30168889997], ref:"W40:AE40"}
+        ]}
+      ] }
+  ]
+};
+
+/* ============================== bundled template ============================== */
+/* a ready-made workbook with all 8 chart types wired up, shipped
+   inside the app so "Download Excel template" needs no server round trip */
+var TEMPLATE_XLSX_B64 = "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";
+var TEMPLATE_XLSX_NAME = "Charter template.xlsx";
+function b64ToBytes(b64s){
+  var bin = atob(b64s), out = new Uint8Array(bin.length);
+  for (var i=0;i<bin.length;i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+/* ============================== zip / xlsx ============================== */
+function u16(d,o){return d[o]|(d[o+1]<<8);}
+function u32(d,o){return (d[o]|(d[o+1]<<8)|(d[o+2]<<16)|(d[o+3]<<24))>>>0;}
+
+async function inflate(bytes, method){
+  if (method === 0) return bytes;
+  if (typeof DecompressionStream === "undefined") throw new Error("This browser cannot unzip files. Try a recent version of Chrome, Edge, or Firefox.");
+  var ds = new DecompressionStream("deflate-raw");
+  var src = bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength);
+  var stream = new Blob([src]).stream().pipeThrough(ds);
+  var buf = await new Response(stream).arrayBuffer();
+  return new Uint8Array(buf);
+}
+
+async function unzip(arrayBuffer){
+  var d = new Uint8Array(arrayBuffer), i, eocd = -1;
+  for (i = d.length - 22; i >= 0 && i > d.length - 66000; i--){
+    if (u32(d,i) === 0x06054b50){ eocd = i; break; }
+  }
+  if (eocd < 0) throw new Error("Not a .xlsx file (no zip directory found).");
+  var count = u16(d, eocd + 10), off = u32(d, eocd + 16), out = {};
+  for (var n = 0; n < count; n++){
+    if (u32(d, off) !== 0x02014b50) break;
+    var method = u16(d, off + 10);
+    var csize  = u32(d, off + 20);
+    var nameLen = u16(d, off + 28), extraLen = u16(d, off + 30), cmtLen = u16(d, off + 32);
+    var lho = u32(d, off + 42);
+    var name = new TextDecoder().decode(d.subarray(off + 46, off + 46 + nameLen));
+    var lNameLen = u16(d, lho + 26), lExtraLen = u16(d, lho + 28);
+    var start = lho + 30 + lNameLen + lExtraLen;
+      var crc = u32(d, off + 16), usize = u32(d, off + 24);
+    out[name] = { bytes: d.subarray(start, start + csize), method: method, crc: crc, usize: usize };
+    off += 46 + nameLen + extraLen + cmtLen;
+  }
+  return out;
+}
+
+function xml(text){ return new DOMParser().parseFromString(text, "application/xml"); }
+
+function colToNum(ref){
+  var m = /^([A-Z]+)(\d+)$/.exec(ref); if(!m) return null;
+  var c = 0, s = m[1];
+  for (var i=0;i<s.length;i++) c = c*26 + (s.charCodeAt(i)-64);
+  return { col:c, row:parseInt(m[2],10) };
+}
+
+async function readXlsx(arrayBuffer){
+  var files = await unzip(arrayBuffer);
+  var dec = new TextDecoder();
+  var sheetName = null;
+  var names = Object.keys(files).filter(function(n){ return /^xl\/worksheets\/sheet\d+\.xml$/.test(n); })
+    .sort(function(a,b){ return (parseInt(a.replace(/\D/g,""),10)||0)-(parseInt(b.replace(/\D/g,""),10)||0); });
+  if (!names.length) throw new Error("No worksheet found inside the workbook.");
+  sheetName = names[0];
+
+  // the sheet's visible name, needed for chart series formulas
+  var displayName = "Sheet1";
+  if (files["xl/workbook.xml"]){
+    var bdoc = xml(dec.decode(await inflate(files["xl/workbook.xml"].bytes, files["xl/workbook.xml"].method)));
+    var shs = bdoc.getElementsByTagName("sheet");
+    if (shs.length && shs[0].getAttribute("name")) displayName = shs[0].getAttribute("name");
+  }
+
+  var shared = [];
+  if (files["xl/sharedStrings.xml"]){
+    var sdoc = xml(dec.decode(await inflate(files["xl/sharedStrings.xml"].bytes, files["xl/sharedStrings.xml"].method)));
+    var sis = sdoc.getElementsByTagName("si");
+    for (var i=0;i<sis.length;i++){
+      var ts = sis[i].getElementsByTagName("t"), s = "";
+      for (var j=0;j<ts.length;j++) s += ts[j].textContent;
+      shared.push(s);
+    }
+  }
+
+  var wdoc = xml(dec.decode(await inflate(files[sheetName].bytes, files[sheetName].method)));
+  var cs = wdoc.getElementsByTagName("c"), cells = {}, maxRow = 0, maxCol = 0;
+  for (var k=0;k<cs.length;k++){
+    var c = cs[k], r = c.getAttribute("r"); if(!r) continue;
+    var pos = colToNum(r); if(!pos) continue;
+    var t = c.getAttribute("t"), v = null;
+    if (t === "inlineStr"){
+      var isEl = c.getElementsByTagName("t"), s2 = "";
+      for (var m2=0;m2<isEl.length;m2++) s2 += isEl[m2].textContent;
+      v = s2;
+    } else {
+      var vEl = c.getElementsByTagName("v")[0];
+      if (!vEl) continue;
+      var raw = vEl.textContent;
+      if (t === "s") v = shared[parseInt(raw,10)] || "";
+      else if (t === "str" || t === "e") v = raw;
+      else if (t === "b") v = raw === "1";
+      else { var num = parseFloat(raw); v = isNaN(num) ? raw : num; }
+    }
+    if (v === null || v === "") continue;
+    cells[pos.row + ":" + pos.col] = v;
+    if (pos.row > maxRow) maxRow = pos.row;
+    if (pos.col > maxCol) maxCol = pos.col;
+  }
+  return { cells:cells, maxRow:maxRow, maxCol:maxCol,
+           raw:arrayBuffer, part:sheetName, name:displayName };
+}
+
+/* ------------------------- sheet -> model ------------------------- */
+function unitFromNote(note, fallback){
+  if (!isTxt(note)) return fallback;
+  var t = String(note).replace(/^\s*all\s+figures\s+(are\s+)?(in|shown\s+in)\s+/i,"")
+                      .replace(/[,;]?\s*unless\s+(otherwise\s+)?(stated|noted)\.?\s*$/i,"")
+                      .trim();
+  return t || fallback;
+}
+function currencyFrom(note){
+  if (!isTxt(note)) return null;
+  var m = /\b(USD|US\$|EUR|GBP|CHF|NOK|SEK|DKK|CZK|PLN|HUF|JPY|CNY|CAD|AUD)\b/i.exec(note);
+  if (m) return m[1].toUpperCase() === "US$" ? "USD" : m[1].toUpperCase();
+  var m2 = /[\u20ac\u00a3$]/.exec(note);
+  return m2 ? m2[0] : null;
+}
+function moneyUnit(model, fallback){
+  var sb = seriesBlock(model);
+  return unitFromNote(sb && sb.note, fallback);
+}
+function perShare(model){
+  var sb = seriesBlock(model);
+  var c = currencyFrom(sb && sb.note);
+  return (c ? c + " " : "") + "per share";
+}
+function isNum(v){ return typeof v === "number" && isFinite(v); }
+function isTxt(v){ return typeof v === "string" && v.trim() !== ""; }
+
+/* ---- A1 cell references, so every figure can show where its numbers came from ---- */
+function colName(n){ var s=""; while(n>0){ var m=(n-1)%26; s=String.fromCharCode(65+m)+s; n=Math.floor((n-1)/26); } return s; }
+function a1(c,r){ return colName(c)+r; }
+function spanRef(cols,r){
+  if (!cols || !cols.length) return null;
+  return cols.length===1 ? a1(cols[0],r) : a1(cols[0],r)+":"+a1(cols[cols.length-1],r);
+}
+function colRef(c,r1,r2){ return a1(c,r1)+":"+a1(c,r2); }
+
+function buildModel(sheet, sourceName){
+  var cells = sheet.cells;
+  var get = function(r,c){ var v = cells[r+":"+c]; return v === undefined ? null : v; };
+
+  // --- 0. lift out any date-keyed time series first, and take its columns
+  //        out of play so a far-right price column cannot pollute a period axis.
+  var excluded = {}, tsBlocks = [];
+  for (var r0=1; r0<=sheet.maxRow; r0++){
+    for (var c0=1; c0<=sheet.maxCol; c0++){
+      var hv = get(r0,c0);
+      if (!isTxt(hv) || !/^(date|dates|month|months|period|periods|day|time)$/i.test(String(hv).trim())) continue;
+      if (excluded[c0]) continue;
+      var vcols = [];
+      for (var cc=c0+1; cc<=sheet.maxCol; cc++){
+        var h = get(r0,cc);
+        if (isTxt(h)) vcols.push({ col:cc, label:String(h).trim() }); else break;
+      }
+      if (!vcols.length) continue;
+      var series = vcols.map(function(vc){ return { label:vc.label, points:[], col:vc.col }; });
+      var nrows = 0, firstRow = null, lastRow = null;
+      for (var rr=r0+1; rr<=sheet.maxRow; rr++){
+        var x = get(rr,c0); if (!isNum(x)) continue;
+        var used = false;
+        for (var k=0;k<vcols.length;k++){
+          var y = get(rr, vcols[k].col);
+          if (isNum(y)){ series[k].points.push([x,y]); used = true; }
+        }
+        if (used){ nrows++; if (firstRow===null) firstRow = rr; lastRow = rr; }
+      }
+      if (nrows < 5) continue;                       // too short to be a series
+      excluded[c0] = true;
+      vcols.forEach(function(vc){ excluded[vc.col] = true; });
+      var fr = firstRow, lr = lastRow;
+      tsBlocks.push({ title:"Data: " + vcols[0].label, kind:"timeseries",
+                      xLabel:String(hv).trim(),
+                      titleRef:a1(c0,r0), xRef:colRef(c0,fr,lr),
+                      dateCol:colName(c0), firstRow:fr, lastRow:lr, headRow:r0,
+                      series:series.filter(function(x2){ return x2.points.length; })
+                                   .map(function(s2){ s2.ref = colRef(s2.col,fr,lr); s2.headRef = a1(s2.col,r0);
+                                                      s2.colLetter = colName(s2.col); return s2; }) });
+    }
+  }
+  var G = function(r,c){ return excluded[c] ? null : get(r,c); };
+
+  // --- 1. locate the data region by the "Data:" convention
+  var dataCol = null, marks = [];
+  for (var r=1;r<=sheet.maxRow;r++){
+    for (var c=1;c<=sheet.maxCol;c++){
+      var v = G(r,c);
+      if (isTxt(v) && /^\s*data\s*:/i.test(v)){ marks.push({row:r,col:c}); if (dataCol===null||c<dataCol) dataCol=c; }
+    }
+  }
+  var blocks = [];
+  if (dataCol !== null){
+    marks = marks.filter(function(m){ return m.col === dataCol; }).sort(function(a,b){ return a.row-b.row; });
+    for (var b=0;b<marks.length;b++){
+      var from = marks[b].row, to = (b+1<marks.length ? marks[b+1].row-1 : sheet.maxRow);
+      var parsed = parseBlock(String(G(from,dataCol)).replace(/\s+$/,""), from+1, to, a1(dataCol,from));
+      if (parsed) blocks.push(parsed);
+    }
+  }
+  // --- 1b. no "Data:" labels anywhere? infer one block from the sheet's own shape.
+  //         The convention is the fast path, not a requirement.
+  if (!blocks.length){
+    var inf = inferBlock();
+    if (inf){ dataCol = inf.col; var p2 = parseBlock(inf.title, inf.from, sheet.maxRow, inf.titleRef); if (p2) blocks.push(p2); }
+  }
+
+  blocks = blocks.concat(tsBlocks);
+  if (!blocks.length) throw new Error('Nothing chartable found. Charter needs a row of period headings with labelled rows of numbers beneath it.');
+  return { source:sourceName, blocks:blocks, sheet:sheet };
+
+  /* Find the label column and header row without any marker to go on:
+     the first row carrying a contiguous run of >=3 numbers, then the column
+     to its left that labels the most rows underneath. */
+  function inferBlock(){
+    for (var r=1;r<=sheet.maxRow;r++){
+      var cols = [];
+      for (var c=1;c<=sheet.maxCol;c++) if (G(r,c) !== null) cols.push(c);
+      var best = [], run = [];
+      for (var k=0;k<cols.length;k++){
+        if (run.length && cols[k] === run[run.length-1]+1) run.push(cols[k]); else run = [cols[k]];
+        if (run.length > best.length) best = run.slice();
+      }
+      if (best.length < 3) continue;
+      if (!best.every(function(c){ return isNum(G(r,c)); })) continue;   // must be a period axis
+
+      // score every column left of the run by how many labelled number rows it heads
+      var lo = best[0], pick = null, pickScore = 0;
+      for (var lc=lo-1; lc>=1; lc--){
+        var score = 0;
+        for (var rr=r+1; rr<=sheet.maxRow; rr++){
+          if (!isTxt(G(rr,lc))) continue;
+          for (var q=0;q<best.length;q++) if (isNum(G(rr,best[q]))) { score++; break; }
+        }
+        if (score > pickScore){ pickScore = score; pick = lc; }
+      }
+      if (pick === null || pickScore < 2) continue;
+
+      // a heading sitting above the header row names the block
+      var title = "Sheet data", tref = null;
+      for (var up=r-1; up>=Math.max(1,r-6); up--){
+        var t = G(up,pick);
+        if (isTxt(t)){ title = String(t).trim(); tref = a1(pick,up); break; }
+      }
+      return { col:pick, from:r, title:title, titleRef:tref };
+    }
+    return null;
+  }
+
+  function parseBlock(title, from, to, titleRef){
+    // header row = first row holding a CONTIGUOUS run of >=3 populated cells
+    var headerRow = null, headerCols = null;
+    for (var r=from;r<=to;r++){
+      var cols = [];
+      for (var c=dataCol+1;c<=sheet.maxCol;c++) if (G(r,c) !== null) cols.push(c);
+      var best = [], run = [];
+      for (var k=0;k<cols.length;k++){
+        if (run.length && cols[k] === run[run.length-1]+1) run.push(cols[k]); else run = [cols[k]];
+        if (run.length > best.length) best = run.slice();
+      }
+      if (best.length >= 3){ headerRow = r; headerCols = best; break; }
+    }
+
+    if (headerRow === null){
+      var pairs = [];
+      for (var r2=from;r2<=to;r2++){
+        var key = G(r2,dataCol); if(!isTxt(key)) continue;
+        for (var c2=dataCol+1;c2<=sheet.maxCol;c2++){
+          var val = G(r2,c2);
+          if (val !== null){ pairs.push({k:String(key).trim(), v:val, ref:a1(c2,r2)}); break; }
+        }
+      }
+      return pairs.length ? { title:title, kind:"kv", titleRef:titleRef, pairs:pairs } : null;
+    }
+
+    var headVals = headerCols.map(function(c){ return G(headerRow,c); });
+    var numericHeader = headVals.every(isNum);
+
+    if (!numericHeader){
+      var rows = [];
+      for (var r3=headerRow+1;r3<=to;r3++){
+        var lab = G(r3,dataCol); if(!isTxt(lab)) continue;
+        var vals = headerCols.map(function(c){ var v = G(r3,c); return isNum(v) ? v : null; });
+        if (vals.some(isNum)) rows.push({ label:String(lab).trim(), values:vals, ref:spanRef(headerCols,r3),
+                                          labelRef:a1(dataCol,r3), row:r3 });
+      }
+      return rows.length ? { title:title, kind:"matrix", titleRef:titleRef, cols:headVals.map(String),
+                             colsRef:spanRef(headerCols,headerRow), colCells:headerCols.map(function(c){ return a1(c,headerRow); }),
+                             labelCol:colName(dataCol), headerRow:headerRow,
+                             colLetters:headerCols.map(colName),
+                             rows:rows } : null;
+    }
+
+    var groups = [], cur = { name:null, series:[] };
+    var flush = function(){ if (cur.series.length) groups.push(cur); cur = { name:null, series:[] }; };
+    for (var r4=headerRow+1;r4<=to;r4++){
+      var anyInRow = false;
+      for (var c4=dataCol;c4<=sheet.maxCol;c4++) if (G(r4,c4)!==null){ anyInRow = true; break; }
+      if (!anyInRow){ flush(); continue; }
+      var label = G(r4,dataCol);
+      var vals2 = headerCols.map(function(c){ var v = G(r4,c); return isNum(v) ? v : null; });
+      if (vals2.some(isNum)){
+        if (isTxt(label)) cur.series.push({ label:String(label).trim(), values:vals2, ref:spanRef(headerCols,r4),
+                                            labelRef:a1(dataCol,r4), row:r4 });
+      } else if (isTxt(label)){
+        flush(); cur.name = String(label).trim(); cur.nameRef = a1(dataCol,r4);
+      }
+    }
+    flush();
+    var note = G(headerRow, dataCol);
+    return groups.length ? { title:title, kind:"series", titleRef:titleRef, periods:headVals,
+                             periodsRef:spanRef(headerCols,headerRow), groups:groups,
+                             labelCol:colName(dataCol), headerRow:headerRow,
+                             colLetters:headerCols.map(colName),
+                             note:isTxt(note)?String(note).trim():null,
+                             noteRef:isTxt(note)?a1(dataCol,headerRow):null } : null;
+  }
+}
+
+/* ============================== slot registry ============================== */
+function seriesBlock(model){ for (var i=0;i<model.blocks.length;i++) if (model.blocks[i].kind==="series") return model.blocks[i]; return null; }
+
+/* ---- provenance: what a slot actually took off the sheet ---- */
+function unitNote(model, how){
+  var sb = seriesBlock(model);
+  return (sb && sb.note) ? { text:sb.note, ref:sb.noteRef, how:how || "unit read from" } : null;
+}
+/* A total row is whatever sums the others — by name, or by arithmetic.
+   The arithmetic test is the reliable one: "Consolidated" and "Group" are
+   just as common as "Total", and a stack that silently includes the total
+   double counts every bar. */
+function splitTotal(series){
+  var named = null;
+  for (var i=0;i<series.length;i++){
+    if (/^(total|consolidated|combined|group|sum|aggregate)\b/i.test(series[i].label)){ named = i; break; }
+  }
+  var summed = null;
+  for (var k=0;k<series.length && summed===null;k++){
+    var rest = series.filter(function(_,j){ return j!==k; });
+    if (rest.length < 2) continue;
+    var hits = 0, tested = 0;
+    for (var c=0;c<series[k].values.length;c++){
+      var t = series[k].values[c]; if (!isNum(t)) continue;
+      var sum = 0, any = false;
+      rest.forEach(function(r){ if (isNum(r.values[c])){ sum += r.values[c]; any = true; } });
+      if (!any) continue;
+      tested++;
+      if (Math.abs(sum - t) <= Math.max(1e-6, Math.abs(t) * 0.005)) hits++;
+    }
+    if (tested >= 2 && hits === tested) summed = k;
+  }
+  var idx = summed !== null ? summed : named;
+  if (idx === null) return { parts:series, total:null, why:null };
+  return { parts:series.filter(function(_,j){ return j!==idx; }),
+           total:series[idx],
+           why: summed !== null
+             ? "this row equals the sum of the others, so it is drawn as the total line rather than stacked"
+             : 'row is named as a total, so it is drawn as the total line rather than stacked' };
+}
+
+/* Excel draws a waterfall natively, but only as an extended (chartEx) chart,
+   and only over one unbroken run of cells — parts first, total last. */
+function waterfallXl(sb, sp, steps, last){
+  if (!sb.colLetters || !sb.labelCol) return null;
+  var rows = sp.parts.map(function(x){ return x.row; });
+  if (rows.some(function(r){ return !r; }) || !sp.total.row) return null;
+  rows.sort(function(a,b){ return a-b; });
+  for (var i=1;i<rows.length;i++) if (rows[i] !== rows[i-1]+1) return null;   // must be contiguous
+  if (sp.total.row !== rows[rows.length-1] + 1) return null;                  // total must sit last
+  if (rows.length !== steps.length) return null;                              // no blanks dropped
+  return { type:"waterfall", labelCol:sb.labelCol, valCol:sb.colLetters[last],
+           r1:rows[0], r2:sp.total.row, subtotal:rows.length };
+}
+
+function comboTitle(bars, rate){
+  if (bars.length !== 1) return "Profit and margin";
+  var lab = bars[0].label;
+  return /margin|rate|yield/i.test(lab) ? lab : lab + " and margin";
+}
+function spanRefCell(sb, idx){
+  return (sb.colLetters && sb.colLetters[idx]) ? sb.colLetters[idx] + sb.headerRow : sb.periodsRef;
+}
+function withXl(src, extra){
+  if (src && src.xl) for (var k in extra) src.xl[k] = extra[k];
+  return src;
+}
+/* the football field is drawn in Excel as an invisible bar to the low value
+   with the span stacked on top — so it needs the span column, not the high one */
+function xlRange(b, lo, hi, rows){
+  if (!b.colLetters || !rows.length) return null;
+  var spanIdx = -1;
+  for (var i=0;i<b.cols.length;i++){
+    if (i !== lo && i !== hi && /delta|span|range|width/i.test(b.cols[i])) { spanIdx = i; break; }
+  }
+  var rs = rows.map(function(r){ return r.row; }).filter(function(n){ return n; });
+  if (!rs.length) return null;
+  return { type:"range", labelCol:b.labelCol,
+           lowCol:b.colLetters[lo],
+           spanCol: spanIdx >= 0 ? b.colLetters[spanIdx] : null,
+           highCol:b.colLetters[hi],
+           r1:Math.min.apply(null, rs), r2:Math.max.apply(null, rs) };
+}
+
+function srcOf(model, sb, g, used, excluded, unitHow){
+  return {
+    block: sb.title, blockRef: sb.titleRef,
+    group: g.name, groupRef: g.nameRef,
+    axis: { label:"Period axis", ref:sb.periodsRef,
+            text:sb.periods.join(", ") },
+    rows: used.map(function(s){
+      return { label:s.label, ref:s.ref, values:s.values,
+               n:s.values.filter(isNum).length, of:s.values.length };
+    }),
+    excluded: excluded,
+    xl: { type:null, labelCol:sb.labelCol, headerRow:sb.headerRow,
+          c1:sb.colLetters && sb.colLetters[0],
+          c2:sb.colLetters && sb.colLetters[sb.colLetters.length-1],
+          rows:used.map(function(s){ return { row:s.row }; }),
+          total:null },
+    unitFrom: unitHow === null ? null : unitNote(model, unitHow),
+    unitFixed: unitHow === null ? "fixed by the figure type, these rows are already percentages" : null
+  };
+}
+
+var SLOTS = [
+  {
+    id:"stock", name:"Share price", form:"timeline",
+    rule:'a column headed "Date" with a value column beside it',
+    bind:function(model){
+      var b = model.blocks.filter(function(x){ return x.kind === "timeseries"; })[0];
+      if (!b || !b.series.length) return null;
+      var pp = b.series[0].points;
+      var weeks = Math.round((pp[pp.length-1][0] - pp[0][0]) / 7);
+      return { ts:b.series, unit:perShare(model), kind:"num",
+               title: weeks > 0 ? "Share price, trailing " + weeks + " weeks" : "Share price",
+               src:{
+                 block:b.title, blockRef:b.titleRef,
+                 axis:{ label:b.xLabel || "Date", ref:b.xRef,
+                        text:pp.length + " dated observations" },
+                 rows:b.series.map(function(s){
+                   var pt = s.points, hi = pt[0], lo = pt[0];
+                   pt.forEach(function(q){ if (q[1] > hi[1]) hi = q; if (q[1] < lo[1]) lo = q; });
+                   return { label:s.label, ref:s.ref, n:pt.length,
+                            stats:[["first",pt[0][1]],["last",pt[pt.length-1][1]],
+                                   ["high",hi[1]],["low",lo[1]]] };
+                 }),
+                 unitFrom:unitNote(model, "currency read from"),
+                 xl:{ type:"linedate", dateCol:b.dateCol, valCol:b.series[0].colLetter,
+                      r1:b.firstRow, r2:b.lastRow, headRow:b.headRow,
+                      spanDays: pp[pp.length-1][0] - pp[0][0] }
+               } };
+    }
+  },
+  {
+    id:"revenue", name:"Total revenue by segment", form:"stack",
+    rule:'series group headed "Revenue", where a row that sums the others is drawn as the total line rather than stacked',
+    bind:function(model){
+      var sb = seriesBlock(model); if(!sb) return null;
+      var g = sb.groups.filter(function(x){ return x.name && /^revenue$/i.test(x.name); })[0];
+      if (!g) return null;
+      var sp = splitTotal(g.series), parts = sp.parts, total = sp.total;
+      if (!parts.length) return null;
+      return { cats:sb.periods, series:parts, total:total, unit:moneyUnit(model,"millions"), kind:"num",
+               src:withXl(srcOf(model, sb, g, parts, total ? [{ label:total.label, ref:total.ref, values:total.values,
+                       why:sp.why }] : []),
+                       { type:"stackcol", total: total ? { row:total.row } : null }) };
+    }
+  },
+  {
+    id:"metrics", name:"Other financial metrics", form:"line",
+    rule:'un-headed series group containing a row named exactly "EBITDA"',
+    bind:function(model){
+      var sb = seriesBlock(model); if(!sb) return null;
+      var g = sb.groups.filter(function(x){
+        return x.series.some(function(s){ return /^ebitda$/i.test(s.label); });
+      })[0];
+      if (!g) return null;
+      return { cats:sb.periods, series:g.series, unit:moneyUnit(model,"millions"), kind:"num",
+               src:withXl(srcOf(model, sb, g, g.series, []), { type:"line" }) };
+    }
+  },
+  {
+    id:"growth", name:"Growth rates", form:"line",
+    rule:'series group whose rows end in "Growth (%)"',
+    bind:function(model){
+      var sb = seriesBlock(model); if(!sb) return null;
+      var g = sb.groups.filter(function(x){
+        return x.series.length && x.series.every(function(s){ return /growth\s*\(%\)\s*$/i.test(s.label); });
+      })[0];
+      if (!g) return null;
+      return { cats:sb.periods, series:g.series, unit:"per cent, year on year", kind:"pct",
+               src:withXl(srcOf(model, sb, g, g.series, [], null), { type:"line" }) };
+    }
+  },
+  {
+    id:"expenses", name:"Operating expenses", form:"stack",
+    rule:'series group headed "Expenses", "Costs" or "Opex"',
+    bind:function(model){
+      var sb = seriesBlock(model); if(!sb) return null;
+      var g = sb.groups.filter(function(x){
+        return x.name && /^(operating\s+)?(expenses?|costs?|opex|overheads?)$/i.test(x.name);
+      })[0];
+      if (!g) return null;
+      var sp = splitTotal(g.series), parts = sp.parts, total = sp.total;
+      if (!parts.length) return null;
+      return { cats:sb.periods, series:parts, total:total, unit:moneyUnit(model,"millions"), kind:"num",
+               src:withXl(srcOf(model, sb, g, parts, total ? [{ label:total.label, ref:total.ref,
+                       values:total.values, why:sp.why }] : []),
+                       { type:"stackcol", total: total ? { row:total.row } : null }) };
+    }
+  },
+  {
+    id:"margin", name:"Profit and margin", form:"combo",
+    rule:'series group holding both an absolute row and a rate row (every value between -1.5 and 1.5)',
+    bind:function(model){
+      var sb = seriesBlock(model); if(!sb) return null;
+      var isRate = function(sx){
+        var vs = sx.values.filter(isNum);
+        return vs.length >= 2 && vs.every(function(v){ return Math.abs(v) <= 1.5; });
+      };
+      var g = null, bars = null, rate = null;
+      for (var i=0;i<sb.groups.length;i++){
+        var gg = sb.groups[i];
+        var rs = gg.series.filter(isRate), bs = gg.series.filter(function(sx){ return !isRate(sx); });
+        if (rs.length && bs.length){ g = gg; bars = bs; rate = rs[0]; break; }
+      }
+      if (!g) return null;
+      return { cats:sb.periods, series:bars, rate:rate, unit:moneyUnit(model,"millions"),
+               rateUnit:"per cent", kind:"num",
+               title: g.name || comboTitle(bars, rate),
+               src:withXl(srcOf(model, sb, g, bars,
+                       [{ label:rate.label, ref:rate.ref, values:rate.values, kind:"pct",
+                          why:"every value falls between -1.5 and 1.5, so it is read as a rate and drawn on the right axis" }]),
+                       { type:"combo", rate:{ row:rate.row } }) };
+    }
+  },
+  {
+    id:"waterfall", name:"Composition of the latest period", form:"waterfall",
+    rule:'the segment group again, latest period only, parts stepping up to their total',
+    bind:function(model){
+      var sb = seriesBlock(model); if(!sb) return null;
+      var g = sb.groups.filter(function(x){
+        return x.name && /^(revenue|sales|turnover)$/i.test(x.name);
+      })[0];
+      if (!g) return null;
+      var sp = splitTotal(g.series);
+      if (!sp.total || sp.parts.length < 2) return null;          // needs a real total to build to
+      var last = sb.periods.length - 1;
+      while (last >= 0 && !isNum(sp.total.values[last])) last--;
+      if (last < 0) return null;
+      var steps = sp.parts.map(function(sx){ return { label:sx.label, value:sx.values[last], ref:sx.ref }; })
+                          .filter(function(x){ return isNum(x.value); });
+      if (steps.length < 2) return null;
+      var q = pfx({ cats:sb.periods });
+      return { steps:steps, total:{ label:sp.total.label, value:sp.total.values[last] },
+               unit:moneyUnit(model,"millions"), kind:"num",
+               title:(g.name || "Revenue") + " build, " + q + sb.periods[last],
+               src:{ block:sb.title, blockRef:sb.titleRef, group:g.name, groupRef:g.nameRef,
+                     axis:{ label:"Period taken", ref:spanRefCell(sb, last),
+                            text:"the last period with a total, " + q + sb.periods[last] },
+                     rows:steps.map(function(x){ return { label:x.label, ref:x.ref, stats:[["value",x.value]] }; }),
+                     extra:[{ label:sp.total.label, ref:sp.total.ref, values:[sp.total.values[last]],
+                              why:"the bar the steps build up to" }],
+                     unitFrom:unitNote(model, "unit read from"),
+                     xl:waterfallXl(sb, sp, steps, last) }};
+    }
+  },
+  {
+    id:"football", name:"Valuation range", form:"range",
+    rule:'block "Data: Football Field Chart", columns Low / Delta / High',
+    bind:function(model){
+      var b = model.blocks.filter(function(x){ return x.kind==="matrix" && /football/i.test(x.title); })[0];
+      if (!b) return null;
+      var lo = b.cols.findIndex(function(c){ return /low/i.test(c); });
+      var hi = b.cols.findIndex(function(c){ return /high/i.test(c); });
+      if (lo < 0 || hi < 0) return null;
+      var rows = b.rows.map(function(r){ return { label:r.label, low:r.values[lo], high:r.values[hi], ref:r.ref, row:r.row }; })
+                       .filter(function(r){ return isNum(r.low) && isNum(r.high); });
+      if (!rows.length) return null;
+      var cc = b.colCells || [];
+      return { rows:rows, unit:perShare(model), kind:"num",
+               src:{
+                 block:b.title, blockRef:b.titleRef,
+                 axis:{ label:"Columns " + b.cols[lo] + " / " + b.cols[hi], ref:b.colsRef,
+                        text:b.cols.join(", ") + (b.cols.length>2 ? ", only Low and High are read" : "") },
+                 rows:rows.map(function(r){ return { label:r.label, ref:r.ref, n:2,
+                          stats:[["low",r.low],["high",r.high]] }; }),
+                 unitFrom:unitNote(model, "currency read from"),
+                 xl: xlRange(b, lo, hi, rows)
+               } };
+    }
+  }
+];
+
+/* ============================== text measuring ============================== */
+var mtext = document.getElementById("mtext");
+function measure(str, sizeUnits, weight){
+  mtext.setAttribute("font-family", STD.face);
+  mtext.setAttribute("font-size", sizeUnits);
+  mtext.setAttribute("font-weight", weight || "400");
+  mtext.textContent = str;
+  try { return mtext.getComputedTextLength(); } catch(e){ return String(str).length * sizeUnits * 0.5; }
+}
+
+/* ============================== formatting ============================== */
+function fmt(v, kind){
+  if (v === null || v === undefined || !isFinite(v)) return "";
+  if (kind === "pct") return Math.abs(v) < 1e-12 ? "0%" : (v*100).toFixed(1).replace(/\.0$/,"") + "%";
+  if (Math.abs(v) < 1e-9) return "0";
+  var a = Math.abs(v);
+  var s = a >= 1000 ? Math.round(v).toLocaleString("en-US")
+        : a >= 10   ? v.toFixed(0)
+        : v.toFixed(1);
+  return s;
+}
+function niceScale(lo, hi, count){
+  count = count || 5;
+  if (lo === hi){ hi = lo + 1; }
+  var span = hi - lo;
+  var raw = span / count;
+  var mag = Math.pow(10, Math.floor(Math.log10(raw)));
+  var norm = raw / mag;
+  var step = (norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 2.5 ? 2.5 : norm <= 5 ? 5 : 10) * mag;
+  var min = Math.floor(lo/step)*step, max = Math.ceil(hi/step)*step;
+  var ticks = [];
+  for (var t=min; t <= max + step*1e-9; t += step) ticks.push(Math.abs(t) < step*1e-9 ? 0 : t);
+  return { min:min, max:max, ticks:ticks };
+}
+var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+function serialToDate(n){ return new Date(Date.UTC(1899,11,30) + Math.round(n)*86400000); }
+function monthYear(n){ var d = serialToDate(n); return MONTHS[d.getUTCMonth()] + " " + d.getUTCFullYear(); }
+function dayMonthYear(n){ var d = serialToDate(n); return d.getUTCDate() + " " + MONTHS[d.getUTCMonth()] + " " + d.getUTCFullYear(); }
+function pfx(d){
+  if (d && d.prefix !== undefined) return d.prefix;
+  // periods that are already calendar years label themselves — never "Y2021"
+  if (d && d.cats && d.cats.length && d.cats.every(function(c){
+    return typeof c === "number" && c % 1 === 0 && c >= 1900 && c <= 2200;
+  })) return "";
+  return STD.prefix;
+}
+function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+/* ============================== figure renderer ============================== */
+function palette(){ return STD.ink === "grey" ? GREY : COLOUR; }
+
+function figShell(opts){
+  // returns {open, close, plot:{x0,x1,y0,y1}, wmm, hmm}
+  var wmm = STD.wmm, hmm = opts.hmm * mediaK(), W = wmm*U, H = hmm*U;
+  var padR = (opts.padR === undefined ? 26 : opts.padR), padL = opts.padL, top = STD.titleIn ? 128 : 40;
+  var bottom = H - opts.bottomPad;
+  var defs = "";
+  if (STD.ink === "grey" && STD.hatch && opts.hatch !== false){
+    var g = GREY;
+    defs = '<defs>' +
+      '<pattern id="h1" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">' +
+        '<rect width="26" height="26" fill="'+g[1]+'"/><rect width="9" height="26" fill="#ffffff" opacity=".45"/></pattern>' +
+      '<pattern id="h3" width="26" height="26" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">' +
+        '<rect width="26" height="26" fill="'+g[3]+'"/><rect width="9" height="26" fill="'+g[0]+'" opacity=".30"/></pattern>' +
+      '</defs>';
+  }
+  var head = "";
+  if (STD.titleIn){
+    head += '<text x="0" y="40" font-size="'+(TYPE.title*PT).toFixed(1)+'" font-weight="700" fill="'+INK.primary+'">'+esc(opts.title)+'</text>';
+    if (opts.sub) head += '<text x="0" y="76" font-size="'+(TYPE.axis*PT).toFixed(1)+'" fill="'+INK.muted+'">'+esc(opts.sub)+'</text>';
+  }
+  var open = '<svg xmlns="http://www.w3.org/2000/svg" width="'+wmm+'mm" height="'+hmm+'mm" viewBox="0 0 '+W+' '+H+'" ' +
+      'font-family="'+esc(STD.face)+'" role="img" aria-label="'+esc(opts.title)+'">' +
+      '<desc>'+esc(STANDARD)+', '+(MEDIA[STD.medium]||MEDIA.word).label+' target, '+wmm+' mm wide</desc>'+
+      defs + '<rect width="'+W+'" height="'+H+'" fill="#ffffff"/>' + head;
+  var src = STD.srcnote ? '<text x="0" y="'+(H-14)+'" font-size="'+(TYPE.source*PT).toFixed(1)+'" fill="'+INK.muted+'">Source: '+esc(STD.srcnote)+'</text>' : "";
+  return { open:open, close:src+'</svg>', W:W, H:H, wmm:wmm, hmm:hmm,
+           plot:{ x0:padL, x1:W-padR, y0:top, y1:bottom } };
+}
+
+function yAxis(p, sc, kind){
+  var s = "", n = sc.ticks.length;
+  for (var i=0;i<n;i++){
+    var t = sc.ticks[i];
+    var y = p.y1 - (t - sc.min)/(sc.max - sc.min) * (p.y1 - p.y0);
+    var zero = Math.abs(t) < 1e-9;
+    s += '<line x1="'+p.x0+'" y1="'+y.toFixed(1)+'" x2="'+p.x1+'" y2="'+y.toFixed(1)+
+         '" stroke="'+(zero?INK.axis:INK.grid)+'" stroke-width="'+(zero?3:2)+'"/>';
+    s += '<text x="'+(p.x0-14)+'" y="'+(y+10).toFixed(1)+'" text-anchor="end" font-size="'+(TYPE.axis*PT).toFixed(1)+
+         '" fill="'+INK.muted+'">'+esc(fmt(t,kind))+'</text>';
+  }
+  return s;
+}
+
+function legend(items, y, W){
+  if (items.length < 2) return "";
+  var fs = TYPE.legend*PT, sw = 22, gap = 11, pad = 34, parts = [], total = 0, i;
+  for (i=0;i<items.length;i++){
+    var w = sw + gap + measure(items[i].label, fs, "400");
+    parts.push(w); total += w + (i ? pad : 0);
+  }
+  var x = Math.max(0, (W - total) / 2), s = "";
+  for (i=0;i<items.length;i++){
+    if (i) x += pad;
+    if (items[i].dash !== undefined){
+      s += '<line x1="'+x.toFixed(1)+'" y1="'+y+'" x2="'+(x+sw).toFixed(1)+'" y2="'+y+'" stroke="'+items[i].fill+
+           '" stroke-width="5"'+(items[i].dash?' stroke-dasharray="'+items[i].dash+'"':'')+' stroke-linecap="round"/>';
+    } else {
+      s += '<rect x="'+x.toFixed(1)+'" y="'+(y-11)+'" width="'+sw+'" height="22" rx="3" fill="'+items[i].fill+'"/>';
+    }
+    s += '<text x="'+(x+sw+gap).toFixed(1)+'" y="'+(y+10)+'" font-size="'+fs.toFixed(1)+'" fill="'+INK.secondary+'">'+esc(items[i].label)+'</text>';
+    x += parts[i];
+  }
+  return s;
+}
+
+function catLabels(cats, p, prefix){
+  var n = cats.length, bw = (p.x1-p.x0)/n, s = "";
+  for (var i=0;i<n;i++){
+    var cx = p.x0 + bw*i + bw/2;
+    s += '<text x="'+cx.toFixed(1)+'" y="'+(p.y1+34)+'" text-anchor="middle" font-size="'+(TYPE.axis*PT).toFixed(1)+
+         '" fill="'+INK.muted+'">'+esc(prefix + cats[i])+'</text>';
+  }
+  return s;
+}
+
+function renderStack(d, title){
+  var f = figShell({ hmm:98, padL:150, bottomPad:198, title:title, sub:d.unit });
+  var p = f.plot, pal = palette(), cats = d.cats, n = cats.length;
+  var totals = cats.map(function(_,i){
+    return d.series.reduce(function(a,s){ return a + (isNum(s.values[i]) ? s.values[i] : 0); }, 0);
+  });
+  var sc = niceScale(0, Math.max.apply(null, totals), 5);
+  var body = yAxis(p, sc, "num");
+  var bw = (p.x1-p.x0)/n, barW = Math.min(bw*0.62, 130);
+  var yOf = function(v){ return p.y1 - (v - sc.min)/(sc.max-sc.min)*(p.y1-p.y0); };
+
+  for (var i=0;i<n;i++){
+    var x = p.x0 + bw*i + (bw-barW)/2, acc = 0;
+    for (var j=0;j<d.series.length;j++){
+      var v = d.series[j].values[i]; if (!isNum(v) || v <= 0) continue;
+      var y0 = yOf(acc + v), y1 = yOf(acc), raw = y1 - y0;
+      var h = raw > 10 ? raw - 4 : Math.max(raw, 0.8);
+      var fill = pal[j % pal.length];
+      if (STD.ink === "grey" && STD.hatch && (j===1)) fill = "url(#h1)";
+      if (STD.ink === "grey" && STD.hatch && (j===3)) fill = "url(#h3)";
+      var top = (j === d.series.length-1);
+      body += '<rect x="'+x.toFixed(1)+'" y="'+y0.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+
+              '" fill="'+fill+'"'+(top?' rx="7"':'')+'/>';
+      acc += v;
+    }
+    body += '<text x="'+(x+barW/2).toFixed(1)+'" y="'+(yOf(totals[i])-16).toFixed(1)+'" text-anchor="middle" font-size="'+
+            (TYPE.label*PT).toFixed(1)+'" font-weight="700" fill="'+INK.primary+'">'+esc(fmt(totals[i],"num"))+'</text>';
+  }
+  body += catLabels(cats, p, pfx(d));
+  body += legend(d.series.map(function(s,j){
+    var fill = pal[j%pal.length];
+    if (STD.ink==="grey" && STD.hatch && j===1) fill = "url(#h1)";
+    if (STD.ink==="grey" && STD.hatch && j===3) fill = "url(#h3)";
+    return { label:s.label, fill:fill };
+  }), p.y1 + 92, f.W);
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+}
+
+function renderColumns(d, title){
+  var f = figShell({ hmm:98, padL:150, bottomPad:198, title:title, sub:d.unit });
+  var p = f.plot, pal = palette(), cats = d.cats, n = cats.length, m = d.series.length;
+  var lo = 0, hi = 0;
+  d.series.forEach(function(s){ s.values.forEach(function(v){ if(isNum(v)){ if(v<lo) lo=v; if(v>hi) hi=v; } }); });
+  var sc = niceScale(lo, hi, 5);
+  var body = yAxis(p, sc, d.kind);
+  var bw = (p.x1-p.x0)/n, groupW = bw*0.7, barW = Math.max(6, groupW/m - 4);
+  var yOf = function(v){ return p.y1 - (v - sc.min)/(sc.max-sc.min)*(p.y1-p.y0); };
+  var zeroY = yOf(0);
+  for (var i=0;i<n;i++){
+    for (var j=0;j<m;j++){
+      var v = d.series[j].values[i]; if(!isNum(v)) continue;
+      var x = p.x0 + bw*i + (bw-groupW)/2 + j*(groupW/m) + 2;
+      var y = Math.min(yOf(v), zeroY), h = Math.abs(yOf(v)-zeroY);
+      body += '<rect x="'+x.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+barW.toFixed(1)+'" height="'+h.toFixed(1)+
+              '" fill="'+pal[j%pal.length]+'" rx="4"/>';
+    }
+  }
+  body += catLabels(cats, p, pfx(d));
+  body += legend(d.series.map(function(s,j){ return { label:s.label, fill:pal[j%pal.length] }; }), p.y1+92, f.W);
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+}
+
+function renderLine(d, title){
+  var lw = 0;
+  d.series.forEach(function(s){
+    for (var i=s.values.length-1;i>=0;i--) if (isNum(s.values[i])){ lw = Math.max(lw, measure(fmt(s.values[i], d.kind), TYPE.label*PT, "700")); break; }
+  });
+  var f = figShell({ hmm:98, padL:150, padR:Math.min(26 + lw + 20, 320), bottomPad:198, title:title, sub:d.unit, hatch:false });
+  var p = f.plot, pal = palette(), cats = d.cats, n = cats.length;
+  var lo = 0, hi = 0, any = false;
+  d.series.forEach(function(s){ s.values.forEach(function(v){ if(isNum(v)){ any=true; if(v<lo) lo=v; if(v>hi) hi=v; } }); });
+  if (!any) return null;
+  var sc = niceScale(lo, hi, 5);
+  var body = yAxis(p, sc, d.kind);
+  var step = (p.x1-p.x0)/n;
+  var xOf = function(i){ return p.x0 + step*i + step/2; };
+  var yOf = function(v){ return p.y1 - (v - sc.min)/(sc.max-sc.min)*(p.y1-p.y0); };
+
+  d.series.forEach(function(s,j){
+    var col = pal[j%pal.length], dash = STD.ink==="grey" ? DASH[j%DASH.length] : "";
+    var pts = [], last = null;
+    for (var i=0;i<n;i++){
+      var v = s.values[i]; if(!isNum(v)) continue;
+      pts.push(xOf(i).toFixed(1)+","+yOf(v).toFixed(1)); last = { i:i, v:v };
+    }
+    if (!pts.length) return;
+    body += '<polyline fill="none" stroke="'+col+'" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"'+
+            (dash?' stroke-dasharray="'+dash+'"':'')+' points="'+pts.join(" ")+'"/>';
+    for (var k=0;k<n;k++){
+      var vv = s.values[k]; if(!isNum(vv)) continue;
+      body += '<circle cx="'+xOf(k).toFixed(1)+'" cy="'+yOf(vv).toFixed(1)+'" r="7" fill="'+col+'" stroke="#ffffff" stroke-width="2.5"/>';
+    }
+    if (last){
+      var lx = xOf(last.i) + 16, ly = yOf(last.v) + 9;
+      body += '<text x="'+lx.toFixed(1)+'" y="'+ly.toFixed(1)+'" font-size="'+(TYPE.label*PT).toFixed(1)+
+              '" font-weight="700" fill="'+INK.primary+'">'+esc(fmt(last.v, d.kind))+'</text>';
+    }
+  });
+  body += catLabels(cats, p, pfx(d));
+  body += legend(d.series.map(function(s,j){
+    return { label:s.label, fill:pal[j%pal.length], dash: STD.ink==="grey" ? DASH[j%DASH.length] : "" };
+  }), p.y1+92, f.W);
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+}
+
+function renderRange(d, title){
+  var labW = 0;
+  d.rows.forEach(function(r){ labW = Math.max(labW, measure(r.label, TYPE.axis*PT, "400")); });
+  var f = figShell({ hmm:86, padL:Math.min(labW+30, 460), padR:96, bottomPad:150, title:title, sub:d.unit, hatch:false });
+  var p = f.plot, pal = palette();
+  var lo = Infinity, hi = -Infinity;
+  d.rows.forEach(function(r){ lo = Math.min(lo, r.low); hi = Math.max(hi, r.high); });
+  var sc = niceScale(Math.min(0, lo), hi, 5);
+  var xOf = function(v){ return p.x0 + (v - sc.min)/(sc.max-sc.min)*(p.x1-p.x0); };
+  var body = "";
+  sc.ticks.forEach(function(t){
+    var x = xOf(t);
+    body += '<line x1="'+x.toFixed(1)+'" y1="'+p.y0+'" x2="'+x.toFixed(1)+'" y2="'+p.y1+'" stroke="'+INK.grid+'" stroke-width="2"/>';
+    var tl = fmt(t,"num"), thw = measure(tl, TYPE.axis*PT, "400")/2;
+    var tlx = Math.min(Math.max(x, thw), f.W - thw);
+    body += '<text x="'+tlx.toFixed(1)+'" y="'+(p.y1+34)+'" text-anchor="middle" font-size="'+(TYPE.axis*PT).toFixed(1)+
+            '" fill="'+INK.muted+'">'+esc(tl)+'</text>';
+  });
+  var rh = (p.y1-p.y0)/d.rows.length, barH = Math.min(rh*0.5, 62);
+  d.rows.forEach(function(r,i){
+    var y = p.y0 + rh*i + (rh-barH)/2;
+    var x0 = xOf(r.low), x1 = xOf(r.high);
+    body += '<rect x="'+x0.toFixed(1)+'" y="'+y.toFixed(1)+'" width="'+(x1-x0).toFixed(1)+'" height="'+barH.toFixed(1)+
+            '" rx="7" fill="'+pal[0]+'"/>';
+    body += '<text x="'+(p.x0-14)+'" y="'+(y+barH/2+10).toFixed(1)+'" text-anchor="end" font-size="'+(TYPE.axis*PT).toFixed(1)+
+            '" fill="'+INK.secondary+'">'+esc(r.label)+'</text>';
+    body += '<text x="'+(x0-10).toFixed(1)+'" y="'+(y+barH/2+9).toFixed(1)+'" text-anchor="end" font-size="'+(TYPE.label*PT).toFixed(1)+
+            '" fill="'+INK.muted+'">'+esc(fmt(r.low,"num"))+'</text>';
+    body += '<text x="'+(x1+10).toFixed(1)+'" y="'+(y+barH/2+9).toFixed(1)+'" font-size="'+(TYPE.label*PT).toFixed(1)+
+            '" font-weight="700" fill="'+INK.primary+'">'+esc(fmt(r.high,"num"))+'</text>';
+  });
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+}
+
+function renderTimeline(d, title){
+  var all = d.ts, pts = all[0].points;
+  if (!pts || pts.length < 2) return null;
+  var xmin = pts[0][0], xmax = pts[pts.length-1][0], lo = Infinity, hi = -Infinity, hiP = null, loP = null;
+  all.forEach(function(s2){ s2.points.forEach(function(pt){
+    if (pt[0] < xmin) xmin = pt[0]; if (pt[0] > xmax) xmax = pt[0];
+    if (pt[1] < lo){ lo = pt[1]; loP = pt; }
+    if (pt[1] > hi){ hi = pt[1]; hiP = pt; }
+  }); });
+  var pad = (hi - lo) * 0.08;
+  var sc = niceScale(lo - pad, hi + pad, 5);
+  var sub = d.unit + " · " + monthYear(xmin) + " to " + monthYear(xmax);
+  var lw = measure(fmt(pts[pts.length-1][1], "num"), TYPE.label*PT, "700");
+  var f = figShell({ hmm:98, padL:150, padR:Math.min(26 + lw + 20, 320), bottomPad:150,
+                     title:title, sub:sub, hatch:false });
+  var p = f.plot, pal = palette();
+  var xOf = function(v){ return p.x0 + (v - xmin)/(xmax - xmin || 1) * (p.x1 - p.x0); };
+  var yOf = function(v){ return p.y1 - (v - sc.min)/(sc.max - sc.min) * (p.y1 - p.y0); };
+  var body = yAxis(p, sc, "num");
+
+  // x ticks: six evenly spaced dates, labelled by month
+  var NT = 6;
+  for (var i=0;i<=NT;i++){
+    var xv = xmin + (xmax - xmin) * (i/NT), x = xOf(xv);
+    var lab = MONTHS[serialToDate(xv).getUTCMonth()];
+    var hw = measure(lab, TYPE.axis*PT, "400")/2;
+    body += '<text x="'+Math.min(Math.max(x, hw), f.W-hw).toFixed(1)+'" y="'+(p.y1+34)+
+            '" text-anchor="middle" font-size="'+(TYPE.axis*PT).toFixed(1)+'" fill="'+INK.muted+'">'+esc(lab)+'</text>';
+  }
+
+  all.forEach(function(s2, j){
+    var col = pal[j % pal.length], dash = STD.ink === "grey" ? DASH[j % DASH.length] : "";
+    var pl = s2.points.map(function(pt){ return xOf(pt[0]).toFixed(1)+","+yOf(pt[1]).toFixed(1); }).join(" ");
+    body += '<polyline fill="none" stroke="'+col+'" stroke-width="4" stroke-linejoin="round" stroke-linecap="round"'+
+            (dash?' stroke-dasharray="'+dash+'"':'')+' points="'+pl+'"/>';
+    if (j === 0){
+      var last = s2.points[s2.points.length-1];
+      body += '<circle cx="'+xOf(last[0]).toFixed(1)+'" cy="'+yOf(last[1]).toFixed(1)+'" r="7" fill="'+col+'" stroke="#ffffff" stroke-width="2.5"/>';
+      body += '<text x="'+(xOf(last[0])+16).toFixed(1)+'" y="'+(yOf(last[1])+9).toFixed(1)+'" font-size="'+(TYPE.label*PT).toFixed(1)+
+              '" font-weight="700" fill="'+INK.primary+'">'+esc(fmt(last[1],"num"))+'</text>';
+    }
+  });
+
+  // 52-week high and low, the two numbers the football field quotes
+  [[hiP,"High",-20],[loP,"Low",30]].forEach(function(a){
+    var pt = a[0]; if (!pt) return;
+    var x = xOf(pt[0]), y = yOf(pt[1]);
+    body += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="6" fill="#ffffff" stroke="'+INK.primary+'" stroke-width="3"/>';
+    var lab2 = a[1] + " " + fmt(pt[1],"num");
+    var w = measure(lab2, TYPE.source*PT, "400");
+    var lx = Math.min(Math.max(x - w/2, 2), p.x1 - w);
+    body += '<text x="'+lx.toFixed(1)+'" y="'+(y + a[2])+'" font-size="'+(TYPE.source*PT).toFixed(1)+
+            '" fill="'+INK.secondary+'">'+esc(lab2)+'</text>';
+  });
+
+  if (all.length > 1){
+    body += legend(all.map(function(s2,j){
+      return { label:s2.label, fill:pal[j%pal.length], dash: STD.ink==="grey" ? DASH[j%DASH.length] : "" };
+    }), p.y1 + 92, f.W);
+  }
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+}
+
+
+/* Columns for the absolute figure with the rate on its own right-hand axis.
+   Two scales in one frame, so the right axis is drawn explicitly rather than
+   borrowed from yAxis(). */
+function renderCombo(d, title){
+  var pal = palette();
+  var rateLabels = d.rate.values.map(function(v){ return isNum(v) ? fmt(v,"pct") : ""; });
+  var rw = 0;
+  rateLabels.forEach(function(t){ rw = Math.max(rw, measure(t, TYPE.axis*PT, "400")); });
+  var f = figShell({ hmm:98, padL:150, padR:Math.max(96, rw + 46), bottomPad:198,
+                     title:title, sub:d.unit, hatch:false });
+  var p = f.plot, cats = d.cats, n = cats.length, m = d.series.length;
+
+  var lo = 0, hi = 0;
+  d.series.forEach(function(s){ s.values.forEach(function(v){ if(isNum(v)){ if(v<lo)lo=v; if(v>hi)hi=v; } }); });
+  var sc = niceScale(lo, hi, 5);
+  var body = yAxis(p, sc, "num");
+  var yOf = function(v){ return p.y1 - (v - sc.min)/(sc.max-sc.min)*(p.y1-p.y0); };
+
+  var rl = 0, rh = 0;
+  d.rate.values.forEach(function(v){ if(isNum(v)){ if(v<rl)rl=v; if(v>rh)rh=v; } });
+  var rs = niceScale(rl, rh * 1.25, 4);
+  var rOf = function(v){ return p.y1 - (v - rs.min)/(rs.max-rs.min)*(p.y1-p.y0); };
+
+  // right axis, ticks only — no gridlines, so the two scales cannot be confused
+  for (var t=0;t<rs.ticks.length;t++){
+    var ty = rOf(rs.ticks[t]);
+    body += '<line x1="'+p.x1+'" y1="'+ty.toFixed(1)+'" x2="'+(p.x1+9)+'" y2="'+ty.toFixed(1)+
+            '" stroke="'+INK.grid+'" stroke-width="2"/>'+
+            '<text x="'+(p.x1+16)+'" y="'+(ty+10).toFixed(1)+'" font-size="'+(TYPE.axis*PT).toFixed(1)+
+            '" fill="'+INK.muted+'">'+esc(fmt(rs.ticks[t],"pct"))+'</text>';
+  }
+
+  var bw = (p.x1-p.x0)/n, groupW = bw*0.62, barW = Math.max(6, groupW/m - (m>1?5:0));
+  for (var i=0;i<n;i++){
+    for (var j=0;j<m;j++){
+      var v = d.series[j].values[i]; if (!isNum(v)) continue;
+      var x = p.x0 + bw*i + (bw-groupW)/2 + j*(barW + (m>1?5:0));
+      var y0 = yOf(Math.max(v,0)), y1 = yOf(Math.min(v,0));
+      body += '<rect x="'+x.toFixed(1)+'" y="'+y0.toFixed(1)+'" width="'+barW.toFixed(1)+
+              '" height="'+Math.max(0.8, y1-y0).toFixed(1)+'" rx="5" fill="'+pal[j%pal.length]+'"/>';
+    }
+  }
+
+  var pts = [], lineCol = pal[(m) % pal.length];
+  for (var i2=0;i2<n;i2++){
+    var rv = d.rate.values[i2]; if (!isNum(rv)) continue;
+    pts.push([p.x0 + bw*i2 + bw/2, rOf(rv), rv, i2]);
+  }
+  if (pts.length){
+    body += '<polyline fill="none" stroke="'+lineCol+'" stroke-width="4.5" stroke-linejoin="round" points="'+
+            pts.map(function(q){ return q[0].toFixed(1)+","+q[1].toFixed(1); }).join(" ")+'"/>';
+    pts.forEach(function(q){
+      body += '<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="5" fill="'+lineCol+'"/>';
+    });
+    var lastp = pts[pts.length-1];
+    body += '<text x="'+(lastp[0]+14).toFixed(1)+'" y="'+(lastp[1]+4).toFixed(1)+'" font-size="'+(TYPE.label*PT).toFixed(1)+
+            '" font-weight="700" fill="'+INK.primary+'">'+esc(fmt(lastp[2],"pct"))+'</text>';
+  }
+
+  body += catLabels(cats, p, pfx(d));
+  var items = d.series.map(function(s,j){ return { label:s.label, fill:pal[j%pal.length] }; });
+  items.push({ label:d.rate.label + " (right axis)", fill:lineCol, dash:0 });
+  body += legend(items, p.y1 + 92, f.W);
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+}
+
+/* Parts stepping up to the total they sum to. Floating bars plus connectors —
+   the standard build-up, drawn from the same cells as the stacked figure. */
+function renderWaterfall(d, title){
+  var pal = palette();
+  var labels = d.steps.map(function(s){ return s.label; }).concat([d.total.label]);
+  var maxLab = 0;
+  labels.forEach(function(t){ maxLab = Math.max(maxLab, measure(t, TYPE.label*PT, "400")); });
+  // labels are angled at 32 degrees, so the vertical room they need is
+  // width * sin(32) — and measure() returns viewBox units, not millimetres
+  var labUnits = maxLab * 0.53;
+  var f = figShell({ hmm:Math.round(Math.max(96, 82 + labUnits/UBASE)), padL:150, padR:40,
+                     bottomPad:Math.round(Math.max(150, 118 + labUnits)), title:title, sub:d.unit, hatch:false });
+  var p = f.plot, n = labels.length;
+
+  var run = 0, tops = [];
+  d.steps.forEach(function(s){ tops.push(run + s.value); run += s.value; });
+  var hi = Math.max(run, d.total.value, Math.max.apply(null, tops));
+  var sc = niceScale(0, hi, 5);
+  var body = yAxis(p, sc, "num");
+  var yOf = function(v){ return p.y1 - (v - sc.min)/(sc.max-sc.min)*(p.y1-p.y0); };
+
+  var bw = (p.x1-p.x0)/n, barW = Math.min(bw*0.6, 120);
+  var acc = 0, prevX = null, prevY = null;
+  for (var i=0;i<n;i++){
+    var isTot = (i === n-1);
+    var v = isTot ? d.total.value : d.steps[i].value;
+    var base = isTot ? 0 : acc;
+    var top = isTot ? v : acc + v;
+    var x = p.x0 + bw*i + (bw-barW)/2;
+    var y0 = yOf(Math.max(base, top)), y1 = yOf(Math.min(base, top));
+    var fill = isTot ? INK.secondary : pal[i % pal.length];
+    if (STD.ink === "grey" && STD.hatch && !isTot && i===1) fill = "url(#h1)";
+    body += '<rect x="'+x.toFixed(1)+'" y="'+y0.toFixed(1)+'" width="'+barW.toFixed(1)+
+            '" height="'+Math.max(0.8, y1-y0).toFixed(1)+'" rx="5" fill="'+fill+'"/>';
+    body += '<text x="'+(x+barW/2).toFixed(1)+'" y="'+(y0-14).toFixed(1)+'" text-anchor="middle" font-size="'+
+            (TYPE.label*PT).toFixed(1)+'" font-weight="700" fill="'+INK.primary+'">'+esc(fmt(v,"num"))+'</text>';
+    if (prevX !== null && !isTot){
+      body += '<line x1="'+prevX.toFixed(1)+'" y1="'+prevY.toFixed(1)+'" x2="'+x.toFixed(1)+'" y2="'+prevY.toFixed(1)+
+              '" stroke="'+INK.axis+'" stroke-width="2" stroke-dasharray="6 5"/>';
+    }
+    if (!isTot){ acc = top; prevX = x + barW; prevY = yOf(top); }
+  }
+
+  // category labels are long here, so they are angled rather than truncated
+  for (var k=0;k<n;k++){
+    var cx = p.x0 + bw*k + bw/2;
+    body += '<text transform="translate('+cx.toFixed(1)+','+(p.y1+30)+') rotate(-32)" text-anchor="end" font-size="'+
+            (TYPE.label*PT).toFixed(1)+'" fill="'+INK.muted+'">'+esc(labels[k])+'</text>';
+  }
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+}
+
+function render(form, d, title){
+  if (form === "stack")  return renderStack(d, title);
+  if (form === "line")   return renderLine(d, title);
+  if (form === "column") return renderColumns(d, title);
+  if (form === "range")  return renderRange(d, title);
+  if (form === "timeline") return renderTimeline(d, title);
+  if (form === "combo")    return renderCombo(d, title);
+  if (form === "waterfall") return renderWaterfall(d, title);
+  return null;
+}
+
+/* ============================== app ============================== */
+var model = DEMO, figCache = [];
+
+function bindAll(){
+  return SLOTS.map(function(s){
+    var d = null, err = null;
+    try { d = s.bind(model); } catch(e){ err = e.message; }
+    return { slot:s, data:d, err:err };
+  });
+}
+
+function captionFor(entry, no){
+  var t = (entry.data && entry.data.title) || (entry.slot ? entry.slot.name : entry.name);
+  var d = entry.data;
+  var range = "";
+  if (d && d.ts && d.ts[0] && d.ts[0].points.length){
+    var pp = d.ts[0].points;
+    range = ", " + monthYear(pp[0][0]) + " to " + monthYear(pp[pp.length-1][0]);
+  } else if (d && d.cats && d.cats.length){ var q = pfx(d); range = ", " + q + d.cats[0] + " to " + q + d.cats[d.cats.length-1]; }
+  else if (d && d.steps){ range = ""; }
+  var unit = d && d.unit ? " (" + d.unit + ")" : "";
+  return "Figure " + no + ": " + t + range + unit;
+}
+
+/* the standard, read straight off the constants the renderer uses */
+function stdSpec(){
+  var k = mediaK(), m = MEDIA[STD.medium] || MEDIA.word, pal = palette();
+  function pt(v){ return (Math.round(v * k * 10) / 10) + " pt"; }
+  function mm(units){ return (Math.round(units / U * 100) / 100) + " mm"; }
+  var sw = pal.map(function(c){
+    return '<span style="display:inline-block;width:9px;height:9px;border-radius:2px;'+
+           'vertical-align:-1px;margin-right:3px;background:'+c+'"></span>';
+  }).join("");
+  return [
+    ["Standard",        esc(STANDARD)],
+    ["Target",          esc(m.label + ", " + m.note)],
+    ["Figure width",    STD.wmm + " mm, fixed"],
+    ["Typeface",        esc(xlFace())],
+    ["Title",           pt(TYPE.title) + " bold"],
+    ["Unit line",       pt(TYPE.sub)],
+    ["Axis and legend", pt(TYPE.axis)],
+    ["Value labels",    pt(TYPE.label) + " bold"],
+    ["Source note",     pt(TYPE.source)],
+    ["Series colours",  sw + " " + (STD.ink === "grey" ? "greyscale ramp" : "CVD validated")],
+    ["Gridlines",       mm(2) + " at " + INK.grid + ", about five to a figure"],
+    ["Category rule",   mm(3) + " at " + INK.axis],
+    ["Series line",     mm(5) + ", round cap"],
+    ["Markers",         mm(14) + " circle, white edge"],
+    ["Numbers",         "thousands separated, percentages to one decimal"],
+    ["Ground",          "white, no border"]
+  ];
+}
+function renderStdGrid(){
+  var el = document.getElementById("stdgrid"); if (!el) return;
+  el.innerHTML = stdSpec().map(function(r){
+    return '<div><span class="k">'+esc(r[0])+'</span><span class="v">'+r[1]+'</span></div>';
+  }).join("");
+}
+
+function renderApp(){
+  renderStdGrid();
+  var emptyEl = document.getElementById("empty");
+  if (!model){
+    document.getElementById("bind").innerHTML =
+      '<div class="bindrow"><span class="dot off"></span><span><b>No workbook loaded</b>'+
+      '<code>bindings appear once a file is open</code></span></div>';
+    document.getElementById("figs").innerHTML = "";
+    figCache = [];
+    if (emptyEl) emptyEl.hidden = false;
+    return;
+  }
+  if (emptyEl) emptyEl.hidden = true;
+  var bound = bindAll();
+  document.getElementById("bind").innerHTML = bound.map(function(b){
+    return '<div class="bindrow"><span class="dot'+(b.data?"":" off")+'"></span><span>'+
+      '<b>'+esc(b.slot.name)+'</b><code>'+esc(b.slot.rule)+'</code>'+
+      (b.data ? "" : '<code class="miss">no matching block, figure omitted</code>')+
+      '</span></div>';
+  }).join("");
+
+  var figsEl = document.getElementById("figs");
+  figCache = [];
+  var no = parseInt(STD.startNo,10) || 1, html = "";
+
+  bound.forEach(function(b){
+    if (!b.data){
+      html += '<div class="omit"><b>'+esc(b.slot.name)+'</b><p>No block matched <span class="mono">'+esc(b.slot.rule)+
+              '</span>. Nothing is guessed and nothing is drawn.</p></div>';
+      return;
+    }
+    var figTitle = b.data.title || b.slot.name;
+    var out = render(b.slot.form, b.data, figTitle);
+    if (!out){
+      html += '<div class="omit"><b>'+esc(figTitle)+'</b><p>Data bound, but the figure could not be drawn. The block matched, but it holds too few usable points to plot. Open <span class="mono">Data</span> on another figure to compare, or check the block for blank rows.</p></div>';
+      return;
+    }
+    var idx = figCache.length;
+    var cap = captionFor(b, no);
+    figCache.push({ svg:out.svg, wmm:out.wmm, hmm:out.hmm, caption:cap, data:b.data, form:b.slot.form, name:figTitle });
+    html += figureHtml(idx, figTitle, out, cap, b.data);
+    no++;
+  });
+
+  figsEl.innerHTML = html;
+}
+
+function figureHtml(idx, name, out, caption, d){
+  return '<figure data-i="'+idx+'">'+
+    '<div class="fighead"><span class="t">'+esc(name)+'<span>'+out.wmm+' × '+out.hmm+' mm</span></span>'+
+    '<span class="figacts">'+
+      '<button class="btn btn-sm" data-act="png">PNG 300 dpi</button>'+
+      '<button class="btn btn-sm" data-act="svg">SVG</button>'+
+      '<button class="btn btn-sm" data-act="copysvg">Copy SVG</button>'+
+      '<button class="btn btn-sm" data-act="table">Data</button>'+
+    '</span></div>'+
+    '<div class="sheet"><div class="paper">'+out.svg+'</div>'+(STD.showprov ? provPanel(d) : "")+'</div>'+
+    '<div class="dtable" hidden>'+dataTable(d)+'</div>'+
+    '<div class="figfoot"><span class="cap">'+esc(caption)+'</span>'+
+    '<button class="btn btn-sm" data-act="copycap">Copy caption</button></div>'+
+  '</figure>';
+}
+
+/* ---- "what this figure pulled" side panel ---- */
+function refTag(ref){ return ref ? '<span class="ref">'+esc(ref)+'</span>' : ""; }
+
+/* the numbers themselves — the full run where it is short enough to read,
+   a first/last/high/low summary where it is not */
+function valueStrip(r, kind){
+  if (r.stats){
+    return '<span class="pvals">'+r.stats.map(function(st){
+      return '<span class="pv"><i>'+st[0]+'</i>'+fmt(st[1], r.kind || kind || "num")+'</span>';
+    }).join("")+'</span>';
+  }
+  if (!r.values) return "";
+  if (r.kind) kind = r.kind;
+  return '<span class="pvals">'+r.values.map(function(v){
+    return '<span class="pv'+(isNum(v)?"":" nil")+'">'+(isNum(v)?fmt(v, kind||"num"):"—")+'</span>';
+  }).join("")+'</span>';
+}
+
+function provPanel(d){
+  var s = d.src;
+  var h = '<aside class="prov">';
+  h += '<h4>Pulled from</h4>';
+  h += '<p class="psrc">'+esc(model.source || "workbook")+'</p>';
+
+  // where on the sheet
+  h += '<div class="pgrp"><span class="plab">Block</span>'+
+       '<span class="pval">'+esc(s.block || "—")+refTag(s.blockRef)+'</span></div>';
+  if (s.group !== undefined){
+    h += '<div class="pgrp"><span class="plab">Group</span>'+
+         '<span class="pval">'+(s.group ? esc(s.group)+refTag(s.groupRef)
+                                        : '<i>no group header, the rows sit directly under it</i>')+'</span></div>';
+  }
+  if (s.axis){
+    h += '<div class="pgrp"><span class="plab">'+esc(s.axis.label)+'</span>'+
+         '<span class="pval">'+refTag(s.axis.ref)+'<span class="pax">'+esc(s.axis.text)+'</span></span></div>';
+  }
+
+  // the rows that became the figure
+  h += '<div class="pgrp"><span class="plab">Rows drawn ('+s.rows.length+')</span><ul class="prows">';
+  s.rows.forEach(function(r, i){
+    var miss = (r.of && r.n < r.of) ? '<em>'+(r.of - r.n)+' blank</em>' : "";
+    var pal = palette();
+    h += '<li><span class="swatch" style="background:'+pal[i % pal.length]+'"></span>'+
+         '<span class="rl">'+esc(r.label)+'</span>'+refTag(r.ref)+miss+
+         valueStrip(r, d.kind)+'</li>';
+  });
+  h += '</ul></div>';
+
+  // rows deliberately left out, and anything extra picked up
+  var side = (s.excluded || []).concat(s.extra || []);
+  if (side.length){
+    h += '<div class="pgrp"><span class="plab">Also read</span><ul class="prows alt">';
+    side.forEach(function(r){
+      h += '<li><span class="rl">'+esc(r.label)+'</span>'+refTag(r.ref)+
+           valueStrip(r, d.kind)+
+           '<span class="pwhy">'+esc(r.why||"")+'</span></li>';
+    });
+    h += '</ul></div>';
+  }
+
+  // where the unit label came from
+  h += '<div class="pgrp"><span class="plab">Unit</span><span class="pval">'+esc(d.unit||"—")+'</span>';
+  if (s.unitFrom){
+    h += '<span class="pwhy">'+esc(s.unitFrom.how)+' '+refTag(s.unitFrom.ref)+' &ldquo;'+esc(s.unitFrom.text)+'&rdquo;</span>';
+  } else if (s.unitFixed){
+    h += '<span class="pwhy">'+esc(s.unitFixed)+'</span>';
+  } else {
+    h += '<span class="pwhy">no unit note found on the sheet, the default was used</span>';
+  }
+  h += '</div>';
+  h += '<p class="pfoot">Nothing outside these cells was read.</p>';
+  return h + '</aside>';
+}
+
+function dataTable(d){
+  if (d.ts){
+    var out = '<table><thead><tr><th>Series</th><th>Obs.</th><th>First</th><th>Last</th><th>High</th><th>Low</th></tr></thead><tbody>';
+    d.ts.forEach(function(s2){
+      var pp = s2.points, hi = pp[0], lo = pp[0];
+      pp.forEach(function(pt){ if (pt[1] > hi[1]) hi = pt; if (pt[1] < lo[1]) lo = pt; });
+      out += '<tr><td>'+esc(s2.label)+'</td><td>'+pp.length+'</td>'+
+             '<td>'+fmt(pp[0][1],"num")+' <span style="color:var(--ink-3)">'+esc(dayMonthYear(pp[0][0]))+'</span></td>'+
+             '<td>'+fmt(pp[pp.length-1][1],"num")+' <span style="color:var(--ink-3)">'+esc(dayMonthYear(pp[pp.length-1][0]))+'</span></td>'+
+             '<td>'+fmt(hi[1],"num")+' <span style="color:var(--ink-3)">'+esc(dayMonthYear(hi[0]))+'</span></td>'+
+             '<td>'+fmt(lo[1],"num")+' <span style="color:var(--ink-3)">'+esc(dayMonthYear(lo[0]))+'</span></td></tr>';
+    });
+    return out + '</tbody></table>';
+  }
+  if (d.steps){
+    var runW = 0;
+    return '<table><thead><tr><th>Step</th><th>Value</th><th>Running</th></tr></thead><tbody>'+
+      d.steps.map(function(x){ runW += x.value;
+        return '<tr><td>'+esc(x.label)+'</td><td>'+fmt(x.value,"num")+'</td><td>'+fmt(runW,"num")+'</td></tr>'; }).join("")+
+      '<tr><td><b>'+esc(d.total.label)+'</b></td><td>'+fmt(d.total.value,"num")+'</td><td>'+fmt(d.total.value,"num")+'</td></tr>'+
+      '</tbody></table>';
+  }
+  if (d.rows){
+    return '<table><thead><tr><th>Method</th><th>Low</th><th>High</th></tr></thead><tbody>'+
+      d.rows.map(function(r){ return '<tr><td>'+esc(r.label)+'</td><td>'+fmt(r.low,"num")+'</td><td>'+fmt(r.high,"num")+'</td></tr>'; }).join("")+
+      '</tbody></table>';
+  }
+  var head = '<tr><th>Series</th>'+d.cats.map(function(c){ return '<th>'+esc(pfx(d)+c)+'</th>'; }).join("")+'</tr>';
+  var rows = d.series.map(function(s){
+    return '<tr><td>'+esc(s.label)+'</td>'+s.values.map(function(v){ return '<td>'+(isNum(v)?fmt(v,d.kind):"—")+'</td>'; }).join("")+'</tr>';
+  }).join("");
+  if (d.total) rows += '<tr><td><b>'+esc(d.total.label)+'</b></td>'+d.total.values.map(function(v){ return '<td>'+(isNum(v)?fmt(v,d.kind):"—")+'</td>'; }).join("")+'</tr>';
+  if (d.rate) rows += '<tr><td>'+esc(d.rate.label)+'</td>'+d.rate.values.map(function(v){ return '<td>'+(isNum(v)?fmt(v,"pct"):"—")+'</td>'; }).join("")+'</tr>';
+  return '<table><thead>'+head+'</thead><tbody>'+rows+'</tbody></table>';
+}
+
+/* ==================================================================
+   Writing native Excel charts back into the workbook.
+
+   These are real chart objects, not pictures: every series is a
+   SERIES formula pointing at the cells the figure was read from, so
+   the chart redraws itself when the numbers change. Nothing is baked in.
+   ================================================================== */
+
+var CRCT = (function(){
+  var t = new Uint32Array(256);
+  for (var n=0;n<256;n++){ var c=n; for (var k=0;k<8;k++) c = (c & 1) ? (0xEDB88320 ^ (c>>>1)) : (c>>>1); t[n]=c>>>0; }
+  return t;
+})();
+function crc32(u8){
+  var c = 0xFFFFFFFF;
+  for (var i=0;i<u8.length;i++) c = CRCT[(c ^ u8[i]) & 0xFF] ^ (c>>>8);
+  return (c ^ 0xFFFFFFFF)>>>0;
+}
+function utf8(str){ return new TextEncoder().encode(str); }
+
+/* rebuild a zip. Untouched parts are copied through byte for byte with
+   their original compression; new parts are stored uncompressed. */
+function zipWrite(entries){
+  var enc = new TextEncoder(), locals = [], central = [], offset = 0;
+  entries.forEach(function(e){
+    var nameB = enc.encode(e.name);
+    var lh = new Uint8Array(30 + nameB.length);
+    var lv = new DataView(lh.buffer);
+    lv.setUint32(0, 0x04034b50, true);
+    lv.setUint16(4, 20, true);           // version needed
+    lv.setUint16(6, 0, true);            // flags
+    lv.setUint16(8, e.method, true);
+    lv.setUint16(10, 0, true); lv.setUint16(12, 0x21, true);  // fixed time/date
+    lv.setUint32(14, e.crc, true);
+    lv.setUint32(18, e.bytes.length, true);
+    lv.setUint32(22, e.usize, true);
+    lv.setUint16(26, nameB.length, true);
+    lv.setUint16(28, 0, true);
+    lh.set(nameB, 30);
+    locals.push(lh, e.bytes);
+
+    var ch = new Uint8Array(46 + nameB.length);
+    var cv = new DataView(ch.buffer);
+    cv.setUint32(0, 0x02014b50, true);
+    cv.setUint16(4, 20, true); cv.setUint16(6, 20, true);
+    cv.setUint16(8, 0, true);
+    cv.setUint16(10, e.method, true);
+    cv.setUint16(12, 0, true); cv.setUint16(14, 0x21, true);
+    cv.setUint32(16, e.crc, true);
+    cv.setUint32(20, e.bytes.length, true);
+    cv.setUint32(24, e.usize, true);
+    cv.setUint16(28, nameB.length, true);
+    cv.setUint16(30, 0, true); cv.setUint16(32, 0, true);
+    cv.setUint16(34, 0, true); cv.setUint16(36, 0, true);
+    cv.setUint32(38, 0, true);
+    cv.setUint32(42, offset, true);
+    ch.set(nameB, 46);
+    central.push(ch);
+    offset += lh.length + e.bytes.length;
+  });
+  var cdSize = central.reduce(function(a,b){ return a + b.length; }, 0);
+  var eocd = new Uint8Array(22);
+  var ev = new DataView(eocd.buffer);
+  ev.setUint32(0, 0x06054b50, true);
+  ev.setUint16(8, entries.length, true);
+  ev.setUint16(10, entries.length, true);
+  ev.setUint32(12, cdSize, true);
+  ev.setUint32(16, offset, true);
+  var all = locals.concat(central, [eocd]);
+  var total = all.reduce(function(a,b){ return a + b.length; }, 0);
+  var out = new Uint8Array(total), pos = 0;
+  all.forEach(function(part){ out.set(part, pos); pos += part.length; });
+  return out;
+}
+/* <Relationships/> and friends are often written self-closing when empty,
+   which makes a naive append silently do nothing. Open them up first. */
+function openTag(text, tag){
+  var re = new RegExp("<" + tag + "([^>]*?)\\s*/>");
+  return re.test(text) ? text.replace(re, "<" + tag + "$1></" + tag + ">") : text;
+}
+function newPart(name, text){
+  var b = utf8(text);
+  return { name:name, bytes:b, method:0, crc:crc32(b), usize:b.length };
+}
+
+/* ---------------- range helpers ---------------- */
+/* chart <c:f> formulas quote the sheet name unconditionally — matching what
+   every real Excel-authored chart (and openpyxl's own writer) does, rather
+   than only quoting when the name strictly needs it for identifier syntax */
+function qSheet(name){ return "'" + String(name).replace(/'/g,"''") + "'"; }
+function cellF(sh, col, row){ return qSheet(sh) + "!$" + col + "$" + row; }
+function colF(sh, col, r1, r2){ return qSheet(sh) + "!$" + col + "$" + r1 + ":$" + col + "$" + r2; }
+function rowF(sh, c1, c2, row){ return qSheet(sh) + "!$" + c1 + "$" + row + ":$" + c2 + "$" + row; }
+function xesc(t){ return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+
+/* ---------------- chart part ---------------- */
+/* axIds only need to be unique WITHIN one chart part per the OOXML schema,
+   but Excel's own loader gets confused when a workbook holds several charts
+   that all reuse the exact same axId numbers — offset them per chart so no
+   two parts in the same workbook ever share one. */
+
+function txPart(f){ return '<c:tx><c:strRef><c:f>'+xesc(f)+'</c:f></c:strRef></c:tx>'; }
+/* k is the series index, so greyscale hatches the same two series the SVG
+   hatches (h1 at 45 degrees, h3 at 135) and colour output stays flat. */
+function fillPart(hex, k){
+  if (hex === null) return '<c:spPr><a:noFill/><a:ln><a:noFill/></a:ln></c:spPr>';
+  var v = hex.replace("#","").toUpperCase();
+  var hatched = (STD.ink === "grey" && STD.hatch && (k === 1 || k === 3));
+  var fill = hatched
+    ? '<a:pattFill prst="'+(k === 1 ? "ltUpDiag" : "ltDnDiag")+'">'+
+      '<a:fgClr><a:srgbClr val="'+v+'"/></a:fgClr>'+
+      '<a:bgClr><a:srgbClr val="FFFFFF"/></a:bgClr></a:pattFill>'
+    : '<a:solidFill><a:srgbClr val="'+v+'"/></a:solidFill>';
+  return '<c:spPr>'+fill+'<a:ln><a:noFill/></a:ln></c:spPr>';
+}
+function linePart(hex, w){
+  return '<c:spPr><a:ln w="'+(w||emu(5))+'" cap="rnd"><a:solidFill><a:srgbClr val="'+hex.replace("#","").toUpperCase()+
+         '"/></a:solidFill><a:round/></a:ln><a:effectLst/></c:spPr>';
+}
+function catPart(f, numeric){
+  return numeric ? '<c:cat><c:numRef><c:f>'+xesc(f)+'</c:f></c:numRef></c:cat>'
+                 : '<c:cat><c:strRef><c:f>'+xesc(f)+'</c:f></c:strRef></c:cat>';
+}
+function valPart(f){ return '<c:val><c:numRef><c:f>'+xesc(f)+'</c:f></c:numRef></c:val>'; }
+
+/* ---- the SVG standard, restated in the units chart XML uses ----
+   Text sizes are hundredths of a point, matching the pt sizes figShell draws
+   at. Line widths are EMU; the SVG works in viewBox units at U per millimetre
+   and there are 36000 EMU to a millimetre, so emu() carries one to the other
+   and both renderers end up drawing the same physical weight. */
+function XS(pt){ return Math.round(pt * mediaK() * 100); }
+var XSZ = {};
+Object.defineProperties(XSZ, {
+  title:  { get:function(){ return XS(TYPE.title);  } },
+  sub:    { get:function(){ return XS(TYPE.sub);    } },
+  axis:   { get:function(){ return XS(TYPE.axis);   } },
+  legend: { get:function(){ return XS(TYPE.legend); } },
+  label:  { get:function(){ return XS(TYPE.label);  } }
+});
+var XINK = { primary:"111111", muted:"5A5A5A", grid:"DCDCDC", axis:"9A9A9A" };
+function emu(units){ return Math.round(units / U * 36000); }
+function colNo(letters){
+  var c = 0, t = String(letters).toUpperCase();
+  for (var i=0;i<t.length;i++) c = c*26 + (t.charCodeAt(i) - 64);
+  return c;
+}
+function xlFace(){
+  var f = STD.face;
+  if (/Times/i.test(f))           return "Times New Roman";
+  if (/Cambria/i.test(f))         return "Cambria";
+  if (/Georgia/i.test(f))         return "Georgia";
+  if (/Calibri|Carlito/i.test(f)) return "Calibri";
+  return "Arial";
+}
+function faceTags(){ var f = xlFace(); return '<a:latin typeface="'+f+'"/><a:cs typeface="'+f+'"/>'; }
+function defRPr(sz, bold, colour){
+  return '<a:defRPr sz="'+sz+'" b="'+(bold?1:0)+'">'+
+         '<a:solidFill><a:srgbClr val="'+colour+'"/></a:solidFill>'+faceTags()+'</a:defRPr>';
+}
+function rPrRun(sz, bold, colour){
+  return '<a:rPr lang="en-GB" sz="'+sz+'" b="'+(bold?1:0)+'">'+
+         '<a:solidFill><a:srgbClr val="'+colour+'"/></a:solidFill>'+faceTags()+'</a:rPr>';
+}
+function txPr(sz, bold, colour, algn){
+  return '<c:txPr><a:bodyPr/><a:lstStyle/><a:p><a:pPr'+(algn?' algn="'+algn+'"':'')+'>'+
+         defRPr(sz,bold,colour)+'</a:pPr><a:endParaRPr lang="en-GB"/></a:p></c:txPr>';
+}
+function lnSpPr(colour, w, dash){
+  return '<c:spPr><a:ln w="'+w+'" cap="flat"><a:solidFill><a:srgbClr val="'+colour+'"/></a:solidFill>'+
+         (dash ? '<a:prstDash val="'+dash+'"/>' : '')+'<a:round/></a:ln></c:spPr>';
+}
+var NO_LINE_SPPR = '<c:spPr><a:noFill/><a:ln><a:noFill/></a:ln></c:spPr>';
+/* One label body. A number format may carry literal text, so the "High 3,531"
+   the timeline draws is a format code rather than typed-in text and the label
+   still moves with the cell. */
+function lblBody(show, fmtc, pos, bold, colour, ext){
+  return '<c:numFmt formatCode="'+xesc(fmtc || "#,##0")+'" sourceLinked="0"/>'+
+         NO_LINE_SPPR + txPr(XSZ.label, bold !== false, colour || XINK.primary)+
+         (pos ? '<c:dLblPos val="'+pos+'"/>' : '')+
+         '<c:showLegendKey val="0"/><c:showVal val="'+show+'"/><c:showCatName val="0"/>'+
+         '<c:showSerName val="0"/><c:showPercent val="0"/><c:showBubbleSize val="0"/>'+ (ext || "");
+}
+/* labels on every point */
+function dLblsVal(numFmt, pos, colour, bold){
+  return '<c:dLbls>'+ lblBody(1, numFmt, pos || "t", bold, colour) +'</c:dLbls>';
+}
+/* labels on named points only: the series default is off, each listed point on */
+function dLblsAt(entries, numFmt, pos){
+  var s = '<c:dLbls>';
+  entries.forEach(function(e){
+    s += '<c:dLbl><c:idx val="'+e.idx+'"/>'+
+         lblBody(1, e.fmt || numFmt, e.pos || pos || "t", e.bold, e.colour) +'</c:dLbl>';
+  });
+  return s + lblBody(0, numFmt, pos || "t") + '</c:dLbls>';
+}
+/* the greyscale dash cycle the SVG line renderers use, as preset dashes */
+var XDASH = ["", "dash", "sysDash", "dashDot"];
+function dashFor(j){ return STD.ink === "grey" ? XDASH[j % XDASH.length] : ""; }
+
+function barSer(i, nameF, catFm, valFm, hex, numericCat, opt){
+  opt = opt || {};
+  return '<c:ser><c:idx val="'+i+'"/><c:order val="'+i+'"/>'+
+         (nameF ? txPart(nameF) : "")+ fillPart(hex, opt.hatchK) +
+         '<c:invertIfNegative val="0"/>'+
+         (opt.dLbls || "")+
+         catPart(catFm, numericCat) + valPart(valFm) +
+         (opt.ext || "")+'</c:ser>';
+}
+/* opt: hidden, dash, markers, dLbls, dPts */
+function lineSer(i, nameF, catFm, valFm, hex, numericCat, opt){
+  opt = opt || {};
+  var v = hex.replace("#","").toUpperCase();
+  var sp;
+  if (opt.hidden){
+    sp = '<c:spPr><a:ln><a:noFill/></a:ln></c:spPr>';
+  } else {
+    sp = '<c:spPr><a:ln w="'+(opt.w || emu(5))+'" cap="rnd"><a:solidFill><a:srgbClr val="'+v+'"/></a:solidFill>'+
+         (opt.dash ? '<a:prstDash val="'+opt.dash+'"/>' : '')+'<a:round/></a:ln></c:spPr>';
+  }
+  /* r="7" in viewBox units is a 1.4 mm dot, which is 4 pt to Excel */
+  var mk = (opt.markers && !opt.hidden)
+    ? '<c:marker><c:symbol val="circle"/><c:size val="4"/>'+
+      '<c:spPr><a:solidFill><a:srgbClr val="'+v+'"/></a:solidFill>'+
+      '<a:ln w="9525"><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill></a:ln></c:spPr></c:marker>'
+    : '<c:marker><c:symbol val="none"/></c:marker>';
+  return '<c:ser><c:idx val="'+i+'"/><c:order val="'+i+'"/>'+
+         (nameF ? txPart(nameF) : "")+ sp + mk + (opt.dPts || "") + (opt.dLbls || "")+
+         catPart(catFm, numericCat) + valPart(valFm) +
+         '<c:smooth val="0"/></c:ser>';
+}
+/* a single point drawn like the hollow markers renderTimeline puts on the
+   52-week high and low */
+function dPtRing(idx, colour){
+  return '<c:dPt><c:idx val="'+idx+'"/><c:invertIfNegative val="0"/>'+
+         '<c:marker><c:symbol val="circle"/><c:size val="5"/>'+
+         '<c:spPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill>'+
+         '<a:ln w="'+emu(3)+'"><a:solidFill><a:srgbClr val="'+colour+'"/></a:solidFill></a:ln>'+
+         '</c:spPr></c:marker><c:bubble3D val="0"/></c:dPt>';
+}
+function axPair(catType, catPos, numFmt, spanDays, ax1, ax2){
+  var cat;
+  if (catType === "date"){
+    var unit = 3, fmtc = "mmm\\ yy";
+    if (spanDays){
+      if (spanDays <= 120) unit = 1;
+      else if (spanDays <= 800) unit = 2;
+      else if (spanDays <= 2200) unit = 6;
+      else { unit = 12; fmtc = "yyyy"; }
+    }
+    cat = '<c:dateAx><c:axId val="'+ax1+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
+          '<c:delete val="0"/><c:axPos val="'+catPos+'"/>'+
+          '<c:numFmt formatCode="'+fmtc+'" sourceLinked="0"/>'+
+          '<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
+          lnSpPr(XINK.axis, emu(3)) + txPr(XSZ.axis, false, XINK.muted)+
+          '<c:crossAx val="'+ax2+'"/><c:crosses val="autoZero"/><c:auto val="1"/>'+
+          '<c:lblOffset val="100"/><c:baseTimeUnit val="days"/>'+
+          '<c:majorUnit val="'+unit+'"/><c:majorTimeUnit val="months"/></c:dateAx>';
+  } else {
+    cat = '<c:catAx><c:axId val="'+ax1+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
+          '<c:delete val="0"/><c:axPos val="'+catPos+'"/>'+
+          '<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
+          lnSpPr(XINK.axis, emu(3)) + txPr(XSZ.axis, false, XINK.muted)+
+          '<c:crossAx val="'+ax2+'"/><c:crosses val="autoZero"/><c:auto val="1"/>'+
+          '<c:lblAlgn val="ctr"/><c:lblOffset val="100"/><c:noMultiLvlLbl val="0"/></c:catAx>';
+  }
+  var val = '<c:valAx><c:axId val="'+ax2+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
+            '<c:delete val="0"/><c:axPos val="'+(catPos==="b"?"l":"b")+'"/>'+
+            '<c:majorGridlines>'+lnSpPr(XINK.grid, emu(2))+'</c:majorGridlines>'+
+            '<c:numFmt formatCode="'+(numFmt||"General")+'" sourceLinked="0"/>'+
+            '<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
+            NO_LINE_SPPR + txPr(XSZ.axis, false, XINK.muted)+
+            '<c:crossAx val="'+ax1+'"/><c:crosses val="autoZero"/><c:crossBetween val="between"/></c:valAx>';
+  return cat + val;
+}
+function axSecondary(numFmt, ax3, ax4){
+  return '<c:valAx><c:axId val="'+ax4+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
+         '<c:delete val="0"/><c:axPos val="r"/>'+
+         '<c:numFmt formatCode="'+(numFmt||"0%")+'" sourceLinked="0"/>'+
+         '<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
+         NO_LINE_SPPR + txPr(XSZ.axis, false, XINK.muted)+
+         '<c:crossAx val="'+ax3+'"/><c:crosses val="max"/><c:crossBetween val="between"/></c:valAx>'+
+         '<c:catAx><c:axId val="'+ax3+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
+         '<c:delete val="1"/><c:axPos val="b"/>'+
+         '<c:majorTickMark val="out"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
+         '<c:crossAx val="'+ax4+'"/><c:crosses val="autoZero"/><c:auto val="1"/>'+
+         '<c:lblAlgn val="ctr"/><c:lblOffset val="100"/><c:noMultiLvlLbl val="0"/></c:catAx>';
+}
+function chartXml(spec){
+  /* figShell puts the title top left at 10pt bold with the unit under it at
+     8pt muted, so the chart title carries both as two left-aligned paragraphs
+     and a manual layout pins it to the same corner instead of centring it. */
+  var title;
+  if (STD.titleIn === false){
+    title = '<c:autoTitleDeleted val="1"/>';
+  } else {
+    var sub = spec.sub
+      ? '<a:p><a:pPr algn="l">'+defRPr(XSZ.sub, false, XINK.muted)+'</a:pPr>'+
+        '<a:r>'+rPrRun(XSZ.sub, false, XINK.muted)+'<a:t>'+xesc(spec.sub)+'</a:t></a:r></a:p>'
+      : '';
+    title = '<c:title><c:tx><c:rich><a:bodyPr rot="0" spcFirstLastPara="1" vert="horz" wrap="square" anchor="t" anchorCtr="0"/><a:lstStyle/>'+
+            '<a:p><a:pPr algn="l">'+defRPr(XSZ.title, true, XINK.primary)+'</a:pPr>'+
+            '<a:r>'+rPrRun(XSZ.title, true, XINK.primary)+'<a:t>'+xesc(spec.title)+'</a:t></a:r></a:p>'+
+            sub + '</c:rich></c:tx>'+
+            '<c:layout><c:manualLayout><c:xMode val="edge"/><c:yMode val="edge"/>'+
+            '<c:x val="0"/><c:y val="0"/></c:manualLayout></c:layout>'+
+            '<c:overlay val="0"/>'+ NO_LINE_SPPR +
+            '</c:title><c:autoTitleDeleted val="0"/>';
+  }
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'+
+    '<c:chartSpace xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" '+
+    'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '+
+    'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'+
+    '<c:date1904 val="0"/><c:lang val="en-US"/><c:roundedCorners val="0"/>'+
+    '<mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">'+
+    '<mc:Choice xmlns:c14="http://schemas.microsoft.com/office/drawing/2007/8/2/chart" Requires="c14">'+
+    '<c14:style val="102"/></mc:Choice><mc:Fallback><c:style val="2"/></mc:Fallback></mc:AlternateContent>'+
+    '<c:chart>'+ title +
+    '<c:plotArea><c:layout/>'+ spec.plots + axPair(spec.catType, spec.catPos, spec.numFmt, spec.spanDays, spec.ax1, spec.ax2) +
+    (spec.secondary ? axSecondary(spec.secondaryFmt, spec.ax3, spec.ax4) : "") +
+    NO_LINE_SPPR +
+    '</c:plotArea>'+
+    (spec.legend === false ? '' :
+      '<c:legend><c:legendPos val="b"/>'+
+      (spec.legendDel || []).map(function(ix){
+        return '<c:legendEntry><c:idx val="'+ix+'"/><c:delete val="1"/></c:legendEntry>'; }).join("")+
+      '<c:overlay val="0"/>'+ NO_LINE_SPPR +
+      txPr(XSZ.legend, false, XINK.muted) + '</c:legend>')+
+    '<c:plotVisOnly val="1"/><c:dispBlanksAs val="gap"/>'+
+    '</c:chart>'+
+    '<c:spPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:ln><a:noFill/></a:ln></c:spPr>'+
+    txPr(XSZ.axis, false, XINK.muted)+
+    '</c:chartSpace>';
+}
+
+/* build the chart spec for one figure from the provenance the slot recorded.
+   idx is this figure's position among the charts being written this run —
+   it seeds a unique axId set so no two chart parts in the workbook collide. */
+function specFor(entry, sheetName, idx){
+  var d = entry.data, s = d.src, pal = palette();
+  if (!s || !s.xl) return null;
+  var x = s.xl, sh = sheetName, i;
+  var n = (idx||0) * 4;
+  var ax1 = 111111111 + n, ax2 = 222222222 + n, ax3 = 333333333 + n, ax4 = 444444444 + n;
+
+  if (x.type === "stackcol" || x.type === "col"){
+    var sers = "";
+    x.rows.forEach(function(r, k){
+      sers += barSer(k, cellF(sh, x.labelCol, r.row),
+                     rowF(sh, x.c1, x.c2, x.headerRow),
+                     rowF(sh, x.c1, x.c2, r.row),
+                     pal[k % pal.length], true, { hatchK:k });
+    });
+    var bar = '<c:barChart><c:barDir val="col"/><c:grouping val="'+
+              (x.type==="stackcol"?"stacked":"clustered")+'"/><c:varyColors val="0"/>'+
+              sers + '<c:gapWidth val="'+(x.type==="stackcol"?60:80)+'"/>'+
+              (x.type==="stackcol"?'<c:overlap val="100"/>':'<c:overlap val="-20"/>')+
+              '<c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:barChart>';
+    /* renderStack prints the total as a number above each column and draws no
+       line for it, so the total series goes in with no stroke and no legend
+       entry, carried only for its labels. */
+    var extra = "", hide = [];
+    if (x.total && x.type === "stackcol"){
+      extra = '<c:lineChart><c:grouping val="standard"/><c:varyColors val="0"/>'+
+              lineSer(x.rows.length, cellF(sh, x.labelCol, x.total.row),
+                      rowF(sh, x.c1, x.c2, x.headerRow),
+                      rowF(sh, x.c1, x.c2, x.total.row), "111111", true,
+                      { hidden:true, dLbls:dLblsVal(d.kind === "pct" ? "0%" : "#,##0", "t") })+
+              '<c:marker val="1"/><c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:lineChart>';
+      hide = [x.rows.length];
+    }
+    return { title:entry.name, sub:d.unit, plots:bar+extra, catType:"cat", catPos:"b",
+             legendDel:hide,
+             numFmt:(d.kind === "pct" ? "0%" : "#,##0"), ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+  }
+
+  if (x.type === "combo"){
+    var cs = "";
+    x.rows.forEach(function(r, k){
+      cs += barSer(k, cellF(sh, x.labelCol, r.row),
+                   rowF(sh, x.c1, x.c2, x.headerRow),
+                   rowF(sh, x.c1, x.c2, r.row), pal[k % pal.length], true, { hatchK:k });
+    });
+    var cbar = '<c:barChart><c:barDir val="col"/><c:grouping val="clustered"/><c:varyColors val="0"/>'+
+               cs + '<c:gapWidth val="80"/><c:overlap val="-20"/>'+
+               '<c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:barChart>';
+    var cN2 = colNo(x.c2) - colNo(x.c1);
+    var cline = '<c:lineChart><c:grouping val="standard"/><c:varyColors val="0"/>'+
+                lineSer(x.rows.length, cellF(sh, x.labelCol, x.rate.row),
+                        rowF(sh, x.c1, x.c2, x.headerRow),
+                        rowF(sh, x.c1, x.c2, x.rate.row),
+                        pal[x.rows.length % pal.length], true,
+                        { w:emu(4.5), markers:true,
+                          dLbls:dLblsAt([{ idx:cN2 }], "0%", "t") })+
+                '<c:marker val="1"/><c:axId val="'+ax3+'"/><c:axId val="'+ax4+'"/></c:lineChart>';
+    return { title:entry.name, sub:d.unit, plots:cbar+cline, catType:"cat", catPos:"b",
+             numFmt:"#,##0", secondary:true, secondaryFmt:"0%", ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+  }
+
+  if (x.type === "line"){
+    var ls = "";
+    x.rows.forEach(function(r, k){
+      ls += lineSer(k, cellF(sh, x.labelCol, r.row),
+                    rowF(sh, x.c1, x.c2, x.headerRow),
+                    rowF(sh, x.c1, x.c2, r.row),
+                    pal[k % pal.length], true,
+                    { markers:true, dash:dashFor(k),
+                      dLbls:dLblsAt([{ idx:colNo(x.c2) - colNo(x.c1) }],
+                                    d.kind === "pct" ? "0%" : "#,##0", "t") });
+    });
+    return { title:entry.name, sub:d.unit,
+             plots:'<c:lineChart><c:grouping val="standard"/><c:varyColors val="0"/>'+ls+
+                   '<c:marker val="1"/><c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:lineChart>',
+             catType:"cat", catPos:"b", numFmt:(d.kind === "pct" ? "0%" : "#,##0"), ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+  }
+
+  if (x.type === "linedate"){
+    /* renderTimeline rings the highest and lowest observation and writes
+       "High 3,531" / "Low 1,846" beside them. A number format carries that
+       wording, so the label still reads off the cell. */
+    var tp = (d.ts && d.ts[0] && d.ts[0].points) || [];
+    var lastI = x.r2 - x.r1, marks = [], rings = "";
+    var lbls = [{ idx:lastI, fmt:"#,##0.0" }];
+    if (tp.length === lastI + 1){
+      var hiI = 0, loI = 0;
+      for (i = 1; i < tp.length; i++){
+        if (tp[i][1] > tp[hiI][1]) hiI = i;
+        if (tp[i][1] < tp[loI][1]) loI = i;
+      }
+      marks = [[hiI, '"High "#,##0', "t"], [loI, '"Low "#,##0', "b"]];
+      marks.forEach(function(m){
+        rings += dPtRing(m[0], XINK.primary);
+        if (m[0] !== lastI) lbls.push({ idx:m[0], fmt:m[1], pos:m[2],
+                                        bold:false, colour:"3D3D3D" });
+      });
+    }
+    return { title:entry.name,
+             plots:'<c:lineChart><c:grouping val="standard"/><c:varyColors val="0"/>'+
+                   lineSer(0, cellF(sh, x.valCol, x.headRow),
+                           colF(sh, x.dateCol, x.r1, x.r2),
+                           colF(sh, x.valCol, x.r1, x.r2),
+                           pal[0], true,
+                           { w:emu(4), dPts:rings, dLbls:dLblsAt(lbls, "#,##0.0", "t") })+
+                   '<c:marker val="1"/><c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:lineChart>',
+             sub:d.unit, catType:"date", catPos:"b", numFmt:"#,##0.0", legend:false, spanDays:x.spanDays,
+             ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+  }
+
+  if (x.type === "waterfall"){
+    /* Excel picks its own gridline density and lands far denser than the five
+       the SVG draws, so the major unit comes from the same niceScale the
+       figure used. Only the unit is fixed, not the bounds, so the axis still
+       grows with the numbers. */
+    var wtop = 0, wbot = 0, cum = 0;
+    (d.steps || []).forEach(function(st){
+      cum += (isNum(st.value) ? st.value : 0);
+      if (cum > wtop) wtop = cum;
+      if (cum < wbot) wbot = cum;
+    });
+    if (d.total && isNum(d.total.value) && d.total.value > wtop) wtop = d.total.value;
+    var wsc = niceScale(Math.min(0, wbot), wtop, 5);
+    var wUnit = (wsc && wsc.ticks && wsc.ticks.length > 1) ? (wsc.ticks[1] - wsc.ticks[0]) : null;
+    return { ex:true, title:entry.name, sub:d.unit, n:(x.subtotal + 1), subtotal:x.subtotal,
+             majorUnit:wUnit,
+             catF: colF(sh, x.labelCol, x.r1, x.r2),
+             valF: colF(sh, x.valCol, x.r1, x.r2), axBase: n };
+  }
+
+  if (x.type === "range"){
+    if (!x.spanCol) return null;   // no span column on the sheet, so no formula-only bar
+    // the classic football-field trick: an invisible bar to the low value,
+    // then the Delta column drawn on top of it. Both are live cell ranges.
+    /* renderRange writes the low just left of each bar and the high just
+       right of it. The invisible base bar IS the low, so it labels itself at
+       its own end, which lands left of the visible bar.
+
+       A stacked segment can only take a label inside itself, so the high
+       cannot be labelled from the Delta bar. It gets a second bar group of
+       its own instead: one clustered, fill-less bar running 0 to High, drawn
+       over the same categories and carrying nothing but an outEnd label. The
+       number is that series' own value, so it formats like the low and needs
+       no value-from-cells extension. */
+    var cats = colF(sh, x.labelCol, x.r1, x.r2);
+    var base = barSer(0, null, cats, colF(sh, x.lowCol, x.r1, x.r2), null, false,
+                      { dLbls:dLblsVal("#,##0", "inEnd", XINK.muted, false) });
+    var span = barSer(1, null, cats, colF(sh, x.spanCol, x.r1, x.r2), pal[0], false, {});
+    var highGrp = "";
+    if (x.highCol){
+      highGrp = '<c:barChart><c:barDir val="bar"/><c:grouping val="clustered"/><c:varyColors val="0"/>'+
+                barSer(2, null, cats, colF(sh, x.highCol, x.r1, x.r2), null, false,
+                       { dLbls:dLblsVal("#,##0", "outEnd", XINK.primary, true) })+
+                '<c:gapWidth val="55"/><c:overlap val="100"/>'+
+                '<c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:barChart>';
+    }
+    return { title:entry.name, sub:d.unit,
+             plots:'<c:barChart><c:barDir val="bar"/><c:grouping val="stacked"/><c:varyColors val="0"/>'+
+                   base + span + '<c:gapWidth val="55"/><c:overlap val="100"/>'+
+                   '<c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:barChart>'+ highGrp,
+             catType:"cat", catPos:"l", numFmt:"#,##0", legend:false, ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+  }
+  return null;
+}
+
+/* Excel's loader rejects a chartEx part that has no chartStyle/chartColorStyle
+   relationship -- confirmed empirically: an otherwise-identical chartEx part
+   opened clean once these two parts and their relationships were added, and
+   failed without them. Classic DrawingML charts tolerate their absence; chartEx
+   does not. These are the same generic default-style parts real Excel writes
+   for any chart (style id 395, a 6-color accent cycle) -- copied verbatim from
+   a real Excel-authored file, not chart-specific, safe to reuse for every
+   chartEx part Charter writes. */
+var CHARTEX_STYLE_XML = '<cs:chartStyle xmlns:cs="http://schemas.microsoft.com/office/drawing/2012/chartStyle" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" id="395"><cs:axisTitle><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:axisTitle><cs:categoryAxis><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr><cs:defRPr sz="900"/></cs:categoryAxis><cs:chartArea mods="allowNoFillOverride allowNoLineOverride"><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="bg1"/></a:solidFill><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr><cs:defRPr sz="1000"/></cs:chartArea><cs:dataLabel><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:dataLabel><cs:dataLabelCallout><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="dk1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="lt1"/></a:solidFill><a:ln><a:solidFill><a:schemeClr val="dk1"><a:lumMod val="25000"/><a:lumOff val="75000"/></a:schemeClr></a:solidFill></a:ln></cs:spPr><cs:defRPr sz="900"/><cs:bodyPr rot="0" spcFirstLastPara="1" vertOverflow="clip" horzOverflow="clip" vert="horz" wrap="square" lIns="36576" tIns="18288" rIns="36576" bIns="18288" anchor="ctr" anchorCtr="1"><a:spAutoFit/></cs:bodyPr></cs:dataLabelCallout><cs:dataPoint><cs:lnRef idx="0"/><cs:fillRef idx="0"><cs:styleClr val="auto"/></cs:fillRef><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></cs:spPr></cs:dataPoint><cs:dataPoint3D><cs:lnRef idx="0"/><cs:fillRef idx="0"><cs:styleClr val="auto"/></cs:fillRef><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="phClr"/></a:solidFill></cs:spPr></cs:dataPoint3D><cs:dataPointLine><cs:lnRef idx="0"><cs:styleClr val="auto"/></cs:lnRef><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="28575" cap="rnd"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:round/></a:ln></cs:spPr></cs:dataPointLine><cs:dataPointMarker><cs:lnRef idx="0"/><cs:fillRef idx="0"><cs:styleClr val="auto"/></cs:fillRef><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:ln w="9525"><a:solidFill><a:schemeClr val="lt1"/></a:solidFill></a:ln></cs:spPr></cs:dataPointMarker><cs:dataPointMarkerLayout symbol="circle" size="5"/><cs:dataPointWireframe><cs:lnRef idx="0"><cs:styleClr val="auto"/></cs:lnRef><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="28575" cap="rnd"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:round/></a:ln></cs:spPr></cs:dataPointWireframe><cs:dataTable><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:spPr><a:ln w="9525"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill></a:ln></cs:spPr><cs:defRPr sz="900"/></cs:dataTable><cs:downBar><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="dk1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="dk1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></a:solidFill><a:ln w="9525"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></a:solidFill></a:ln></cs:spPr></cs:downBar><cs:dropLine><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="35000"/><a:lumOff val="65000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:dropLine><cs:errorBar><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:errorBar><cs:floor><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef></cs:floor><cs:gridlineMajor><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:gridlineMajor><cs:gridlineMinor><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:gridlineMinor><cs:hiLoLine><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="75000"/><a:lumOff val="25000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:hiLoLine><cs:leaderLine><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="35000"/><a:lumOff val="65000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr></cs:leaderLine><cs:legend><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:legend><cs:plotArea mods="allowNoFillOverride allowNoLineOverride"><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef></cs:plotArea><cs:plotArea3D mods="allowNoFillOverride allowNoLineOverride"><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef></cs:plotArea3D><cs:seriesAxis><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat" cmpd="sng" algn="ctr"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill><a:round/></a:ln></cs:spPr><cs:defRPr sz="900"/></cs:seriesAxis><cs:seriesLine><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="9525" cap="flat"><a:solidFill><a:srgbClr val="D9D9D9"/></a:solidFill><a:round/></a:ln></cs:spPr></cs:seriesLine><cs:title><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="1400"/></cs:title><cs:trendline><cs:lnRef idx="0"><cs:styleClr val="auto"/></cs:lnRef><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef><cs:spPr><a:ln w="19050" cap="rnd"><a:solidFill><a:schemeClr val="phClr"/></a:solidFill><a:prstDash val="sysDash"/></a:ln></cs:spPr></cs:trendline><cs:trendlineLabel><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:trendlineLabel><cs:upBar><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="dk1"/></cs:fontRef><cs:spPr><a:solidFill><a:schemeClr val="lt1"/></a:solidFill><a:ln w="9525"><a:solidFill><a:schemeClr val="tx1"><a:lumMod val="15000"/><a:lumOff val="85000"/></a:schemeClr></a:solidFill></a:ln></cs:spPr></cs:upBar><cs:valueAxis><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"><a:lumMod val="65000"/><a:lumOff val="35000"/></a:schemeClr></cs:fontRef><cs:defRPr sz="900"/></cs:valueAxis><cs:wall><cs:lnRef idx="0"/><cs:fillRef idx="0"/><cs:effectRef idx="0"/><cs:fontRef idx="minor"><a:schemeClr val="tx1"/></cs:fontRef></cs:wall></cs:chartStyle>';
+var CHARTEX_COLORS_XML = '<cs:colorStyle xmlns:cs="http://schemas.microsoft.com/office/drawing/2012/chartStyle" xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" meth="cycle" id="10"><a:schemeClr val="accent1"/><a:schemeClr val="accent2"/><a:schemeClr val="accent3"/><a:schemeClr val="accent4"/><a:schemeClr val="accent5"/><a:schemeClr val="accent6"/><cs:variation/><cs:variation><a:lumMod val="60000"/></cs:variation><cs:variation><a:lumMod val="80000"/><a:lumOff val="20000"/></cs:variation><cs:variation><a:lumMod val="80000"/></cs:variation><cs:variation><a:lumMod val="60000"/><a:lumOff val="40000"/></cs:variation><cs:variation><a:lumMod val="50000"/></cs:variation><cs:variation><a:lumMod val="70000"/><a:lumOff val="30000"/></cs:variation><cs:variation><a:lumMod val="70000"/></cs:variation><cs:variation><a:lumMod val="50000"/><a:lumOff val="50000"/></cs:variation></cs:colorStyle>';
+
+/* An extended chart part (chartex, used for the waterfall). Unlike ordinary
+   DrawingML charts, a chartEx series can't put a live cell range directly in
+   <cx:f> -- Excel's own writer always routes it through a hidden workbook-level
+   defined name ("_xlchart.vN.0"/".1") and puts only that name in <cx:f>. The
+   caller (writeChartsIntoWorkbook) assigns spec.xlchartV and adds the matching
+   definedName entries to workbook.xml; this function just references them.
+   Excel marks the total bar via <cx:subtotals>. */
+function chartExXml(spec){
+  var pal = palette();
+  var pts = "";
+  for (var i=0;i<spec.n;i++){
+    pts += '<cx:dataPt idx="'+i+'"><cx:spPr><a:solidFill><a:srgbClr val="'+
+           (i === spec.subtotal ? "3D3D3D" : pal[i % pal.length].replace("#","").toUpperCase())+
+           '"/></a:solidFill></cx:spPr></cx:dataPt>';
+  }
+  // give every chartEx part its own data/axis id space, mirroring the axId
+  // uniqueness fix applied to the regular DrawingML charts (chartXml) -- Excel's
+  // loader has been observed to reject a workbook when multiple chart parts
+  // reuse identical id values even though the schema scopes them per-part.
+  var base = spec.axBase || 0;
+  var dataId = base, axCat = base, axVal = base + 1;
+  return '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'+
+    '<cx:chartSpace xmlns:cx="http://schemas.microsoft.com/office/drawing/2014/chartex" '+
+    'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" '+
+    'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'+
+    '<cx:chartData><cx:data id="'+dataId+'">'+
+      '<cx:strDim type="cat"><cx:f>_xlchart.v'+spec.xlchartV+'.0</cx:f></cx:strDim>'+
+      '<cx:numDim type="val"><cx:f>_xlchart.v'+spec.xlchartV+'.1</cx:f></cx:numDim>'+
+    '</cx:data></cx:chartData>'+
+    '<cx:chart>'+
+      '<cx:title><cx:tx><cx:rich><a:bodyPr/><a:lstStyle/>'+
+      '<a:p><a:pPr algn="l">'+defRPr(XSZ.title, true, XINK.primary)+'</a:pPr>'+
+      '<a:r>'+rPrRun(XSZ.title, true, XINK.primary)+'<a:t>'+xesc(spec.title)+'</a:t></a:r></a:p>'+
+      (spec.sub
+        ? '<a:p><a:pPr algn="l">'+defRPr(XSZ.sub, false, XINK.muted)+'</a:pPr>'+
+          '<a:r>'+rPrRun(XSZ.sub, false, XINK.muted)+'<a:t>'+xesc(spec.sub)+'</a:t></a:r></a:p>'
+        : '')+
+      '</cx:rich></cx:tx></cx:title>'+
+      '<cx:plotArea><cx:plotAreaRegion>'+
+        '<cx:series layoutId="waterfall" uniqueId="'+guid()+'">'+
+        pts +
+        '<cx:dataLabels pos="outEnd">'+
+          '<cx:txPr><a:bodyPr/><a:lstStyle/><a:p><a:pPr>'+
+          defRPr(XSZ.label, true, XINK.primary)+'</a:pPr><a:endParaRPr lang="en-GB"/></a:p></cx:txPr>'+
+        '</cx:dataLabels>'+
+        '<cx:dataId val="'+dataId+'"/>'+
+        '<cx:layoutPr><cx:subtotals><cx:idx val="'+spec.subtotal+'"/></cx:subtotals></cx:layoutPr>'+
+        '</cx:series>'+
+      '</cx:plotAreaRegion>'+
+      '<cx:axis id="'+axCat+'"><cx:catScaling gapWidth="0.5"/><cx:tickLabels/>'+
+        '<cx:spPr><a:ln w="'+emu(3)+'"><a:solidFill><a:srgbClr val="'+XINK.axis+'"/></a:solidFill></a:ln></cx:spPr>'+
+        '<cx:txPr><a:bodyPr/><a:lstStyle/><a:p><a:pPr>'+
+        defRPr(XSZ.axis, false, XINK.muted)+'</a:pPr><a:endParaRPr lang="en-GB"/></a:p></cx:txPr>'+
+      '</cx:axis>'+
+      '<cx:axis id="'+axVal+'"><cx:valScaling'+
+        (isNum(spec.majorUnit) && spec.majorUnit > 0 ? ' majorUnit="'+spec.majorUnit+'"' : '')+'/>'+
+        '<cx:majorGridlines><cx:spPr><a:ln w="'+emu(2)+'">'+
+        '<a:solidFill><a:srgbClr val="'+XINK.grid+'"/></a:solidFill></a:ln></cx:spPr></cx:majorGridlines>'+
+        '<cx:tickLabels/>'+
+        '<cx:spPr><a:ln><a:noFill/></a:ln></cx:spPr>'+
+        '<cx:txPr><a:bodyPr/><a:lstStyle/><a:p><a:pPr>'+
+        defRPr(XSZ.axis, false, XINK.muted)+'</a:pPr><a:endParaRPr lang="en-GB"/></a:p></cx:txPr>'+
+      '</cx:axis>'+
+      '</cx:plotArea>'+
+    '</cx:chart>'+
+    '<cx:spPr><a:solidFill><a:srgbClr val="FFFFFF"/></a:solidFill><a:ln><a:noFill/></a:ln></cx:spPr>'+
+    '<cx:txPr><a:bodyPr/><a:lstStyle/><a:p><a:pPr>'+
+    defRPr(XSZ.axis, false, XINK.muted)+'</a:pPr><a:endParaRPr lang="en-GB"/></a:p></cx:txPr>'+
+    '</cx:chartSpace>';
+}
+
+/* ---------------- drawing part ---------------- */
+function guid(){
+  var h = "0123456789ABCDEF", s = "";
+  for (var i=0;i<32;i++){
+    if (i===8||i===12||i===16||i===20) s += "-";
+    s += h[Math.floor(Math.random()*16)];
+  }
+  return "{"+s.slice(0,8)+"-"+s.slice(9,13)+"-"+s.slice(14,18)+"-"+s.slice(19,23)+"-"+s.slice(24)+"}";
+}
+/* mirrors, element for element, the cNvPr/cNvGraphicFramePr shape Excel itself
+   writes for a chart graphicFrame — confirmed against a real Excel-authored
+   drawing part rather than schema reading alone */
+function cNvPr(id, name){
+  return '<xdr:cNvPr id="'+id+'" name="'+name+'">'+
+    '<a:extLst><a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">'+
+    '<a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="'+guid()+'"/>'+
+    '</a:ext></a:extLst></xdr:cNvPr>';
+}
+/* A twoCellAnchor sizes the chart from the column widths it happens to span,
+   which makes the figure whatever width the sheet is. The standard is a fixed
+   physical width, so charts go in as oneCellAnchor with an explicit extent in
+   EMU taken from the same wmm/hmm the SVG was drawn at. */
+function anchor(id, n, fromCol, fromRow, cx, cy, rid){
+  return '<xdr:oneCellAnchor>'+
+    '<xdr:from><xdr:col>'+fromCol+'</xdr:col><xdr:colOff>0</xdr:colOff>'+
+    '<xdr:row>'+fromRow+'</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from>'+
+    '<xdr:ext cx="'+cx+'" cy="'+cy+'"/>'+
+    '<xdr:graphicFrame macro="">'+
+      '<xdr:nvGraphicFramePr>'+cNvPr(id, "Chart "+(n+1))+
+      '<xdr:cNvGraphicFramePr><a:graphicFrameLocks/></xdr:cNvGraphicFramePr></xdr:nvGraphicFramePr>'+
+      '<xdr:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></xdr:xfrm>'+
+      '<a:graphic><a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/chart">'+
+      '<c:chart xmlns:c="http://schemas.openxmlformats.org/drawingml/2006/chart" '+
+      'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="'+rid+'"/>'+
+      '</a:graphicData></a:graphic>'+
+    '</xdr:graphicFrame><xdr:clientData/></xdr:oneCellAnchor>';
+}
+
+/* the source note the SVG prints under every figure, as a borderless text box
+   the same width as the chart sitting directly beneath it */
+function noteAnchor(id, fromCol, fromRow, cx, text){
+  var cy = Math.round(200000 * mediaK());
+  return '<xdr:oneCellAnchor>'+
+    '<xdr:from><xdr:col>'+fromCol+'</xdr:col><xdr:colOff>0</xdr:colOff>'+
+    '<xdr:row>'+fromRow+'</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from>'+
+    '<xdr:ext cx="'+cx+'" cy="'+cy+'"/>'+
+    '<xdr:sp macro="" textlink=""><xdr:nvSpPr>'+cNvPr(id, "Source "+id)+
+    '<xdr:cNvSpPr txBox="1"/></xdr:nvSpPr>'+
+    '<xdr:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></a:xfrm>'+
+    '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom><a:noFill/><a:ln><a:noFill/></a:ln></xdr:spPr>'+
+    '<xdr:txBody><a:bodyPr wrap="square" lIns="0" tIns="0" rIns="0" bIns="0" anchor="t"/><a:lstStyle/>'+
+    '<a:p><a:pPr algn="l"/><a:r>'+rPrRun(XS(TYPE.source), false, XINK.muted)+
+    '<a:t>'+xesc(text)+'</a:t></a:r></a:p></xdr:txBody>'+
+    '</xdr:sp><xdr:clientData/></xdr:oneCellAnchor>';
+}
+
+function anchorEx(id, n, fromCol, fromRow, cx, cy, rid){
+  var frame = '<xdr:graphicFrame macro="">'+
+    '<xdr:nvGraphicFramePr>'+cNvPr(id, "Chart "+(n+1))+
+    '<xdr:cNvGraphicFramePr/></xdr:nvGraphicFramePr>'+
+    '<xdr:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></xdr:xfrm>'+
+    '<a:graphic><a:graphicData uri="http://schemas.microsoft.com/office/drawing/2014/chartex">'+
+    '<cx:chart xmlns:cx="http://schemas.microsoft.com/office/drawing/2014/chartex" '+
+    'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships" r:id="'+rid+'"/>'+
+    '</a:graphicData></a:graphic></xdr:graphicFrame>';
+  var fallback = '<xdr:sp macro="" textlink=""><xdr:nvSpPr><xdr:cNvPr id="0" name=""/>'+
+    '<xdr:cNvSpPr><a:spLocks noTextEdit="1"/></xdr:cNvSpPr></xdr:nvSpPr>'+
+    '<xdr:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="'+cx+'" cy="'+cy+'"/></a:xfrm>'+
+    '<a:prstGeom prst="rect"><a:avLst/></a:prstGeom>'+
+    '<a:solidFill><a:prstClr val="white"/></a:solidFill></xdr:spPr>'+
+    '<xdr:txBody><a:bodyPr vertOverflow="clip" horzOverflow="clip"/><a:lstStyle/><a:p><a:r>'+
+    '<a:rPr lang="en-GB" sz="1100"/><a:t>This waterfall needs Excel 2016 or later.</a:t>'+
+    '</a:r></a:p></xdr:txBody></xdr:sp>';
+  return '<xdr:oneCellAnchor>'+
+    '<xdr:from><xdr:col>'+fromCol+'</xdr:col><xdr:colOff>0</xdr:colOff>'+
+    '<xdr:row>'+fromRow+'</xdr:row><xdr:rowOff>0</xdr:rowOff></xdr:from>'+
+    '<xdr:ext cx="'+cx+'" cy="'+cy+'"/>'+
+    '<mc:AlternateContent xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006">'+
+    '<mc:Choice xmlns:cx1="http://schemas.microsoft.com/office/drawing/2015/9/8/chartex" Requires="cx1">'+
+    frame + '</mc:Choice><mc:Fallback>' + fallback + '</mc:Fallback></mc:AlternateContent>'+
+    '<xdr:clientData/></xdr:oneCellAnchor>';
+}
+
+/* ---------------- assemble the new workbook ---------------- */
+async function writeChartsIntoWorkbook(){
+  if (!model || !model.sheet || !model.sheet.raw) throw new Error("Charts can only be written back into a workbook you uploaded.");
+  var sheet = model.sheet, dec = new TextDecoder();
+  var files = await unzip(sheet.raw);
+
+  // which figures can become native charts
+  var specs = [], skipped = [];
+  figCache.forEach(function(f){
+    var sp = specFor(f, sheet.name, specs.length);
+    if (sp){ sp.wmm = f.wmm; sp.hmm = f.hmm; specs.push(sp); } else skipped.push(f.name);
+  });
+  if (!specs.length) throw new Error("None of the figures on screen can be rebuilt from cells in this workbook.");
+
+  var sheetPart = sheet.part;                                  // xl/worksheets/sheetN.xml
+  var relPart = sheetPart.replace(/worksheets\/(sheet\d+)\.xml$/, "worksheets/_rels/$1.xml.rels");
+  var sheetXml = dec.decode(await inflate(files[sheetPart].bytes, files[sheetPart].method));
+  var relXml = files[relPart]
+    ? dec.decode(await inflate(files[relPart].bytes, files[relPart].method))
+    : '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"/>';
+  relXml = openTag(relXml, "Relationships");
+
+  // ChartEx series (waterfall etc.) don't take a live cell formula in <cx:f> the
+  // way ordinary DrawingML charts do -- Excel's own writer routes them through a
+  // hidden workbook-level defined name (_xlchart.vN.0 / .1) that the chartEx part
+  // references indirectly. Confirmed by inspecting a real Excel-authored chartEx
+  // part: <cx:f>_xlchart.v1.0</cx:f> paired with a workbook.xml definedName
+  // named "_xlchart.v1.0" holding the actual range. Skipping this indirection is
+  // what was corrupting every workbook containing a waterfall chart.
+  var wbPart = "xl/workbook.xml";
+  var wbXml = dec.decode(await inflate(files[wbPart].bytes, files[wbPart].method));
+  var nextXlchartV = 1;
+  { var xvRe = /_xlchart\.v(\d+)\./g, xvm;
+    while ((xvm = xvRe.exec(wbXml))) nextXlchartV = Math.max(nextXlchartV, parseInt(xvm[1],10) + 1); }
+
+  // pick chart part numbers that do not collide with anything already there
+  var nextChart = 1, nextEx = 1;
+  Object.keys(files).forEach(function(n){
+    var m = /^xl\/charts\/chart(\d+)\.xml$/.exec(n);
+    if (m) nextChart = Math.max(nextChart, parseInt(m[1],10) + 1);
+    var mx = /^xl\/charts\/chartEx(\d+)\.xml$/.exec(n);
+    if (mx) nextEx = Math.max(nextEx, parseInt(mx[1],10) + 1);
+  });
+
+  // reuse the sheet's existing drawing if it has one, otherwise make a new part
+  var drawPart, drawXml, drawRelXml, drawRid;
+  var dm = /<drawing[^>]*r:id="([^"]+)"/.exec(sheetXml);
+  if (dm){
+    drawRid = dm[1];
+    var rm = new RegExp('<Relationship[^>]*Id="'+drawRid+'"[^>]*Target="([^"]+)"').exec(relXml);
+    if (!rm) throw new Error("The sheet points at a drawing that isn't in the file.");
+    drawPart = ("xl/worksheets/" + rm[1]).replace(/[^\/]+\/\.\.\//g, "");
+    var drawXmlText = dec.decode(await inflate(files[drawPart].bytes, files[drawPart].method));
+    var drp = drawPart.replace(/drawings\/(drawing\d+)\.xml$/, "drawings/_rels/$1.xml.rels");
+    drawRelXml = files[drp]
+      ? dec.decode(await inflate(files[drp].bytes, files[drp].method))
+      : '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"/>';
+    drawRelXml = openTag(drawRelXml, "Relationships");
+    drawXmlText = openTag(drawXmlText, "xdr:wsDr");
+    var drpName = drp;
+    drawXml = { part:drawPart, xml:drawXmlText, relPart:drpName, rel:drawRelXml, fresh:false };
+  } else {
+    var dn = 1;
+    Object.keys(files).forEach(function(n){
+      var m2 = /^xl\/drawings\/drawing(\d+)\.xml$/.exec(n);
+      if (m2) dn = Math.max(dn, parseInt(m2[1],10) + 1);
+    });
+    drawPart = "xl/drawings/drawing" + dn + ".xml";
+    drawXml = { part:drawPart,
+      xml:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n'+
+          '<xdr:wsDr xmlns:xdr="http://schemas.openxmlformats.org/drawingml/2006/spreadsheetDrawing" '+
+          'xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"></xdr:wsDr>',
+      relPart:"xl/drawings/_rels/drawing"+dn+".xml.rels",
+      rel:'<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"/>',
+      fresh:true };
+    // a free rId on the sheet
+    var maxR = 0, re = /Id="rId(\d+)"/g, mm;
+    while ((mm = re.exec(relXml))) maxR = Math.max(maxR, parseInt(mm[1],10));
+    drawRid = "rId" + (maxR + 1);
+    relXml = relXml.replace(/<\/Relationships>/,
+      '<Relationship Id="'+drawRid+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/drawing" Target="../drawings/drawing'+dn+'.xml"/></Relationships>');
+    // r:id is only legal if the worksheet actually declares that namespace —
+    // some writers (openpyxl among them) leave it off when nothing needs it
+    if (!/<worksheet[^>]*xmlns:r=/.test(sheetXml)){
+      sheetXml = sheetXml.replace(/<worksheet\b/,
+        '<worksheet xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"');
+    }
+    // <drawing> lives at the end of the worksheet
+    sheetXml = sheetXml.replace(/<\/worksheet>\s*$/, '<drawing r:id="'+drawRid+'"/></worksheet>');
+  }
+
+  // charts are parked clear of the data, stacked down the first free column
+  var startCol = sheet.maxCol + 1, ROW_EMU = 190500, GAP = 2, row = 0;
+  var newParts = [], anchors = "", dRelAdd = "";
+  var dMaxR = 0, re2 = /Id="rId(\d+)"/g, m3;
+  while ((m3 = re2.exec(drawXml.rel))) dMaxR = Math.max(dMaxR, parseInt(m3[1],10));
+  var idMax = 1, reId = /<xdr:cNvPr id="(\d+)"/g, m4;
+  while ((m4 = reId.exec(drawXml.xml))) idMax = Math.max(idMax, parseInt(m4[1],10));
+  var existingAnchors = (drawXml.xml.match(/<xdr:(one|two)CellAnchor/g) || []).length;
+
+  var cN = 0, xN = 0, dnAdd = "";
+  var idSeq = idMax;
+  function nextId(){ return ++idSeq; }
+  specs.forEach(function(sp, k){
+    var rid = "rId" + (dMaxR + k + 1);
+    var cx = Math.round((sp.wmm || STD.wmm) * 36000);
+    var cy = Math.round((sp.hmm || 98) * 36000);
+    var rows = Math.ceil(cy / ROW_EMU);
+    if (sp.ex){
+      var xnum = nextEx + xN; xN++;
+      var v = nextXlchartV++;
+      sp.xlchartV = v;
+      dnAdd += '<definedName name="_xlchart.v'+v+'.0" hidden="1">'+xesc(sp.catF)+'</definedName>'+
+               '<definedName name="_xlchart.v'+v+'.1" hidden="1">'+xesc(sp.valF)+'</definedName>';
+      var xPart = "xl/charts/chartEx" + xnum + ".xml";
+      var stylePart = "xl/charts/style" + xnum + ".xml";
+      var colorsPart = "xl/charts/colors" + xnum + ".xml";
+      var xRelsPart = "xl/charts/_rels/chartEx" + xnum + ".xml.rels";
+      newParts.push({ part:newPart(xPart, chartExXml(sp)), kind:"chartEx" });
+      // required or Excel discards the whole chartEx part -- see note on the constants above
+      newParts.push({ part:newPart(stylePart, CHARTEX_STYLE_XML), kind:"chartStyle" });
+      newParts.push({ part:newPart(colorsPart, CHARTEX_COLORS_XML), kind:"chartColors" });
+      newParts.push({ part:newPart(xRelsPart,
+        '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'+
+        '<Relationship Id="rId1" Type="http://schemas.microsoft.com/office/2011/relationships/chartStyle" Target="style'+xnum+'.xml"/>'+
+        '<Relationship Id="rId2" Type="http://schemas.microsoft.com/office/2011/relationships/chartColorStyle" Target="colors'+xnum+'.xml"/>'+
+        '</Relationships>'), kind:"rels" });
+      dRelAdd += '<Relationship Id="'+rid+'" Type="http://schemas.microsoft.com/office/2014/relationships/chartEx" Target="../charts/chartEx'+xnum+'.xml"/>';
+      anchors += anchorEx(nextId(), existingAnchors + k, startCol, row, cx, cy, rid);
+    } else {
+      var num = nextChart + cN; cN++;
+      var cPart = "xl/charts/chart" + num + ".xml";
+      newParts.push({ part:newPart(cPart, chartXml(sp)), kind:"chart" });
+      dRelAdd += '<Relationship Id="'+rid+'" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart" Target="../charts/chart'+num+'.xml"/>';
+      anchors += anchor(nextId(), existingAnchors + k, startCol, row, cx, cy, rid);
+    }
+    if (STD.srcnote) anchors += noteAnchor(nextId(), startCol, row + rows, cx, "Source: " + STD.srcnote);
+    row += rows + GAP;
+  });
+
+  drawXml.rel = openTag(drawXml.rel, "Relationships").replace(/<\/Relationships>/, dRelAdd + '</Relationships>');
+  drawXml.xml = drawXml.xml.replace(/<\/xdr:wsDr>\s*$/, anchors + '</xdr:wsDr>');
+
+  // content types
+  var ctName = "[Content_Types].xml";
+  var ct = dec.decode(await inflate(files[ctName].bytes, files[ctName].method));
+  var ctAdd = "";
+  if (ct.indexOf('PartName="/'+drawXml.part+'"') < 0){
+    ctAdd += '<Override PartName="/'+drawXml.part+'" ContentType="application/vnd.openxmlformats-officedocument.drawing+xml"/>';
+  }
+  var CT_BY_KIND = {
+    chart:      "application/vnd.openxmlformats-officedocument.drawingml.chart+xml",
+    chartEx:    "application/vnd.ms-office.chartex+xml",
+    chartStyle: "application/vnd.ms-office.chartstyle+xml",
+    chartColors:"application/vnd.ms-office.chartcolorstyle+xml"
+    // "rels" parts use the package-wide Default Extension="rels" -- no Override needed
+  };
+  newParts.forEach(function(np){
+    var ctype = CT_BY_KIND[np.kind];
+    if (ctype) ctAdd += '<Override PartName="/'+np.part.name+'" ContentType="'+ctype+'"/>';
+  });
+  ct = openTag(ct, "Types").replace(/<\/Types>/, ctAdd + '</Types>');
+
+  // wire the waterfall/chartEx defined names into workbook.xml, if any were needed
+  if (dnAdd){
+    if (/<definedNames\b/.test(wbXml)){
+      wbXml = openTag(wbXml, "definedNames").replace(/<\/definedNames>/, dnAdd + '</definedNames>');
+    } else {
+      // definedNames belongs right after </sheets> in document order (CT_Workbook)
+      wbXml = wbXml.replace(/<\/sheets>/, '</sheets><definedNames>' + dnAdd + '</definedNames>');
+    }
+  }
+
+  // rebuild: original entries pass through untouched unless we rewrote them
+  var replaced = {};
+  replaced[ctName] = ct;
+  replaced[sheetPart] = sheetXml;
+  replaced[relPart] = relXml;
+  replaced[drawXml.part] = drawXml.xml;
+  replaced[drawXml.relPart] = drawXml.rel;
+  if (dnAdd) replaced[wbPart] = wbXml;
+
+  var entries = [];
+  Object.keys(files).forEach(function(name){
+    if (replaced[name] !== undefined){
+      entries.push(newPart(name, replaced[name]));
+      delete replaced[name];
+    } else {
+      var f = files[name];
+      entries.push({ name:name, bytes:f.bytes, method:f.method, crc:f.crc, usize:f.usize });
+    }
+  });
+  Object.keys(replaced).forEach(function(name){ entries.push(newPart(name, replaced[name])); });
+  newParts.forEach(function(np){ entries.push(np.part); });
+
+  return { bytes: zipWrite(entries), count: specs.length, skipped: skipped,
+           where: colName(startCol + 1) + "1" };
+}
+
+/* ------------------------- export ------------------------- */
+function toast(msg){
+  var t = document.getElementById("toast");
+  t.textContent = msg; t.hidden = false;
+  clearTimeout(toast._t); toast._t = setTimeout(function(){ t.hidden = true; }, 2600);
+}
+async function svgToPngBlob(svg, wmm, hmm, dpi){
+  var wpx = Math.round(wmm/25.4*dpi), hpx = Math.round(hmm/25.4*dpi);
+  var s = svg.replace(/width="[^"]*mm"/, 'width="'+wpx+'"').replace(/height="[^"]*mm"/, 'height="'+hpx+'"');
+  var url = URL.createObjectURL(new Blob([s], {type:"image/svg+xml;charset=utf-8"}));
+  try {
+    var img = new Image();
+    await new Promise(function(res, rej){ img.onload = res; img.onerror = function(){ rej(new Error("render failed")); }; img.src = url; });
+    var c = document.createElement("canvas"); c.width = wpx; c.height = hpx;
+    var ctx = c.getContext("2d");
+    ctx.fillStyle = "#ffffff"; ctx.fillRect(0,0,wpx,hpx);
+    ctx.drawImage(img, 0, 0, wpx, hpx);
+    return await new Promise(function(r){ c.toBlob(r, "image/png"); });
+  } finally { URL.revokeObjectURL(url); }
+}
+function slug(s){ return String(s).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"").slice(0,50) || "figure"; }
+
+/* an ordinary browser download — the path when running as a local file,
+   and the fallback for file types the host's save surface will not take */
+function browserSave(filename, data){
+  var blob = (data instanceof Blob) ? data : new Blob([data], { type:"image/svg+xml;charset=utf-8" });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement("a");
+  a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 5000);
+}
+async function save(filename, data, altMsg){
+  var dl = null;
+  try { if (window.claude && window.claude.use) dl = await window.claude.use("downloads"); } catch(e){ dl = null; }
+  if (!dl){
+    try { browserSave(filename, data); toast("Saved " + filename); }
+    catch(e2){ toast(altMsg || "Saving is not available in this view. Use Copy SVG instead."); }
+    return;
+  }
+  try { await dl.save({ filename:filename, data:data }); toast("Saved " + filename); }
+  catch(err){
+    var code = err && err.code;
+    if (code === "declined") return;
+    if (code === "rejected_extension" || code === "extension_not_enabled" || code === "unavailable"){
+      // e.g. .xlsx, which the host save surface does not accept
+      try { browserSave(filename, data); toast("Saved " + filename); return; }
+      catch(e3){ toast("This view will not save a ." + (filename.split(".").pop()) + " file."); return; }
+    }
+    if (code === "too_large") toast("File too large. Lower the figure width.");
+    else if (code === "rate_limited") toast("One save at a time. Try again in a moment.");
+    else toast(altMsg || "Could not save. Use Copy SVG instead.");
+  }
+}
+
+document.getElementById("figs").addEventListener("click", async function(e){
+  var btn = e.target.closest("button[data-act]"); if(!btn) return;
+  var figEl = btn.closest("figure"); if(!figEl) return;
+  var i = Number(figEl.dataset.i), F = figCache[i]; if(!F) return;
+  var act = btn.dataset.act;
+
+  if (act === "table"){
+    var t = figEl.querySelector(".dtable");
+    t.hidden = !t.hidden; btn.textContent = t.hidden ? "Data" : "Hide data";
+    return;
+  }
+  if (act === "copycap"){
+    try { await navigator.clipboard.writeText(F.caption); toast("Caption copied"); } catch(err){ toast("Copy blocked by the browser"); }
+    return;
+  }
+  if (act === "copysvg"){
+    try { await navigator.clipboard.writeText(F.svg); toast("SVG markup copied"); } catch(err){ toast("Copy blocked by the browser"); }
+    return;
+  }
+  if (act === "svg"){ await save(slug(F.name)+".svg", F.svg); return; }
+  if (act === "png"){
+    btn.disabled = true; btn.textContent = "Rendering…";
+    try {
+      var blob = await svgToPngBlob(F.svg, F.wmm, F.hmm, 300);
+      await save(slug(F.name)+"@300dpi.png", blob);
+    } catch(err){ toast("Could not render the PNG. Try SVG instead."); }
+    btn.disabled = false; btn.textContent = "PNG 300 dpi";
+  }
+});
+
+/* ------------------------- controls ------------------------- */
+function wire(id, key, kind){
+  var el = document.getElementById(id);
+  el.addEventListener("input", function(){
+    STD[key] = kind === "num" ? Number(el.value) : el.value;
+    renderApp();
+  });
+}
+wire("wmm","wmm","num"); wire("face","face"); wire("startNo","startNo","num");
+wire("prefix","prefix"); wire("srcnote","srcnote");
+
+/* Switching target restretches the millimetre and takes that medium's default
+   width with it, unless the width has been set by hand. */
+document.querySelectorAll(".seg button[data-med]").forEach(function(b){
+  b.addEventListener("click", function(){
+    var prev = MEDIA[STD.medium];
+    setMedium(b.dataset.med);
+    document.querySelectorAll(".seg button[data-med]").forEach(function(x){ x.setAttribute("aria-pressed", String(x===b)); });
+    if (STD.wmm === prev.wmm){
+      STD.wmm = MEDIA[STD.medium].wmm;
+      document.getElementById("wmm").value = STD.wmm;
+    }
+    renderApp();
+  });
+});
+
+document.querySelectorAll(".seg button[data-ink]").forEach(function(b){
+  b.addEventListener("click", function(){
+    STD.ink = b.dataset.ink;
+    document.querySelectorAll(".seg button[data-ink]").forEach(function(x){ x.setAttribute("aria-pressed", String(x===b)); });
+    renderApp();
+  });
+});
+[["hatch","hatch"],["titleIn","titleIn"],["showprov","showprov"]].forEach(function(pair){
+  var el = document.getElementById(pair[0]);
+  el.addEventListener("click", function(){
+    STD[pair[1]] = !STD[pair[1]];
+    el.setAttribute("aria-pressed", String(STD[pair[1]]));
+    renderApp();
+  });
+});
+
+document.getElementById("themeBtn").addEventListener("click", function(){
+  var cur = document.documentElement.getAttribute("data-theme");
+  var next = cur === "dark" ? "light" : cur === "light" ? "dark" : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
+  document.documentElement.setAttribute("data-theme", next);
+});
+
+/* ------------------------- tabs: Charts / How it works ------------------------- */
+document.querySelectorAll(".tabs button").forEach(function(btn){
+  btn.addEventListener("click", function(){
+    var which = btn.dataset.tab;
+    document.querySelectorAll(".tabs button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.tab === which)); });
+    document.getElementById("toolPanel").hidden = which !== "tool";
+    document.getElementById("guidePanel").hidden = which !== "guide";
+  });
+});
+
+/* ------------------------- source ------------------------- */
+function setSrc(which){
+  document.querySelectorAll(".srcbtn").forEach(function(b){ b.setAttribute("aria-pressed", String(b.dataset.src === which)); });
+}
+function srcinfo(msg, isErr){
+  var el = document.getElementById("srcinfo");
+  el.textContent = msg; el.className = "srcinfo" + (isErr ? " err" : "");
+}
+function describe(m){
+  var nS = 0;
+  m.blocks.forEach(function(b){ if (b.kind==="series") b.groups.forEach(function(g){ nS += g.series.length; }); if (b.kind==="matrix") nS += b.rows.length; if (b.kind==="timeseries") nS += b.series.length; });
+  return m.source + ", " + m.blocks.length + " block" + (m.blocks.length===1?"":"s") + ", " + nS + " series";
+}
+
+document.querySelectorAll(".srcbtn").forEach(function(b){
+  b.addEventListener("click", function(){
+    if (b.dataset.src === "demo"){ model = DEMO; setSrc("demo"); srcinfo(describe(model)); renderApp();
+      xlReady(false, "The demo has no workbook behind it. Open an .xlsx to write charts back."); }
+    else document.getElementById("fileIn").click();
+  });
+});
+function xlReady(on, note){
+  var b0 = document.getElementById("xlOut");
+  b0.disabled = !on;
+  document.getElementById("xlhint").textContent = note;
+}
+document.getElementById("xlOut").addEventListener("click", async function(){
+  var btn = this;
+  btn.disabled = true; btn.textContent = "Writing…";
+  try {
+    var res = await writeChartsIntoWorkbook();
+    var base = (model.source || "workbook").replace(/\.xlsx$/i, "");
+    await save(base + " (charter).xlsx", new Blob([res.bytes],
+      { type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }),
+      "Saving isn't available in this view.");
+    document.getElementById("xlhint").textContent =
+      res.count + " live chart" + (res.count===1?"":"s") + " written, parked at " + res.where +
+      ", each wired to the cells the figure was read from." +
+      (res.skipped.length ? "  Charter left out " + res.skipped.join(", ") +
+        ". The cells behind " + (res.skipped.length===1?"it are":"them are") +
+        " not laid out in a way Excel can chart directly." : "");
+  } catch(err){
+    document.getElementById("xlhint").textContent = err.message || "Could not write the workbook.";
+    toast("Could not write the workbook");
+  }
+  btn.textContent = "Write charts into the workbook";
+  btn.disabled = false;
+});
+
+document.getElementById("resetBtn").addEventListener("click", function(){
+  model = null; figCache = [];
+  document.querySelectorAll(".srcbtn").forEach(function(b){ b.setAttribute("aria-pressed","false"); });
+  document.getElementById("fileIn").value = "";
+  srcinfo("Blank, ready for a workbook.");
+  xlReady(false, "Open an .xlsx to write native charts back into it.");
+  renderApp();
+  toast("Reset, nothing loaded");
+});
+
+document.getElementById("tmplBtn").addEventListener("click", async function(){
+  try {
+    var bytes = b64ToBytes(TEMPLATE_XLSX_B64);
+    await save(TEMPLATE_XLSX_NAME, new Blob([bytes],
+      { type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }),
+      "Saving isn't available in this view.");
+  } catch(err){ toast("Could not download the template"); }
+});
+
+document.getElementById("fileIn").addEventListener("change", async function(e){
+  var file = e.target.files && e.target.files[0]; if(!file) return;
+  srcinfo("Reading " + file.name + "…");
+  try {
+    var buf = await file.arrayBuffer();
+    var sheet = await readXlsx(buf);
+    var m = buildModel(sheet, file.name);
+    model = m; setSrc("file"); srcinfo(describe(m)); renderApp();
+    xlReady(true, "Writes native Excel charts into a copy of " + file.name + ", wired to the same cells.");
+  } catch(err){
+    srcinfo(err.message || "Could not read that workbook.", true);
+  }
+  e.target.value = "";
+});
+
+/* ------------------------- go ------------------------- */
+var VERSION = "2.6";
+try { console.log("Charter v" + VERSION + ", " + SLOTS.length + " figure slots"); } catch(e){}
+var sc0 = document.getElementById("slotcount");
+if (sc0) sc0.textContent = SLOTS.length + " slots";
+var vr0 = document.getElementById("ver");
+if (vr0) vr0.textContent = VERSION;
+var sv0 = document.getElementById("stdver"); if (sv0) sv0.textContent = STANDARD;
+srcinfo(describe(model));
+renderApp();
+})();
+</script>
