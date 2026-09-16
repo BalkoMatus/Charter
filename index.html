@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Charter</title>
-<meta name="description" content="Free browser tool that turns an Excel financial model into consistent charts.">
+<meta name="description" content="Free browser tool that turns an Excel financial model into consistent charts and writes native Excel charts back into the workbook.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Charter | Standardized Charting">
-<meta property="og:description" content="Free browser tool that turns an Excel financial model into consistent charts.">
+<meta property="og:description" content="Free browser tool that turns an Excel financial model into consistent charts and writes native Excel charts back into the workbook.">
 <meta property="og:url" content="https://balkomatus.github.io/Charter/">
 <meta property="og:image" content="https://balkomatus.github.io/Charter/charter-og.png">
 <meta property="og:image:width" content="1200">
@@ -234,6 +236,8 @@ tbody tr:last-child td{border-bottom:none}
 .limitlist li::marker{color:var(--ink-3)}
 @media (max-width:940px){ .guide{padding:20px 16px 60px} }
 </style>
+</head>
+<body>
 
 <header class="topbar">
   <div class="brand">
@@ -2866,3 +2870,5 @@ srcinfo(describe(model));
 renderApp();
 })();
 </script>
+</body>
+</html>
