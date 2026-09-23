@@ -113,24 +113,44 @@ input[type="file"]{display:none}
 .bindrow:first-child{border-top:none}
 .dot{width:7px;height:7px;border-radius:50%;margin-top:6px;background:var(--ok)}
 .dot.off{background:var(--ink-3)}
+.dot.warn{background:var(--warn)}
 .bindrow b{font-weight:600;display:block}
 .bindrow code{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);display:block;line-height:1.45;margin-top:2px}
 .bindrow .miss{color:var(--warn)}
 
-.main{padding:24px 28px 90px;max-width:1120px}
+.main{padding:24px 28px 90px;max-width:1520px}
 .intro{margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--line)}
 .intro h2{font-size:22px;margin-bottom:6px}
 .intro p{font-size:13.5px;color:var(--ink-2);max-width:70ch}
-.figs{display:flex;flex-direction:column;gap:26px}
+/* a dashboard grid: two figures side by side once there is room for both,
+   one column below that. A figure that is not drawn is not in the DOM, so
+   auto-placement closes the gap without anything computing it. */
+.figs{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,520px),1fr));gap:22px;align-items:start}
 figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow)}
 .fighead{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:11px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
 .fighead .t{font-size:13px;font-weight:600}
-.fighead .t span{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);font-weight:400;margin-left:8px;letter-spacing:.06em}
+.fighead .t span{display:block;font-family:var(--mono);font-size:10.5px;color:var(--ink-3);font-weight:400;letter-spacing:.06em;margin-top:1px}
 .figacts{display:flex;gap:6px;flex-wrap:wrap}
 .sheet{padding:20px;display:flex;justify-content:center;align-items:flex-start;gap:18px;flex-wrap:wrap;background:
   repeating-linear-gradient(45deg,transparent,transparent 9px,rgba(128,128,128,.045) 9px,rgba(128,128,128,.045) 18px)}
-.sheet .paper{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.16),0 6px 18px -10px rgba(0,0,0,.3);max-width:100%;min-width:0}
-.sheet svg{display:block;max-width:100%;height:auto}
+.sheet .paper{background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.16),0 6px 18px -10px rgba(0,0,0,.3);width:100%;max-width:760px;min-width:0}
+.sheet svg{display:block;width:100%;height:auto}
+
+/* provenance, folded under each figure: one line with the block and range,
+   the full panel with every value when it is opened */
+.provwrap{border-top:1px solid var(--line)}
+.provwrap > summary{list-style:none;cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:4px 8px;
+  padding:8px 16px;font-size:11.5px;color:var(--ink-2)}
+.provwrap > summary::-webkit-details-marker{display:none}
+.provwrap > summary::before{content:"";width:5px;height:5px;border-right:1.5px solid var(--ink-3);border-bottom:1.5px solid var(--ink-3);
+  transform:rotate(-45deg);margin:0 3px 0 1px;transition:transform .12s}
+.provwrap[open] > summary::before{transform:rotate(45deg)}
+.provwrap > summary:hover{color:var(--accent)}
+.provwrap > summary .plab{margin:0}
+.provwrap > summary .ref{margin-left:0}
+.provwrap .prov{border:none;border-radius:0;background:transparent;padding:2px 16px 14px;columns:2 230px;column-gap:28px}
+.provwrap .pgrp,.provwrap .psrc{break-inside:avoid}
+@media (prefers-reduced-motion:reduce){.provwrap > summary::before{transition:none}}
 
 /* provenance panel — what this figure took off the sheet */
 .prov{flex:0 1 262px;min-width:216px;align-self:stretch;background:var(--surface);border:1px solid var(--line);
@@ -182,9 +202,6 @@ tbody tr:last-child td{border-bottom:none}
 .empty[hidden]{display:none}
 .empty h3{font-size:15px;margin-bottom:6px}
 .empty p{font-size:12.5px;color:var(--ink-3);max-width:46ch;margin:0 auto;line-height:1.6}
-.omit{border:1px dashed var(--line-strong);border-radius:var(--r);padding:14px 16px;background:transparent}
-.omit b{font-size:13px;display:block;margin-bottom:3px}
-.omit p{font-size:12px;color:var(--ink-3)}
 
 .hint{font-size:11.5px;color:var(--ink-3);margin-top:8px;line-height:1.5}
 .xlbtn{width:100%;margin-top:11px;justify-content:center}
@@ -197,7 +214,13 @@ tbody tr:last-child td{border-bottom:none}
 .toast[hidden]{display:none}
 #measure{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;opacity:0}
 
+.setbtn{display:none}
+/* on a phone the figures come first; the settings open from the header */
 @media (max-width:940px){
+  .topbar{position:static;gap:10px 12px;padding:11px 16px}
+  .setbtn{display:inline-block}
+  .shell .side{display:none}
+  .shell.showside .side{display:flex}
   .shell{grid-template-columns:minmax(0,1fr)}
   .side{border-right:none;border-bottom:1px solid var(--line);min-width:0}
   .main{padding:18px 16px 60px}
@@ -226,9 +249,12 @@ tbody tr:last-child td{border-bottom:none}
   color:var(--accent);font-family:var(--mono);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex:none}
 .steps li p{font-size:13px;color:var(--ink-2);line-height:1.6;max-width:60ch;padding-top:2px}
 .steps li b{display:block;color:var(--ink);font-size:13.5px;margin-bottom:2px}
-.specgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:1px;background:var(--line);
-  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:4px}
-.specgrid > div{background:var(--surface);padding:11px 13px}
+/* cells carry their own rules, so a short last row ends cleanly instead of
+   leaving grey filler where the grid gap showed through */
+.specgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));margin-top:4px;
+  border-top:1px solid var(--line);border-left:1px solid var(--line)}
+.specgrid > div{background:var(--surface);padding:11px 13px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.specgrid + p{margin-top:14px}
 .specgrid .k{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-3);margin-bottom:4px}
 .specgrid .v{font-size:12.5px;color:var(--ink);line-height:1.4}
 .limitlist{margin:0;padding-left:18px}
@@ -242,21 +268,22 @@ tbody tr:last-child td{border-bottom:none}
 <header class="topbar">
   <div class="brand">
     <span class="mark" aria-hidden="true"><svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg"><rect width="32" height="32" rx="7.5" fill="var(--accent)"/><g fill="var(--on-accent)"><rect x="4.6" y="6.75" width="3.4" height="1.7" rx="0.85" opacity="0.72"/><rect x="4.6" y="11.75" width="3.4" height="1.7" rx="0.85" opacity="0.72"/><rect x="4.6" y="16.75" width="3.4" height="1.7" rx="0.85" opacity="0.72"/><rect x="10.8" y="17.6" width="4.4" height="6.7" rx="1.3"/><rect x="17.0" y="12.6" width="4.4" height="11.7" rx="1.3"/><rect x="23.2" y="7.6" width="4.4" height="16.7" rx="1.3"/><rect x="9.4" y="25.4" width="19.6" height="2" rx="1"/></g></svg></span>
-    <div><h1>Charter</h1><p>One documented standard for every figure, sized for Word or slides</p></div>
+    <div><h1>Charter</h1><p>Standardized Charting</p></div>
   </div>
   <span class="tabs" role="tablist" aria-label="View">
     <button data-tab="tool" aria-pressed="true" role="tab">Charts</button>
     <button data-tab="guide" aria-pressed="false" role="tab">How it works</button>
   </span>
+  <button class="btn setbtn" id="setBtn" aria-expanded="false" aria-controls="side">Settings</button>
   <button class="btn" id="themeBtn" title="Toggle preview theme">Theme</button>
 </header>
 
 <div class="shell" id="toolPanel">
-  <aside class="side">
+  <aside class="side" id="side">
     <div class="sect">
       <span class="eyebrow">Source</span>
       <div class="sourcebtns">
-        <button class="srcbtn" data-src="demo" aria-pressed="true"><span><b>Demo workbook</b><small>Book1.xlsx layout, 4 data blocks</small></span></button>
+        <button class="srcbtn" data-src="demo" aria-pressed="true"><span><b>Demo workbook</b><small>Sample Co. template, all 8 figures</small></span></button>
         <button class="srcbtn" data-src="file"><span><b>Open an .xlsx</b><small>Parsed here, nothing uploaded</small></span></button>
       </div>
       <input type="file" id="fileIn" accept=".xlsx">
@@ -264,7 +291,7 @@ tbody tr:last-child td{border-bottom:none}
       <button class="btn xlbtn" id="tmplBtn" title="A workbook with all 8 chart types already set up">Download Excel template</button>
       <button class="btn btn-primary xlbtn" id="xlOut" disabled>Write charts into the workbook</button>
       <button class="btn xlbtn" id="resetBtn">Reset to blank</button>
-      <p class="hint" id="xlhint" style="margin-top:7px">Adds live Excel charts wired to the same cells. Open an .xlsx to enable.</p>
+      <p class="hint" id="xlhint" style="margin-top:7px">Adds live Excel charts wired to the same cells.</p>
     </div>
 
     <div class="sect">
@@ -286,7 +313,7 @@ tbody tr:last-child td{border-bottom:none}
       <div class="ctl"><label for="hatch">Hatch fills in greyscale</label>
         <span class="swrow"><button class="sw" id="hatch" aria-pressed="true" aria-label="Hatch fills"></button></span></div>
       <div class="ctl"><label for="title">Title inside figure</label>
-        <span class="swrow"><button class="sw" id="titleIn" aria-pressed="true" aria-label="Title inside figure"></button></span></div>
+        <span class="swrow"><button class="sw" id="titleIn" aria-pressed="false" aria-label="Title inside figure"></button></span></div>
       <div class="ctl"><label for="startNo">First figure number</label>
         <span><input type="number" id="startNo" min="1" max="99" step="1" value="1"></span></div>
       <div class="ctl"><label for="prefix">Period prefix</label>
@@ -341,8 +368,8 @@ tbody tr:last-child td{border-bottom:none}
     <section>
       <h3>Getting started</h3>
       <ol class="steps">
-        <li><div><b>Load a workbook.</b><p>Use the demo, or open your own <span class="mono">.xlsx</span> from the panel on the left. Starting from nothing, <span class="mono">Download Excel template</span> gives you a workbook with the blocks, formulas and labels already in place. Replace the blue cells and load it back in. Nothing is uploaded, the file is read in this browser.</p></div></li>
-        <li><div><b>Check what bound.</b><p>The <span class="mono">Bindings</span> list shows which slots matched and what they matched. An unlit slot means that block is not on this sheet, and Charter omits the figure rather than guessing.</p></div></li>
+        <li><div><b>Load a workbook.</b><p>The demo is the bundled template, so all 8 figures draw and the write back works straight away. Open your own <span class="mono">.xlsx</span> from the panel on the left. Starting from nothing, <span class="mono">Download Excel template</span> gives you a workbook with the blocks, formulas and labels already in place. Replace the blue cells and load it back in. Nothing is uploaded, the file is read in this browser.</p></div></li>
+        <li><div><b>Check what bound.</b><p>The <span class="mono">Bindings</span> list shows which slots matched and what they matched. An unlit slot means nothing on the sheet matched it, or the block it matched holds too few points to plot. Charter leaves that figure out rather than guessing, and the list says which it was.</p></div></li>
         <li><div><b>Set the standard once.</b><p>Width, typeface, colour or greyscale and the source note apply to every figure at once. One standard for the whole document.</p></div></li>
         <li><div><b>Export into Word or a deck.</b><p>Pick the target at the top of the panel. Each figure exports as a PNG (300 dpi, fixed physical size) or an SVG. Insert at 100% and every figure lands at the same scale.</p></div></li>
         <li><div><b>Or write charts back into Excel.</b><p><span class="mono">Write charts into the workbook</span> returns a copy of your file with live chart objects in it. More on this below.</p></div></li>
@@ -357,13 +384,15 @@ tbody tr:last-child td{border-bottom:none}
 
     <section>
       <h3>The source panel</h3>
-      <p>Every figure carries its audit trail. It shows the block and group it matched, the range behind each row drawn, any row read but not drawn and why, and where the unit came from. Turn it off under <span class="mono">Bindings</span> for a clean view.</p>
+      <p>Every figure carries its audit trail under <span class="mono">Source</span>, just below the chart. Closed, it names the block and the cells. Open, it shows the block and group it matched, the range behind each row drawn, any row read but not drawn and why, and where the unit came from. Turn it off under <span class="mono">Bindings</span> for a clean view.</p>
     </section>
 
     <section>
       <h3>Writing native charts back into Excel</h3>
-      <p>You get a copy of your file with real Excel charts in it, not pictures. Every series is a formula pointing at the cells the figure was read from (<span class="mono">Sheet!$W$32:$AE$32</span>), so editing the sheet redraws the chart in Excel. The chart parts hold formulas only, with no cached values.</p>
-      <p>The charts are written to the same standard as the figures on screen, with the typeface, text sizes, palette and figure width you set here.</p>
+      <p>You get a copy of your file with real Excel charts in it, not pictures. Every series is a formula pointing at the cells the figure was read from (<span class="mono">'Model'!$D$21:$J$21</span>), so editing the sheet redraws the chart in Excel. Each series also carries a snapshot of the values, as Excel's own files do, so previews that never recalculate still show the chart.</p>
+      <p>The charts are written to the same standard as the figures on screen, with the typeface, text sizes, palette and figure width you set here. Each one keeps its title in Excel, since a sheet has no caption beside it.</p>
+      <p>The value axes take the same range and gridlines as the figure, so Excel does not pick its own. That range is set when the charts are written. If later edits take a value outside it, set that axis back to Auto in Excel or write the charts again.</p>
+      <p>They go in to the right of your data, one column clear of it, starting level with the first block they draw from. A banner or title rows at the top of the sheet stay clear.</p>
       <p>Eight types are covered. Column, stacked column with the total above each bar, multi series line, a date axis line for price series, a combo chart on a secondary axis, a football field range built from the sheet&rsquo;s own Delta column, and a waterfall with the total marked as a subtotal. Where a sheet lacks what a figure needs, that figure is skipped.</p>
       <p>Chart XML, drawing anchors, relationship parts and the ZIP writer are all written here. Everything already in your workbook is copied through unchanged.</p>
     </section>
@@ -374,7 +403,7 @@ tbody tr:last-child td{border-bottom:none}
         <div><span class="k">Chart types</span><span class="v">8 (column, stacked column, combo, line, date axis line, range, waterfall)</span></div>
         <div><span class="k">Export</span><span class="v">300&nbsp;dpi PNG or vector SVG, fixed physical width</span></div>
         <div><span class="k">Targets</span><span class="v">Word at 160&nbsp;mm, slides at 240&nbsp;mm, or any width you set</span></div>
-        <div><span class="k">Excel write back</span><span class="v">Live <span class="mono">SERIES()</span> formulas, no cached values</span></div>
+        <div><span class="k">Excel write back</span><span class="v">Live <span class="mono">SERIES()</span> formulas, axes fixed to the figure</span></div>
         <div><span class="k">Data path</span><span class="v">Parsed and written in the browser, nothing uploaded</span></div>
         <div><span class="k">Worksheet scope</span><span class="v">First sheet in the workbook</span></div>
         <div><span class="k">Starter template</span><span class="v"><span class="mono">Download Excel template</span>, all 8 types wired, just add your numbers</span></div>
@@ -429,54 +458,13 @@ var DASH   = ["", "20 9", "6 7", "22 8 6 8"];
 var INK = { primary:"#111111", secondary:"#3d3d3d", muted:"#5a5a5a", grid:"#dcdcdc", axis:"#9a9a9a" };
 
 var STD = { medium:"word", wmm:160, face:"'Times New Roman', Times, serif", ink:"colour", hatch:true,
-            titleIn:true, startNo:1, prefix:"Y", srcnote:"Company filings and author's calculations.",
+            titleIn:false, startNo:1, prefix:"Y", srcnote:"Company filings and author's calculations.",
             showprov:true };
-
-/* ============================== demo model ============================== */
-var DEMO = {
-  source: "Book1.xlsx (demo)",
-  blocks: [
-    { title:"Data: Company Overview", kind:"kv", titleRef:"T1",
-      pairs:[{k:"Company Name",v:"XYZ",ref:"V5"},{k:"Recommendation",v:"BUY",ref:"V6"},{k:"Target Price",v:3000,ref:"V7"}] },
-    { title:"Data: Football Field Chart", kind:"matrix", titleRef:"T12", cols:["Low","Delta","High"],
-      colsRef:"W14:Y14", colCells:["W14","X14","Y14"],
-      rows:[
-        {label:"52-Week Trading",      values:[1846,1685,3531], ref:"W15:Y15"},
-        {label:"Consensus Research",   values:[3750,1450,5200], ref:"W16:Y16"},
-        {label:"Precedent Trans.",     values:[1897,3724,5621], ref:"W17:Y17"},
-        {label:"Sum-of-the-Parts",     values:[2456,5016,7472], ref:"W18:Y18"},
-        {label:"Discounted Cash Flow", values:[2950,3212,6162], ref:"W19:Y19"}
-      ] },
-    { title:"Data: Price", kind:"timeseries", xLabel:"Date", titleRef:"AI3", xRef:"AI4:AI256",
-      series:[{ label:"Price", ref:"AJ4:AJ256", headRef:"AJ3", points:[[36604,1880.93],[36605,1846.09],[36608,1902.83],[36609,1940.1],[36610,1885.84],[36611,1955.49],[36612,1900.1],[36615,1963.95],[36616,1949.72],[36617,1907.7],[36618,1918.83],[36619,1906.59],[36622,1997.59],[36623,2011.6],[36624,2043.0],[36625,2042.76],[36629,2168.87],[36630,2283.32],[36631,2307.68],[36632,2408.19],[36633,2375.0],[36636,2393.61],[36637,2328.12],[36638,2363.49],[36639,2399.45],[36640,2410.22],[36643,2376.0],[36644,2314.08],[36645,2372.71],[36646,2474.0],[36647,2286.04],[36650,2315.99],[36651,2317.8],[36652,2351.26],[36653,2367.61],[36654,2379.61],[36657,2409.0],[36658,2356.95],[36659,2367.92],[36660,2388.85],[36661,2409.78],[36664,2426.26],[36665,2449.33],[36666,2497.94],[36667,2446.74],[36668,2436.88],[36672,2421.86],[36673,2410.39],[36674,2401.1],[36675,2442.37],[36678,2471.04],[36679,2472.41],[36680,2478.4],[36681,2460.6],[36682,2483.0],[36685,2524.06],[36686,2600.86],[36687,2647.45],[36688,2557.96],[36689,2545.02],[36692,2572.68],[36693,2615.27],[36694,2640.98],[36695,2653.98],[36696,2675.01],[36699,2713.82],[36700,2764.41],[36701,2734.4],[36702,2754.58],[36703,2692.87],[36706,2680.38],[36707,2758.82],[36708,2878.7],[36709,2890.3],[36713,3057.04],[36714,3000.12],[36715,3081.11],[36716,3182.63],[36717,3200.0],[36720,3104.0],[36721,3084.0],[36722,3008.87],[36723,2999.9],[36724,2961.97],[36727,3196.84],[36728,3138.29],[36729,3099.91],[36730,2986.55],[36731,3008.91],[36734,3055.21],[36735,3000.33],[36736,3033.53],[36737,3051.88],[36738,3164.68],[36741,3111.89],[36742,3138.83],[36743,3205.03],[36744,3225.0],[36745,3167.46],[36748,3148.16],[36749,3080.67],[36750,3162.24],[36751,3161.02],[36752,3148.02],[36755,3182.41],[36756,3312.49],[36757,3260.48],[36758,3297.37],[36759,3284.72],[36762,3307.46],[36763,3346.49],[36764,3441.85],[36765,3400.0],[36766,3401.8],[36769,3450.96],[36770,3499.12],[36771,3531.45],[36772,3368.0],[36773,3294.62],[36777,3149.84],[36778,3268.61],[36779,3175.11],[36780,3116.22],[36783,3102.97],[36784,3156.13],[36785,3078.1],[36786,3008.73],[36787,2954.91],[36790,2960.47],[36791,3128.99],[36792,2999.86],[36793,3019.79],[36794,3095.13],[36797,3174.05],[36798,3144.88],[36799,3148.73],[36800,3221.26],[36801,3125.0],[36804,3199.2],[36805,3099.96],[36806,3195.69],[36807,3190.55],[36808,3286.65],[36811,3442.93],[36812,3443.63],[36813,3363.71],[36814,3338.65],[36815,3272.71],[36818,3207.21],[36819,3217.01],[36820,3184.94],[36821,3176.4],[36822,3204.4],[36825,3207.04],[36826,3286.33],[36827,3162.78],[36828,3211.01],[36829,3036.15],[36832,3004.48],[36833,3048.41],[36834,3241.16],[36835,3322.0],[36836,3311.37],[36839,3143.74],[36840,3035.02],[36841,3137.39],[36842,3110.28],[36843,3128.81],[36846,3131.06],[36847,3135.66],[36848,3105.46],[36849,3117.02],[36850,3099.4],[36853,3098.39],[36854,3118.06],[36855,3185.07],[36857,3195.34],[36860,3168.04],[36861,3220.08],[36862,3203.53],[36863,3186.73],[36864,3162.58],[36867,3158.0],[36868,3177.29],[36869,3104.2],[36870,3101.49],[36871,3116.42],[36874,3156.97],[36875,3165.12],[36876,3240.96],[36877,3236.08],[36878,3201.65],[36881,3206.18],[36882,3206.52],[36883,3185.27],[36884,3172.69],[36888,3283.96],[36889,3322.0],[36890,3285.85],[36891,3256.93],[36895,3186.63],[36896,3218.51],[36897,3138.38],[36898,3162.16],[36899,3182.7],[36902,3114.21],[36903,3120.83],[36904,3165.89],[36905,3127.47],[36906,3104.25],[36910,3120.76],[36911,3263.38],[36912,3306.99],[36913,3292.23],[36916,3294.0],[36917,3326.13],[36918,3232.58],[36919,3237.62],[36920,3206.2],[36923,3342.88],[36924,3380.0],[36925,3312.53],[36926,3331.0],[36927,3352.15],[36930,3322.94],[36931,3305.0],[36932,3286.58],[36933,3262.13],[36934,3277.71],[36938,3268.95],[36939,3308.64],[36940,3328.23],[36941,3249.9],[36944,3180.74],[36945,3194.5],[36946,3159.53],[36947,3057.16],[36948,3092.93],[36951,3146.14],[36952,3094.53],[36953,3005.0],[36954,2977.57],[36955,3000.46],[36958,2951.95],[36959,3062.85],[36960,3057.64],[36961,3113.59],[36962,3089.49],[36965,3081.68],[36966,3091.86],[36967,3135.73],[36968,3027.99],[36969,3074.96]] }] },
-    { title:"Data: Financial", kind:"series", titleRef:"T24", periods:[1,2,3,4,5,6,7,8,9],
-      periodsRef:"W26:AE26",
-      note:"All figures in USD millions unless stated", noteRef:"T26",
-      groups:[
-        { name:null, series:[
-          {label:"Revenue Growth (%)", values:[null,0.28205128205128194,0.17393620259329157,0.3795411626932168,0.2621899537081891,0.21500872255125758,0.17549622092359374,0.1426998195079885,0.11567134769410004], ref:"W28:AE28"},
-          {label:"EBITDA Growth (%)",  values:[null,null,0.30180831826401455,0.3279159142473491,-0.09253018673239688,0.28483874732158454,0.24615264504943735,0.21300975347971285,0.18492022205011693], ref:"W29:AE29"}
-        ]},
-        { name:"Revenue", nameRef:"T31", series:[
-          {label:"Online Stores",         values:[95929.86,122987,141247,197346,240060.5033237527,281628.36957743583,320640.835977374,356174.15915439423,387751.0516383687], ref:"W32:AE32"},
-          {label:"Retail Services",       values:[33341.1,42745,53762,80461,110265.2049812593,142940.58084347358,176827.1524473992,210363.13461603833,242280.10769977816], ref:"W33:AE33"},
-          {label:"Subscription Services", values:[11051.04,14168,19210,25207,35578.72470674403,47290.16162745277,59743.35098564363,72329.3982667369,84519.42391986013], ref:"W34:AE34"},
-          {label:"Physical Stores",       values:[13434.720000000001,17224,17192,16227,17038.350000000002,17719.884000000002,18286.920288,18755.065447372803,19139.169187735], ref:"W35:AE35"},
-          {label:"Total Revenue",         values:[153756.72,197124,231411,319241,402942.78301175596,489578.9960483622,575498.2596984168,657621.7574845423,733689.752445742], ref:"W36:AE36"}
-        ]},
-        { name:null, series:[
-          {label:"EBITDA",     values:[22142,33180,43194,57358,52050.65354940318,66876.69650368497,83338.57224023549,101090.50096847929,119784.17885472803], ref:"W38:AE38"},
-          {label:"FCFF",       values:[13876,17748.438000000002,24095.797999999995,25214.521999999997,20613.91861976662,40835.291584577695,48539.05253211962,56623.673220765355,65479.92765410322], ref:"W39:AE39"},
-          {label:"Net Income", values:[9865,10073,11588,21331,15971.634341949975,19829.12547454165,24144.008065277267,28514.28674604071,32788.30168889997], ref:"W40:AE40"}
-        ]}
-      ] }
-  ]
-};
 
 /* ============================== bundled template ============================== */
 /* a ready-made workbook with all 8 chart types wired up, shipped
    inside the app so "Download Excel template" needs no server round trip */
-var TEMPLATE_XLSX_B64 = "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";
+var TEMPLATE_XLSX_B64 = "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";
 var TEMPLATE_XLSX_NAME = "Charter template.xlsx";
 function b64ToBytes(b64s){
   var bin = atob(b64s), out = new Uint8Array(bin.length);
@@ -1238,7 +1226,7 @@ function renderStack(d, title){
     if (STD.ink==="grey" && STD.hatch && j===3) fill = "url(#h3)";
     return { label:s.label, fill:fill };
   }), p.y1 + 92, f.W);
-  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm, scale:sc };
 }
 
 function renderColumns(d, title){
@@ -1262,7 +1250,7 @@ function renderColumns(d, title){
   }
   body += catLabels(cats, p, pfx(d));
   body += legend(d.series.map(function(s,j){ return { label:s.label, fill:pal[j%pal.length] }; }), p.y1+92, f.W);
-  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm, scale:sc };
 }
 
 function renderLine(d, title){
@@ -1305,17 +1293,23 @@ function renderLine(d, title){
   body += legend(d.series.map(function(s,j){
     return { label:s.label, fill:pal[j%pal.length], dash: STD.ink==="grey" ? DASH[j%DASH.length] : "" };
   }), p.y1+92, f.W);
-  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm, scale:sc };
 }
 
+/* a range figure is read against its neighbours, not against zero, so the
+   axis starts a little below the lowest low. Shared with the Excel write back. */
+function rangeScale(rows){
+  var lo = Infinity, hi = -Infinity;
+  rows.forEach(function(r){ lo = Math.min(lo, r.low); hi = Math.max(hi, r.high); });
+  var span = Math.max(hi - lo, Math.abs(hi) * 0.05, 1e-9);
+  return niceScale(lo >= 0 ? Math.max(0, lo - span * 0.25) : lo - span * 0.25, hi, 5);
+}
 function renderRange(d, title){
   var labW = 0;
   d.rows.forEach(function(r){ labW = Math.max(labW, measure(r.label, TYPE.axis*PT, "400")); });
   var f = figShell({ hmm:86, padL:Math.min(labW+30, 460), padR:96, bottomPad:150, title:title, sub:d.unit, hatch:false });
   var p = f.plot, pal = palette();
-  var lo = Infinity, hi = -Infinity;
-  d.rows.forEach(function(r){ lo = Math.min(lo, r.low); hi = Math.max(hi, r.high); });
-  var sc = niceScale(Math.min(0, lo), hi, 5);
+  var sc = rangeScale(d.rows);
   var xOf = function(v){ return p.x0 + (v - sc.min)/(sc.max-sc.min)*(p.x1-p.x0); };
   var body = "";
   sc.ticks.forEach(function(t){
@@ -1339,7 +1333,7 @@ function renderRange(d, title){
     body += '<text x="'+(x1+10).toFixed(1)+'" y="'+(y+barH/2+9).toFixed(1)+'" font-size="'+(TYPE.label*PT).toFixed(1)+
             '" font-weight="700" fill="'+INK.primary+'">'+esc(fmt(r.high,"num"))+'</text>';
   });
-  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm, scale:sc };
 }
 
 function renderTimeline(d, title){
@@ -1402,7 +1396,7 @@ function renderTimeline(d, title){
       return { label:s2.label, fill:pal[j%pal.length], dash: STD.ink==="grey" ? DASH[j%DASH.length] : "" };
     }), p.y1 + 92, f.W);
   }
-  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm, scale:sc };
 }
 
 
@@ -1461,29 +1455,46 @@ function renderCombo(d, title){
       body += '<circle cx="'+q[0].toFixed(1)+'" cy="'+q[1].toFixed(1)+'" r="5" fill="'+lineCol+'"/>';
     });
     var lastp = pts[pts.length-1];
-    body += '<text x="'+(lastp[0]+14).toFixed(1)+'" y="'+(lastp[1]+4).toFixed(1)+'" font-size="'+(TYPE.label*PT).toFixed(1)+
-            '" font-weight="700" fill="'+INK.primary+'">'+esc(fmt(lastp[2],"pct"))+'</text>';
+    // the last rate usually lands over the last bar, so it sits on a white halo:
+    // a stroked copy underneath rather than paint-order, which Word ignores
+    var rlab = esc(fmt(lastp[2],"pct")), rx = (lastp[0]+14).toFixed(1), ry = (lastp[1]+4).toFixed(1);
+    body += '<text x="'+rx+'" y="'+ry+'" font-size="'+(TYPE.label*PT).toFixed(1)+'" font-weight="700" fill="#ffffff"'+
+            ' stroke="#ffffff" stroke-width="7" stroke-linejoin="round">'+rlab+'</text>';
+    body += '<text x="'+rx+'" y="'+ry+'" font-size="'+(TYPE.label*PT).toFixed(1)+
+            '" font-weight="700" fill="'+INK.primary+'">'+rlab+'</text>';
   }
 
   body += catLabels(cats, p, pfx(d));
   var items = d.series.map(function(s,j){ return { label:s.label, fill:pal[j%pal.length] }; });
   items.push({ label:d.rate.label + " (right axis)", fill:lineCol, dash:0 });
   body += legend(items, p.y1 + 92, f.W);
-  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm, scale:sc, scale2:rs };
 }
 
 /* Parts stepping up to the total they sum to. Floating bars plus connectors —
    the standard build-up, drawn from the same cells as the stacked figure. */
+function wrapWords(text, maxW, fs){
+  var words = String(text).split(/\s+/), lines = [], cur = "";
+  words.forEach(function(w){
+    var t = cur ? cur + " " + w : w;
+    if (!cur || measure(t, fs, "400") <= maxW) cur = t; else { lines.push(cur); cur = w; }
+  });
+  if (cur) lines.push(cur);
+  return lines;
+}
 function renderWaterfall(d, title){
   var pal = palette();
   var labels = d.steps.map(function(s){ return s.label; }).concat([d.total.label]);
-  var maxLab = 0;
-  labels.forEach(function(t){ maxLab = Math.max(maxLab, measure(t, TYPE.label*PT, "400")); });
-  // labels are angled at 32 degrees, so the vertical room they need is
-  // width * sin(32) — and measure() returns viewBox units, not millimetres
-  var labUnits = maxLab * 0.53;
-  var f = figShell({ hmm:Math.round(Math.max(96, 82 + labUnits/UBASE)), padL:150, padR:40,
-                     bottomPad:Math.round(Math.max(150, 118 + labUnits)), title:title, sub:d.unit, hatch:false });
+  // category names wrap onto a second line under their bar rather than being
+  // angled, so they read the same way as every other axis in the standard
+  var fs = TYPE.axis*PT, lineH = Math.round(fs * 1.2);
+  var slot = (STD.wmm*U - 150 - 40) / labels.length;
+  var wrapped = labels.map(function(t){ return wrapWords(t, slot * 0.92, fs); });
+  var maxLines = 1;
+  wrapped.forEach(function(l){ maxLines = Math.max(maxLines, l.length); });
+  var extra = (maxLines - 1) * lineH;
+  var f = figShell({ hmm:Math.round(96 + extra/UBASE), padL:150, padR:40,
+                     bottomPad:Math.round(150 + extra), title:title, sub:d.unit, hatch:false });
   var p = f.plot, n = labels.length;
 
   var run = 0, tops = [];
@@ -1515,13 +1526,14 @@ function renderWaterfall(d, title){
     if (!isTot){ acc = top; prevX = x + barW; prevY = yOf(top); }
   }
 
-  // category labels are long here, so they are angled rather than truncated
   for (var k=0;k<n;k++){
-    var cx = p.x0 + bw*k + bw/2;
-    body += '<text transform="translate('+cx.toFixed(1)+','+(p.y1+30)+') rotate(-32)" text-anchor="end" font-size="'+
-            (TYPE.label*PT).toFixed(1)+'" fill="'+INK.muted+'">'+esc(labels[k])+'</text>';
+    var cx = (p.x0 + bw*k + bw/2).toFixed(1);
+    body += '<text x="'+cx+'" y="'+(p.y1+34)+'" text-anchor="middle" font-size="'+fs.toFixed(1)+'" fill="'+INK.muted+'">'+
+            wrapped[k].map(function(ln, li){
+              return '<tspan x="'+cx+'" dy="'+(li ? lineH : 0)+'">'+esc(ln)+'</tspan>';
+            }).join("")+'</text>';
   }
-  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm };
+  return { svg:f.open + body + f.close, wmm:f.wmm, hmm:f.hmm, scale:sc };
 }
 
 function render(form, d, title){
@@ -1536,7 +1548,26 @@ function render(form, d, title){
 }
 
 /* ============================== app ============================== */
-var model = DEMO, figCache = [];
+var model = null, figCache = [];
+var openProv = {};           // which figures have their source panel open, kept across re-renders
+
+/* The demo is the bundled template, read through the same .xlsx path as any
+   workbook. Every figure binds, and because there is a real file behind it,
+   the write back works on first load. */
+var demoSheet = null;
+async function loadDemo(){
+  try {
+    if (!demoSheet) demoSheet = await readXlsx(b64ToBytes(TEMPLATE_XLSX_B64).buffer);
+    model = buildModel(demoSheet, TEMPLATE_XLSX_NAME);
+    model.demo = true;
+    setSrc("demo"); srcinfo(describe(model)); renderApp();
+    xlReady(true, "Writes live Excel charts into a copy of the demo workbook, wired to the same cells. Try it, then open the file in Excel.");
+  } catch(err){
+    model = null; renderApp();
+    srcinfo(err.message || "Could not open the demo workbook.", true);
+    xlReady(false, "Open an .xlsx to write native charts back into it.");
+  }
+}
 
 function bindAll(){
   return SLOTS.map(function(s){
@@ -1608,56 +1639,82 @@ function renderApp(){
   }
   if (emptyEl) emptyEl.hidden = true;
   var bound = bindAll();
-  document.getElementById("bind").innerHTML = bound.map(function(b){
-    return '<div class="bindrow"><span class="dot'+(b.data?"":" off")+'"></span><span>'+
-      '<b>'+esc(b.slot.name)+'</b><code>'+esc(b.slot.rule)+'</code>'+
-      (b.data ? "" : '<code class="miss">no matching block, figure omitted</code>')+
-      '</span></div>';
-  }).join("");
-
   var figsEl = document.getElementById("figs");
   figCache = [];
-  var no = parseInt(STD.startNo,10) || 1, html = "";
+  var no = parseInt(STD.startNo,10) || 1, html = "", rows = "";
 
+  /* A slot that is not drawn takes no place in the grid. The reason it was
+     skipped lives in the Bindings list instead: nothing matched, or a block
+     matched but held too few points to draw. */
   bound.forEach(function(b){
-    if (!b.data){
-      html += '<div class="omit"><b>'+esc(b.slot.name)+'</b><p>No block matched <span class="mono">'+esc(b.slot.rule)+
-              '</span>. Nothing is guessed and nothing is drawn.</p></div>';
-      return;
+    var status = "ok", figTitle = b.slot.name, out = null;
+    if (!b.data) status = "none";
+    else {
+      figTitle = b.data.title || b.slot.name;
+      out = render(b.slot.form, b.data, figTitle);
+      if (!out) status = "thin";
     }
-    var figTitle = b.data.title || b.slot.name;
-    var out = render(b.slot.form, b.data, figTitle);
-    if (!out){
-      html += '<div class="omit"><b>'+esc(figTitle)+'</b><p>Data bound, but the figure could not be drawn. The block matched, but it holds too few usable points to plot. Open <span class="mono">Data</span> on another figure to compare, or check the block for blank rows.</p></div>';
-      return;
-    }
+    rows += '<div class="bindrow"><span class="dot'+(status==="ok" ? "" : status==="thin" ? " warn" : " off")+'"></span><span>'+
+      '<b>'+esc(b.slot.name)+'</b><code>'+esc(b.slot.rule)+'</code>'+
+      (status==="none" ? '<code class="miss">no matching block, nothing drawn</code>'
+       : status==="thin" ? '<code class="miss">block matched, but too few usable points to plot</code>' : "")+
+      '</span></div>';
+    if (status !== "ok") return;
     var idx = figCache.length;
     var cap = captionFor(b, no);
-    figCache.push({ svg:out.svg, wmm:out.wmm, hmm:out.hmm, caption:cap, data:b.data, form:b.slot.form, name:figTitle });
-    html += figureHtml(idx, figTitle, out, cap, b.data);
+    figCache.push({ svg:out.svg, wmm:out.wmm, hmm:out.hmm, caption:cap, data:b.data, form:b.slot.form, name:figTitle,
+                    scale:out.scale, scale2:out.scale2 });
+    html += figureHtml(idx, figTitle, out, cap, b.data, b.slot.id);
     no++;
   });
 
+  document.getElementById("bind").innerHTML = rows;
   figsEl.innerHTML = html;
 }
 
-function figureHtml(idx, name, out, caption, d){
+function figureHtml(idx, name, out, caption, d, key){
   return '<figure data-i="'+idx+'">'+
     '<div class="fighead"><span class="t">'+esc(name)+'<span>'+out.wmm+' × '+out.hmm+' mm</span></span>'+
     '<span class="figacts">'+
-      '<button class="btn btn-sm" data-act="png">PNG 300 dpi</button>'+
+      '<button class="btn btn-sm" data-act="png" title="PNG at 300 dpi, fixed physical size">PNG</button>'+
       '<button class="btn btn-sm" data-act="svg">SVG</button>'+
       '<button class="btn btn-sm" data-act="copysvg">Copy SVG</button>'+
       '<button class="btn btn-sm" data-act="table">Data</button>'+
     '</span></div>'+
-    '<div class="sheet"><div class="paper">'+out.svg+'</div>'+(STD.showprov ? provPanel(d) : "")+'</div>'+
+    '<div class="sheet"><div class="paper">'+out.svg+'</div></div>'+
+    (STD.showprov ? '<details class="provwrap" data-k="'+esc(key)+'"'+(openProv[key] ? ' open' : '')+'>'+
+                    srcSummary(d)+provPanel(d)+'</details>' : "")+
     '<div class="dtable" hidden>'+dataTable(d)+'</div>'+
     '<div class="figfoot"><span class="cap">'+esc(caption)+'</span>'+
     '<button class="btn btn-sm" data-act="copycap">Copy caption</button></div>'+
   '</figure>';
 }
 
-/* ---- "what this figure pulled" side panel ---- */
+/* ---- "what this figure pulled" panel ---- */
+/* the smallest rectangle holding every cell a figure read, for the folded summary line */
+function mergeRefs(refs){
+  var c1 = Infinity, r1 = Infinity, c2 = -Infinity, r2 = -Infinity, any = false;
+  refs.forEach(function(ref){
+    if (!ref) return;
+    String(ref).split(":").forEach(function(part){
+      var m = /^([A-Z]+)(\d+)$/.exec(part); if (!m) return;
+      var c = colNo(m[1]), r = Number(m[2]); any = true;
+      c1 = Math.min(c1,c); c2 = Math.max(c2,c); r1 = Math.min(r1,r); r2 = Math.max(r2,r);
+    });
+  });
+  if (!any) return null;
+  var p = colName(c1)+r1, q = colName(c2)+r2;
+  return p === q ? p : p + ":" + q;
+}
+function srcSummary(d){
+  var s = d.src || {};
+  var where = (s.block || "workbook") + (s.group ? " \u203a " + s.group : "");
+  var refs = (s.rows || []).map(function(r){ return r.ref; })
+    .concat((s.excluded || []).concat(s.extra || []).map(function(r){ return r.ref; }));
+  if (d.ts && s.axis) refs.push(s.axis.ref);          // the date column is read row for row
+  var box = mergeRefs(refs);
+  return '<summary><span class="plab">Source</span><span>'+esc(where)+'</span>'+(box ? refTag(box) : "")+'</summary>';
+}
 function refTag(ref){ return ref ? '<span class="ref">'+esc(ref)+'</span>' : ""; }
 
 /* the numbers themselves — the full run where it is short enough to read,
@@ -1698,8 +1755,8 @@ function provPanel(d){
   h += '<div class="pgrp"><span class="plab">Rows drawn ('+s.rows.length+')</span><ul class="prows">';
   s.rows.forEach(function(r, i){
     var miss = (r.of && r.n < r.of) ? '<em>'+(r.of - r.n)+' blank</em>' : "";
-    var pal = palette();
-    h += '<li><span class="swatch" style="background:'+pal[i % pal.length]+'"></span>'+
+    var pal = palette(), sw = d.rows ? pal[0] : pal[i % pal.length];
+    h += '<li><span class="swatch" style="background:'+sw+'"></span>'+
          '<span class="rl">'+esc(r.label)+'</span>'+refTag(r.ref)+miss+
          valueStrip(r, d.kind)+'</li>';
   });
@@ -1868,7 +1925,63 @@ function xesc(t){ return String(t).replace(/&/g,"&amp;").replace(/</g,"&lt;").re
    that all reuse the exact same axId numbers — offset them per chart so no
    two parts in the same workbook ever share one. */
 
-function txPart(f){ return '<c:tx><c:strRef><c:f>'+xesc(f)+'</c:f></c:strRef></c:tx>'; }
+/* ---- the figure's own scale and number formats, carried into Excel ----
+   The value axes take the min, max and gridline step the figure was drawn
+   with, so Excel stops choosing its own (zero based, twice the gridlines).
+   The price is that the range is fixed when the charts are written. */
+function tidy(v){ return Number(Number(v).toPrecision(12)); }
+function scaleLim(sc){
+  if (!sc || !sc.ticks || sc.ticks.length < 2) return null;
+  return { min:tidy(sc.min), max:tidy(sc.max), unit:tidy(sc.ticks[1] - sc.ticks[0]) };
+}
+function limXml(lim){ return lim ? '<c:max val="'+lim.max+'"/><c:min val="'+lim.min+'"/>' : ''; }
+function unitXml(lim){ return (lim && lim.unit > 0) ? '<c:majorUnit val="'+lim.unit+'"/>' : ''; }
+/* fmt() prints whole numbers from 10 up and one decimal below that, and
+   percentages to one decimal; these are the Excel codes that print the same */
+function axisFmt(lim, kind){
+  if (kind === "pct") return (!lim || Math.abs(lim.unit*100 - Math.round(lim.unit*100)) < 1e-9) ? "0%" : "0.0%";
+  return (!lim || (lim.unit >= 1 && Math.abs(lim.min - Math.round(lim.min)) < 1e-9)) ? "#,##0" : "#,##0.0";
+}
+function labelFmt(values, kind){
+  if (kind === "pct") return "0.0%";
+  var m = 0;
+  (values || []).forEach(function(v){ if (isNum(v)) m = Math.max(m, Math.abs(v)); });
+  return m >= 10 ? "#,##0" : "#,##0.0";
+}
+
+/* Each series also carries a snapshot of the cells it points at, the way
+   Excel's own files do. Excel redraws from the cells on open either way, but
+   it needs the snapshot to drop a hidden series from the legend, and viewers
+   that never recalculate (Quick Look, mail previews) draw from it. */
+var XCELLS = null;
+function refCells(f){
+  var m = /!\$?([A-Z]+)\$?(\d+)(?::\$?([A-Z]+)\$?(\d+))?$/.exec(String(f));
+  if (!m) return null;
+  var c1 = colNo(m[1]), r1 = Number(m[2]), c2 = m[3] ? colNo(m[3]) : c1, r2 = m[4] ? Number(m[4]) : r1, out = [];
+  for (var r = r1; r <= r2; r++) for (var c = c1; c <= c2; c++){
+    var v = XCELLS ? XCELLS[r + ":" + c] : undefined;
+    out.push(v === undefined ? null : v);
+  }
+  return out;
+}
+function xnum(v){ return tidy(v).toString(); }
+function strCache(f){
+  var vs = XCELLS && refCells(f); if (!vs) return "";
+  var pts = "";
+  vs.forEach(function(v, i){ if (v !== null && v !== "") pts += '<c:pt idx="'+i+'"><c:v>'+xesc(isNum(v) ? xnum(v) : String(v))+'</c:v></c:pt>'; });
+  return '<c:strCache><c:ptCount val="'+vs.length+'"/>'+pts+'</c:strCache>';
+}
+function numCache(f){
+  var vs = XCELLS && refCells(f); if (!vs) return "";
+  var pts = "";
+  vs.forEach(function(v, i){ if (isNum(v)) pts += '<c:pt idx="'+i+'"><c:v>'+xnum(v)+'</c:v></c:pt>'; });
+  return '<c:numCache><c:formatCode>General</c:formatCode><c:ptCount val="'+vs.length+'"/>'+pts+'</c:numCache>';
+}
+/* a series name is a cell, or {lit:"..."} where the name is Charter's own */
+function txPart(f){
+  if (f && typeof f === "object") return '<c:tx><c:v>'+xesc(f.lit)+'</c:v></c:tx>';
+  return '<c:tx><c:strRef><c:f>'+xesc(f)+'</c:f>'+strCache(f)+'</c:strRef></c:tx>';
+}
 /* k is the series index, so greyscale hatches the same two series the SVG
    hatches (h1 at 45 degrees, h3 at 135) and colour output stays flat. */
 function fillPart(hex, k){
@@ -1887,10 +2000,10 @@ function linePart(hex, w){
          '"/></a:solidFill><a:round/></a:ln><a:effectLst/></c:spPr>';
 }
 function catPart(f, numeric){
-  return numeric ? '<c:cat><c:numRef><c:f>'+xesc(f)+'</c:f></c:numRef></c:cat>'
-                 : '<c:cat><c:strRef><c:f>'+xesc(f)+'</c:f></c:strRef></c:cat>';
+  return numeric ? '<c:cat><c:numRef><c:f>'+xesc(f)+'</c:f>'+numCache(f)+'</c:numRef></c:cat>'
+                 : '<c:cat><c:strRef><c:f>'+xesc(f)+'</c:f>'+strCache(f)+'</c:strRef></c:cat>';
 }
-function valPart(f){ return '<c:val><c:numRef><c:f>'+xesc(f)+'</c:f></c:numRef></c:val>'; }
+function valPart(f){ return '<c:val><c:numRef><c:f>'+xesc(f)+'</c:f>'+numCache(f)+'</c:numRef></c:val>'; }
 
 /* ---- the SVG standard, restated in the units chart XML uses ----
    Text sizes are hundredths of a point, matching the pt sizes figShell draws
@@ -2006,13 +2119,15 @@ function dPtRing(idx, colour){
          '<a:ln w="'+emu(3)+'"><a:solidFill><a:srgbClr val="'+colour+'"/></a:solidFill></a:ln>'+
          '</c:spPr></c:marker><c:bubble3D val="0"/></c:dPt>';
 }
-function axPair(catType, catPos, numFmt, spanDays, ax1, ax2){
+function axPair(catType, catPos, numFmt, spanDays, ax1, ax2, lim){
   var cat;
   if (catType === "date"){
+    // month names alone, as renderTimeline labels its axis, until the span
+    // runs past two years and the year has to be shown
     var unit = 3, fmtc = "mmm\\ yy";
     if (spanDays){
-      if (spanDays <= 120) unit = 1;
-      else if (spanDays <= 800) unit = 2;
+      if (spanDays <= 120){ unit = 1; fmtc = "mmm"; }
+      else if (spanDays <= 800){ unit = 2; fmtc = "mmm"; }
       else if (spanDays <= 2200) unit = 6;
       else { unit = 12; fmtc = "yyyy"; }
     }
@@ -2025,29 +2140,33 @@ function axPair(catType, catPos, numFmt, spanDays, ax1, ax2){
           '<c:lblOffset val="100"/><c:baseTimeUnit val="days"/>'+
           '<c:majorUnit val="'+unit+'"/><c:majorTimeUnit val="months"/></c:dateAx>';
   } else {
-    cat = '<c:catAx><c:axId val="'+ax1+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
+    // horizontal bars list top to bottom in sheet order, as on screen; Excel's
+    // default runs them bottom up, so the category axis is reversed and the
+    // value axis told to sit at its far end, which is now the bottom
+    cat = '<c:catAx><c:axId val="'+ax1+'"/><c:scaling><c:orientation val="'+(catPos==="l" ? "maxMin" : "minMax")+'"/></c:scaling>'+
           '<c:delete val="0"/><c:axPos val="'+catPos+'"/>'+
           '<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
           lnSpPr(XINK.axis, emu(3)) + txPr(XSZ.axis, false, XINK.muted)+
           '<c:crossAx val="'+ax2+'"/><c:crosses val="autoZero"/><c:auto val="1"/>'+
           '<c:lblAlgn val="ctr"/><c:lblOffset val="100"/><c:noMultiLvlLbl val="0"/></c:catAx>';
   }
-  var val = '<c:valAx><c:axId val="'+ax2+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
+  var val = '<c:valAx><c:axId val="'+ax2+'"/><c:scaling><c:orientation val="minMax"/>'+limXml(lim)+'</c:scaling>'+
             '<c:delete val="0"/><c:axPos val="'+(catPos==="b"?"l":"b")+'"/>'+
             '<c:majorGridlines>'+lnSpPr(XINK.grid, emu(2))+'</c:majorGridlines>'+
             '<c:numFmt formatCode="'+(numFmt||"General")+'" sourceLinked="0"/>'+
             '<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
             NO_LINE_SPPR + txPr(XSZ.axis, false, XINK.muted)+
-            '<c:crossAx val="'+ax1+'"/><c:crosses val="autoZero"/><c:crossBetween val="between"/></c:valAx>';
+            '<c:crossAx val="'+ax1+'"/><c:crosses val="'+(catPos==="l" ? "max" : "autoZero")+'"/><c:crossBetween val="between"/>'+
+            unitXml(lim)+'</c:valAx>';
   return cat + val;
 }
-function axSecondary(numFmt, ax3, ax4){
-  return '<c:valAx><c:axId val="'+ax4+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
+function axSecondary(numFmt, ax3, ax4, lim){
+  return '<c:valAx><c:axId val="'+ax4+'"/><c:scaling><c:orientation val="minMax"/>'+limXml(lim)+'</c:scaling>'+
          '<c:delete val="0"/><c:axPos val="r"/>'+
          '<c:numFmt formatCode="'+(numFmt||"0%")+'" sourceLinked="0"/>'+
          '<c:majorTickMark val="none"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
          NO_LINE_SPPR + txPr(XSZ.axis, false, XINK.muted)+
-         '<c:crossAx val="'+ax3+'"/><c:crosses val="max"/><c:crossBetween val="between"/></c:valAx>'+
+         '<c:crossAx val="'+ax3+'"/><c:crosses val="max"/><c:crossBetween val="between"/>'+unitXml(lim)+'</c:valAx>'+
          '<c:catAx><c:axId val="'+ax3+'"/><c:scaling><c:orientation val="minMax"/></c:scaling>'+
          '<c:delete val="1"/><c:axPos val="b"/>'+
          '<c:majorTickMark val="out"/><c:minorTickMark val="none"/><c:tickLblPos val="nextTo"/>'+
@@ -2058,10 +2177,11 @@ function chartXml(spec){
   /* figShell puts the title top left at 10pt bold with the unit under it at
      8pt muted, so the chart title carries both as two left-aligned paragraphs
      and a manual layout pins it to the same corner instead of centring it. */
+  /* Excel charts always keep their title. The "Title inside figure" switch is
+     for figures going into a document, where the caption names them; a chart
+     on a sheet has nothing else beside it. */
   var title;
-  if (STD.titleIn === false){
-    title = '<c:autoTitleDeleted val="1"/>';
-  } else {
+  {
     var sub = spec.sub
       ? '<a:p><a:pPr algn="l">'+defRPr(XSZ.sub, false, XINK.muted)+'</a:pPr>'+
         '<a:r>'+rPrRun(XSZ.sub, false, XINK.muted)+'<a:t>'+xesc(spec.sub)+'</a:t></a:r></a:p>'
@@ -2084,8 +2204,8 @@ function chartXml(spec){
     '<mc:Choice xmlns:c14="http://schemas.microsoft.com/office/drawing/2007/8/2/chart" Requires="c14">'+
     '<c14:style val="102"/></mc:Choice><mc:Fallback><c:style val="2"/></mc:Fallback></mc:AlternateContent>'+
     '<c:chart>'+ title +
-    '<c:plotArea><c:layout/>'+ spec.plots + axPair(spec.catType, spec.catPos, spec.numFmt, spec.spanDays, spec.ax1, spec.ax2) +
-    (spec.secondary ? axSecondary(spec.secondaryFmt, spec.ax3, spec.ax4) : "") +
+    '<c:plotArea><c:layout/>'+ spec.plots + axPair(spec.catType, spec.catPos, spec.numFmt, spec.spanDays, spec.ax1, spec.ax2, spec.lim) +
+    (spec.secondary ? axSecondary(spec.secondaryFmt, spec.ax3, spec.ax4, spec.lim2) : "") +
     NO_LINE_SPPR +
     '</c:plotArea>'+
     (spec.legend === false ? '' :
@@ -2108,6 +2228,7 @@ function specFor(entry, sheetName, idx){
   var d = entry.data, s = d.src, pal = palette();
   if (!s || !s.xl) return null;
   var x = s.xl, sh = sheetName, i;
+  var lim = scaleLim(entry.scale), lim2 = scaleLim(entry.scale2);
   var n = (idx||0) * 4;
   var ax1 = 111111111 + n, ax2 = 222222222 + n, ax3 = 333333333 + n, ax4 = 444444444 + n;
 
@@ -2129,17 +2250,19 @@ function specFor(entry, sheetName, idx){
        entry, carried only for its labels. */
     var extra = "", hide = [];
     if (x.total && x.type === "stackcol"){
+      // named with a no-break space rather than the total's cell: if a viewer
+      // ignores the legend deletion, the entry it shows is blank
       extra = '<c:lineChart><c:grouping val="standard"/><c:varyColors val="0"/>'+
-              lineSer(x.rows.length, cellF(sh, x.labelCol, x.total.row),
+              lineSer(x.rows.length, { lit:"\u00a0" },
                       rowF(sh, x.c1, x.c2, x.headerRow),
                       rowF(sh, x.c1, x.c2, x.total.row), "111111", true,
-                      { hidden:true, dLbls:dLblsVal(d.kind === "pct" ? "0%" : "#,##0", "t") })+
+                      { hidden:true, dLbls:dLblsVal(labelFmt(d.total && d.total.values, d.kind), "t") })+
               '<c:marker val="1"/><c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:lineChart>';
       hide = [x.rows.length];
     }
     return { title:entry.name, sub:d.unit, plots:bar+extra, catType:"cat", catPos:"b",
-             legendDel:hide,
-             numFmt:(d.kind === "pct" ? "0%" : "#,##0"), ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+             legendDel:hide, lim:lim,
+             numFmt:axisFmt(lim, d.kind), ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
   }
 
   if (x.type === "combo"){
@@ -2154,15 +2277,16 @@ function specFor(entry, sheetName, idx){
                '<c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:barChart>';
     var cN2 = colNo(x.c2) - colNo(x.c1);
     var cline = '<c:lineChart><c:grouping val="standard"/><c:varyColors val="0"/>'+
-                lineSer(x.rows.length, cellF(sh, x.labelCol, x.rate.row),
+                lineSer(x.rows.length, { lit:(d.rate ? d.rate.label : "Rate") + " (right axis)" },
                         rowF(sh, x.c1, x.c2, x.headerRow),
                         rowF(sh, x.c1, x.c2, x.rate.row),
                         pal[x.rows.length % pal.length], true,
                         { w:emu(4.5), markers:true,
-                          dLbls:dLblsAt([{ idx:cN2 }], "0%", "t") })+
+                          dLbls:dLblsAt([{ idx:cN2 }], "0.0%", "t") })+
                 '<c:marker val="1"/><c:axId val="'+ax3+'"/><c:axId val="'+ax4+'"/></c:lineChart>';
     return { title:entry.name, sub:d.unit, plots:cbar+cline, catType:"cat", catPos:"b",
-             numFmt:"#,##0", secondary:true, secondaryFmt:"0%", ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+             numFmt:axisFmt(lim, "num"), secondary:true, secondaryFmt:axisFmt(lim2, "pct"),
+             lim:lim, lim2:lim2, ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
   }
 
   if (x.type === "line"){
@@ -2174,12 +2298,12 @@ function specFor(entry, sheetName, idx){
                     pal[k % pal.length], true,
                     { markers:true, dash:dashFor(k),
                       dLbls:dLblsAt([{ idx:colNo(x.c2) - colNo(x.c1) }],
-                                    d.kind === "pct" ? "0%" : "#,##0", "t") });
+                                    labelFmt(d.series[k] && d.series[k].values, d.kind), "t") });
     });
     return { title:entry.name, sub:d.unit,
              plots:'<c:lineChart><c:grouping val="standard"/><c:varyColors val="0"/>'+ls+
                    '<c:marker val="1"/><c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:lineChart>',
-             catType:"cat", catPos:"b", numFmt:(d.kind === "pct" ? "0%" : "#,##0"), ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+             catType:"cat", catPos:"b", numFmt:axisFmt(lim, d.kind), lim:lim, ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
   }
 
   if (x.type === "linedate"){
@@ -2188,14 +2312,15 @@ function specFor(entry, sheetName, idx){
        wording, so the label still reads off the cell. */
     var tp = (d.ts && d.ts[0] && d.ts[0].points) || [];
     var lastI = x.r2 - x.r1, marks = [], rings = "";
-    var lbls = [{ idx:lastI, fmt:"#,##0.0" }];
+    var pf = labelFmt(tp.map(function(q){ return q[1]; }), "num");
+    var lbls = [{ idx:lastI, fmt:pf }];
     if (tp.length === lastI + 1){
       var hiI = 0, loI = 0;
       for (i = 1; i < tp.length; i++){
         if (tp[i][1] > tp[hiI][1]) hiI = i;
         if (tp[i][1] < tp[loI][1]) loI = i;
       }
-      marks = [[hiI, '"High "#,##0', "t"], [loI, '"Low "#,##0', "b"]];
+      marks = [[hiI, '"High "' + pf, "t"], [loI, '"Low "' + pf, "b"]];
       marks.forEach(function(m){
         rings += dPtRing(m[0], XINK.primary);
         if (m[0] !== lastI) lbls.push({ idx:m[0], fmt:m[1], pos:m[2],
@@ -2208,28 +2333,18 @@ function specFor(entry, sheetName, idx){
                            colF(sh, x.dateCol, x.r1, x.r2),
                            colF(sh, x.valCol, x.r1, x.r2),
                            pal[0], true,
-                           { w:emu(4), dPts:rings, dLbls:dLblsAt(lbls, "#,##0.0", "t") })+
+                           { w:emu(4), dPts:rings, dLbls:dLblsAt(lbls, pf, "t") })+
                    '<c:marker val="1"/><c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:lineChart>',
-             sub:d.unit, catType:"date", catPos:"b", numFmt:"#,##0.0", legend:false, spanDays:x.spanDays,
+             sub:d.unit, catType:"date", catPos:"b", numFmt:axisFmt(lim, "num"), lim:lim, legend:false, spanDays:x.spanDays,
              ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
   }
 
   if (x.type === "waterfall"){
-    /* Excel picks its own gridline density and lands far denser than the five
-       the SVG draws, so the major unit comes from the same niceScale the
-       figure used. Only the unit is fixed, not the bounds, so the axis still
-       grows with the numbers. */
-    var wtop = 0, wbot = 0, cum = 0;
-    (d.steps || []).forEach(function(st){
-      cum += (isNum(st.value) ? st.value : 0);
-      if (cum > wtop) wtop = cum;
-      if (cum < wbot) wbot = cum;
-    });
-    if (d.total && isNum(d.total.value) && d.total.value > wtop) wtop = d.total.value;
-    var wsc = niceScale(Math.min(0, wbot), wtop, 5);
-    var wUnit = (wsc && wsc.ticks && wsc.ticks.length > 1) ? (wsc.ticks[1] - wsc.ticks[0]) : null;
+    /* the waterfall takes the figure's whole scale, bounds and step, like the
+       other charts; before, only the step was fixed */
     return { ex:true, title:entry.name, sub:d.unit, n:(x.subtotal + 1), subtotal:x.subtotal,
-             majorUnit:wUnit,
+             lim:lim, numFmt:axisFmt(lim, "num"),
+             labelFmt:labelFmt((d.steps || []).map(function(st){ return st.value; }).concat([d.total && d.total.value]), "num"),
              catF: colF(sh, x.labelCol, x.r1, x.r2),
              valF: colF(sh, x.valCol, x.r1, x.r2), axBase: n };
   }
@@ -2249,14 +2364,15 @@ function specFor(entry, sheetName, idx){
        number is that series' own value, so it formats like the low and needs
        no value-from-cells extension. */
     var cats = colF(sh, x.labelCol, x.r1, x.r2);
+    var rf = labelFmt((d.rows || []).map(function(r){ return r.high; }), "num");
     var base = barSer(0, null, cats, colF(sh, x.lowCol, x.r1, x.r2), null, false,
-                      { dLbls:dLblsVal("#,##0", "inEnd", XINK.muted, false) });
+                      { dLbls:dLblsVal(rf, "inEnd", XINK.muted, false) });
     var span = barSer(1, null, cats, colF(sh, x.spanCol, x.r1, x.r2), pal[0], false, {});
     var highGrp = "";
     if (x.highCol){
       highGrp = '<c:barChart><c:barDir val="bar"/><c:grouping val="clustered"/><c:varyColors val="0"/>'+
                 barSer(2, null, cats, colF(sh, x.highCol, x.r1, x.r2), null, false,
-                       { dLbls:dLblsVal("#,##0", "outEnd", XINK.primary, true) })+
+                       { dLbls:dLblsVal(rf, "outEnd", XINK.primary, true) })+
                 '<c:gapWidth val="55"/><c:overlap val="100"/>'+
                 '<c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:barChart>';
     }
@@ -2264,7 +2380,7 @@ function specFor(entry, sheetName, idx){
              plots:'<c:barChart><c:barDir val="bar"/><c:grouping val="stacked"/><c:varyColors val="0"/>'+
                    base + span + '<c:gapWidth val="55"/><c:overlap val="100"/>'+
                    '<c:axId val="'+ax1+'"/><c:axId val="'+ax2+'"/></c:barChart>'+ highGrp,
-             catType:"cat", catPos:"l", numFmt:"#,##0", legend:false, ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
+             catType:"cat", catPos:"l", numFmt:axisFmt(lim, "num"), lim:lim, legend:false, ax1:ax1, ax2:ax2, ax3:ax3, ax4:ax4 };
   }
   return null;
 }
@@ -2322,6 +2438,7 @@ function chartExXml(spec){
         '<cx:series layoutId="waterfall" uniqueId="'+guid()+'">'+
         pts +
         '<cx:dataLabels pos="outEnd">'+
+          '<cx:numFmt formatCode="'+xesc(spec.labelFmt || "#,##0")+'" sourceLinked="0"/>'+
           '<cx:txPr><a:bodyPr/><a:lstStyle/><a:p><a:pPr>'+
           defRPr(XSZ.label, true, XINK.primary)+'</a:pPr><a:endParaRPr lang="en-GB"/></a:p></cx:txPr>'+
         '</cx:dataLabels>'+
@@ -2335,10 +2452,11 @@ function chartExXml(spec){
         defRPr(XSZ.axis, false, XINK.muted)+'</a:pPr><a:endParaRPr lang="en-GB"/></a:p></cx:txPr>'+
       '</cx:axis>'+
       '<cx:axis id="'+axVal+'"><cx:valScaling'+
-        (isNum(spec.majorUnit) && spec.majorUnit > 0 ? ' majorUnit="'+spec.majorUnit+'"' : '')+'/>'+
+        (spec.lim ? ' max="'+spec.lim.max+'" min="'+spec.lim.min+'"'+(spec.lim.unit > 0 ? ' majorUnit="'+spec.lim.unit+'"' : '') : '')+'/>'+
         '<cx:majorGridlines><cx:spPr><a:ln w="'+emu(2)+'">'+
         '<a:solidFill><a:srgbClr val="'+XINK.grid+'"/></a:solidFill></a:ln></cx:spPr></cx:majorGridlines>'+
         '<cx:tickLabels/>'+
+        '<cx:numFmt formatCode="'+xesc(spec.numFmt || "#,##0")+'" sourceLinked="0"/>'+
         '<cx:spPr><a:ln><a:noFill/></a:ln></cx:spPr>'+
         '<cx:txPr><a:bodyPr/><a:lstStyle/><a:p><a:pPr>'+
         defRPr(XSZ.axis, false, XINK.muted)+'</a:pPr><a:endParaRPr lang="en-GB"/></a:p></cx:txPr>'+
@@ -2435,17 +2553,29 @@ function anchorEx(id, n, fromCol, fromRow, cx, cy, rid){
 }
 
 /* ---------------- assemble the new workbook ---------------- */
+function firstBlockRow(m){
+  var best = Infinity;
+  (m.blocks || []).forEach(function(b){
+    if (b.kind === "kv") return;                    // company name and the like, never charted
+    var mm = /(\d+)$/.exec(b.titleRef || "");
+    var r = mm ? Number(mm[1]) : (b.headerRow || b.headRow);
+    if (r && r < best) best = r;
+  });
+  return isFinite(best) ? best : 1;
+}
 async function writeChartsIntoWorkbook(){
   if (!model || !model.sheet || !model.sheet.raw) throw new Error("Charts can only be written back into a workbook you uploaded.");
   var sheet = model.sheet, dec = new TextDecoder();
   var files = await unzip(sheet.raw);
 
-  // which figures can become native charts
+  // which figures can become native charts; series snapshots read these cells
+  XCELLS = sheet.cells;
   var specs = [], skipped = [];
   figCache.forEach(function(f){
     var sp = specFor(f, sheet.name, specs.length);
     if (sp){ sp.wmm = f.wmm; sp.hmm = f.hmm; specs.push(sp); } else skipped.push(f.name);
   });
+  XCELLS = null;
   if (!specs.length) throw new Error("None of the figures on screen can be rebuilt from cells in this workbook.");
 
   var sheetPart = sheet.part;                                  // xl/worksheets/sheetN.xml
@@ -2525,8 +2655,12 @@ async function writeChartsIntoWorkbook(){
     sheetXml = sheetXml.replace(/<\/worksheet>\s*$/, '<drawing r:id="'+drawRid+'"/></worksheet>');
   }
 
-  // charts are parked clear of the data, stacked down the first free column
-  var startCol = sheet.maxCol + 1, ROW_EMU = 190500, GAP = 2, row = 0;
+  /* Charts are parked clear of the data, one column past it, stacked down.
+     They start level with the first block they draw from: starting at row 1
+     put the first chart beside whatever banner or title rows sit at the top
+     of the sheet (the template's ribbon, for one). */
+  var startCol = sheet.maxCol + 1, ROW_EMU = 190500, GAP = 2, row = firstBlockRow(model) - 1;
+  var row0 = row;
   var newParts = [], anchors = "", dRelAdd = "";
   var dMaxR = 0, re2 = /Id="rId(\d+)"/g, m3;
   while ((m3 = re2.exec(drawXml.rel))) dMaxR = Math.max(dMaxR, parseInt(m3[1],10));
@@ -2630,7 +2764,7 @@ async function writeChartsIntoWorkbook(){
   newParts.forEach(function(np){ entries.push(np.part); });
 
   return { bytes: zipWrite(entries), count: specs.length, skipped: skipped,
-           where: colName(startCol + 1) + "1" };
+           where: colName(startCol + 1) + (row0 + 1) };
 }
 
 /* ------------------------- export ------------------------- */
@@ -2713,7 +2847,7 @@ document.getElementById("figs").addEventListener("click", async function(e){
       var blob = await svgToPngBlob(F.svg, F.wmm, F.hmm, 300);
       await save(slug(F.name)+"@300dpi.png", blob);
     } catch(err){ toast("Could not render the PNG. Try SVG instead."); }
-    btn.disabled = false; btn.textContent = "PNG 300 dpi";
+    btn.disabled = false; btn.textContent = "PNG";
   }
 });
 
@@ -2765,6 +2899,23 @@ document.getElementById("themeBtn").addEventListener("click", function(){
   document.documentElement.setAttribute("data-theme", next);
 });
 
+/* remember which source panels are open, so changing a setting does not fold them away */
+document.getElementById("figs").addEventListener("toggle", function(e){
+  var el = e.target; if (!el.matches || !el.matches("details.provwrap")) return;
+  openProv[el.dataset.k] = el.open;
+}, true);
+
+/* phones: the settings panel is folded away until asked for */
+document.getElementById("setBtn").addEventListener("click", function(){
+  var shell = document.getElementById("toolPanel");
+  var on = !shell.classList.contains("showside");
+  if (on && shell.hidden) document.querySelector('.tabs button[data-tab="tool"]').click();
+  shell.classList.toggle("showside", on);
+  this.setAttribute("aria-expanded", String(on));
+  this.textContent = on ? "Hide settings" : "Settings";
+  if (on) document.getElementById("side").scrollIntoView({ block:"start" });
+});
+
 /* ------------------------- tabs: Charts / How it works ------------------------- */
 document.querySelectorAll(".tabs button").forEach(function(btn){
   btn.addEventListener("click", function(){
@@ -2786,13 +2937,12 @@ function srcinfo(msg, isErr){
 function describe(m){
   var nS = 0;
   m.blocks.forEach(function(b){ if (b.kind==="series") b.groups.forEach(function(g){ nS += g.series.length; }); if (b.kind==="matrix") nS += b.rows.length; if (b.kind==="timeseries") nS += b.series.length; });
-  return m.source + ", " + m.blocks.length + " block" + (m.blocks.length===1?"":"s") + ", " + nS + " series";
+  return m.source + (m.demo ? " (demo)" : "") + ", " + m.blocks.length + " block" + (m.blocks.length===1?"":"s") + ", " + nS + " series";
 }
 
 document.querySelectorAll(".srcbtn").forEach(function(b){
   b.addEventListener("click", function(){
-    if (b.dataset.src === "demo"){ model = DEMO; setSrc("demo"); srcinfo(describe(model)); renderApp();
-      xlReady(false, "The demo has no workbook behind it. Open an .xlsx to write charts back."); }
+    if (b.dataset.src === "demo") loadDemo();
     else document.getElementById("fileIn").click();
   });
 });
@@ -2806,8 +2956,9 @@ document.getElementById("xlOut").addEventListener("click", async function(){
   btn.disabled = true; btn.textContent = "Writing…";
   try {
     var res = await writeChartsIntoWorkbook();
-    var base = (model.source || "workbook").replace(/\.xlsx$/i, "");
-    await save(base + " (charter).xlsx", new Blob([res.bytes],
+    var outName = model.demo ? "Charter demo.xlsx"
+                 : (model.source || "workbook").replace(/\.xlsx$/i, "") + " (charter).xlsx";
+    await save(outName, new Blob([res.bytes],
       { type:"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" }),
       "Saving isn't available in this view.");
     document.getElementById("xlhint").textContent =
@@ -2859,15 +3010,16 @@ document.getElementById("fileIn").addEventListener("change", async function(e){
 });
 
 /* ------------------------- go ------------------------- */
-var VERSION = "2.6";
+var VERSION = "2.9";
 try { console.log("Charter v" + VERSION + ", " + SLOTS.length + " figure slots"); } catch(e){}
 var sc0 = document.getElementById("slotcount");
 if (sc0) sc0.textContent = SLOTS.length + " slots";
 var vr0 = document.getElementById("ver");
 if (vr0) vr0.textContent = VERSION;
 var sv0 = document.getElementById("stdver"); if (sv0) sv0.textContent = STANDARD;
-srcinfo(describe(model));
-renderApp();
+renderStdGrid();
+srcinfo("Opening the demo workbook\u2026");
+loadDemo();
 })();
 </script>
 </body>
