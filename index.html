@@ -234,6 +234,7 @@ tbody tr:last-child td{border-bottom:none}
 .empty[hidden]{display:none}
 .empty h3{font-family:var(--serif);font-size:18px;margin-bottom:6px}
 .empty p{font-size:13px;color:var(--ink-3);max-width:46ch;margin:0 auto;line-height:1.6}
+.empty .btn{margin-top:16px}
 
 .hint{font-size:12px;color:var(--ink-3);line-height:1.5}
 .footnote{margin-top:28px;padding-top:16px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-3)}
@@ -321,7 +322,7 @@ tbody tr:last-child td{border-bottom:none}
     <div class="sect">
       <h2>Workbook</h2>
       <div class="sourcebtns">
-        <button class="srcbtn" data-src="demo" aria-pressed="true"><span class="rdot"></span><span><b>Demo workbook</b><small>Sample Co. template, all 8 figures</small></span></button>
+        <button class="srcbtn" data-src="demo" aria-pressed="false"><span class="rdot"></span><span><b>Demo workbook</b><small>Sample Co. template, all 8 figures</small></span></button>
         <button class="srcbtn" data-src="file"><span class="rdot"></span><span><b>Open your .xlsx</b><small>Read in the browser, nothing uploaded</small></span></button>
       </div>
       <input type="file" id="fileIn" accept=".xlsx">
@@ -388,14 +389,15 @@ tbody tr:last-child td{border-bottom:none}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 10l5 5 5-5"/><path d="M5 20h14"/></svg>
             <span id="xlOutLbl">Write charts into Excel</span></button>
         </div>
-        <p class="hint" id="xlhint">Adds live Excel charts wired to the same cells.</p>
+        <p class="hint" id="xlhint">Open an .xlsx to write native charts back into it.</p>
       </div>
     </div>
     <div class="figs" id="figs"></div>
-    <div class="empty" id="empty" hidden>
+    <div class="empty" id="empty">
       <h3>Nothing loaded</h3>
       <p>Open an .xlsx, or load the demo workbook to see what the output looks like.
          Nothing is uploaded. The file is read in this browser.</p>
+      <button class="btn" id="emptyDemo">Load the demo workbook</button>
     </div>
 
     <p class="footnote">Binding, the source panel and writing charts into Excel are covered under <b style="color:var(--ink)">How it works</b>.</p>
@@ -419,7 +421,7 @@ tbody tr:last-child td{border-bottom:none}
     <section>
       <h3>Getting started</h3>
       <ol class="steps">
-        <li><div><b>Load a workbook.</b><p>The demo is the bundled template, so all 8 figures draw and the write back works straight away. Open your own <span class="mono">.xlsx</span> with the button at the top. Starting from nothing, <span class="mono">Download demo .xlsx</span> gives you the demo workbook without charts: the blocks, formulas and labels already in place. Replace the blue cells and load it back in. Nothing is uploaded, the file is read in this browser.</p></div></li>
+        <li><div><b>Load a workbook.</b><p>Charter opens blank. The demo workbook is the bundled template: load it and all 8 figures draw and the write back works straight away. Open your own <span class="mono">.xlsx</span> with the button at the top. Starting from nothing, <span class="mono">Download demo .xlsx</span> gives you the demo workbook without charts: the blocks, formulas and labels already in place. Replace the blue cells and load it back in. Nothing is uploaded, the file is read in this browser.</p></div></li>
         <li><div><b>Check what bound.</b><p>The <span class="mono">Bindings</span> list shows which slots matched. An unlit slot means nothing on the sheet matched it, or the block it matched holds too few points to plot. Charter leaves that figure out rather than guessing, and the list says which it was.</p></div></li>
         <li><div><b>Set the standard once.</b><p>Width, typeface, colour or greyscale and the source note apply to every figure at once. One standard for the whole document.</p></div></li>
         <li><div><b>Export into Word or a deck.</b><p>Pick the target in the panel. Hover a figure to export it as a PNG (300 dpi, fixed physical size) or an SVG. Insert at 100% and every figure lands at the same scale.</p></div></li>
@@ -3055,6 +3057,8 @@ document.getElementById("xlOut").addEventListener("click", async function(){
   btn.disabled = false;
 });
 
+document.getElementById("emptyDemo").addEventListener("click", loadDemo);
+
 document.getElementById("openBtn").addEventListener("click", function(){
   document.getElementById("fileIn").click();
 });
@@ -3094,7 +3098,7 @@ document.getElementById("fileIn").addEventListener("change", async function(e){
 });
 
 /* ------------------------- go ------------------------- */
-var VERSION = "3.2";
+var VERSION = "3.3";
 try { console.log("Charter v" + VERSION + ", " + SLOTS.length + " figure slots"); } catch(e){}
 var sc0 = document.getElementById("slotcount");
 if (sc0) sc0.textContent = SLOTS.length + " slots";
@@ -3102,8 +3106,8 @@ var vr0 = document.getElementById("ver");
 if (vr0) vr0.textContent = VERSION;
 var sv0 = document.getElementById("stdver"); if (sv0) sv0.textContent = STANDARD;
 renderStdGrid();
-srcinfo("Opening the demo workbook\u2026");
-loadDemo();
+srcinfo("Blank, ready for a workbook.");
+renderApp();
 })();
 </script>
 </body>
